@@ -23,7 +23,7 @@ RIGEL_DISABLE_WARNINGS
 RIGEL_RESTORE_WARNINGS
 
 #include <filesystem>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 
 
 namespace rigel::ui::imgui_integration
@@ -32,7 +32,7 @@ namespace rigel::ui::imgui_integration
 void init(
   SDL_Window* pWindow,
   void* pGlContext,
-  const std::optional<std::filesystem::path>& preferencesPath);
+  const tl::optional<std::filesystem::path>& preferencesPath);
 void shutdown();
 
 bool handleEvent(const SDL_Event& event);

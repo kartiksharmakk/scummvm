@@ -141,7 +141,7 @@ data::HighScoreList loadHighScoreList(std::string_view filename) {
 } // namespace
 
 data::SaveSlotArray loadSavedGames(const std::string &gamePath) {
-	std::array<std::optional<data::SavedGame>, data::NUM_SAVE_SLOTS> result;
+	std::array<tl::optional<data::SavedGame>, data::NUM_SAVE_SLOTS> result;
 
 	try {
 		const auto nameList = loadNameList(gamePath + "NUKEM2.-NM");
@@ -176,7 +176,7 @@ loadHighScoreLists(const std::string &gamePath) {
 	return result;
 }
 
-std::optional<GameOptions> loadOptions(const std::string &gamePath) {
+tl::optional<GameOptions> loadOptions(const std::string &gamePath) {
 	static constexpr std::uint16_t MAX_SCAN_CODE = 88;
 
 	auto asScanCode = [](const std::uint16_t rawScanCode) {

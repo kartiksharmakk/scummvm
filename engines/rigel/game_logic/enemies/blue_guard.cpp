@@ -26,7 +26,7 @@
 #include "game_logic/ientity_factory.hpp"
 #include "game_logic/player.hpp"
 
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 
 
 namespace rigel::game_logic::behaviors

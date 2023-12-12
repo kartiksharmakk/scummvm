@@ -42,9 +42,9 @@
 
 #include <array>
 #include <cstdint>
-#if 0
-#include <optional>
-#endif
+
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
+
 
 
 namespace Rigel {
@@ -68,15 +68,12 @@ struct GameOptions {
 
 	std::uint8_t mGameSpeedIndex;
 };
-
 #if 0
 data::SaveSlotArray loadSavedGames(const std::string &gamePath);
 #endif
 std::array<data::HighScoreList, data::NUM_EPISODES>
 loadHighScoreLists(const std::string &gamePath);
 
-#if 0
-std::optional<GameOptions> loadOptions(const std::string &gamePath);
-#endif
+tl::optional<GameOptions> loadOptions(const std::string &gamePath);
 } // namespace assets
 } // namespace Rigel

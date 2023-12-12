@@ -54,7 +54,7 @@ GameRunner::GameRunner(
   data::PersistentPlayerState* pPersistentPlayerState,
   const data::GameSessionId& sessionId,
   GameMode::Context context,
-  const std::optional<base::Vec2> playerPositionOverride,
+  const tl::optional<base::Vec2> playerPositionOverride,
   const bool showWelcomeMessage)
   : mContext(context)
   , mpWorld(createGameWorld(
@@ -290,7 +290,7 @@ bool GameRunner::gameQuit() const
 }
 
 
-std::optional<data::SavedGame> GameRunner::requestedGameToLoad() const
+tl::optional<data::SavedGame> GameRunner::requestedGameToLoad() const
 {
   return mMenu.requestedGameToLoad();
 }

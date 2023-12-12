@@ -45,9 +45,8 @@
 #include "rigel/ui/duke_script_runner.hpp"
 #include "rigel/ui/options_menu.hpp"
 
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 
-#if 0
 namespace Rigel
 {
 
@@ -55,10 +54,11 @@ class MenuMode : public GameMode
 {
 public:
   explicit MenuMode(Context context);
-
+  #if 0
   std::unique_ptr<GameMode> updateAndRender(
     engine::TimeDelta dt,
     const std::vector<SDL_Event>& events) override;
+  #endif
 
 private:
   enum class MenuState
@@ -87,10 +87,9 @@ private:
 
 private:
   Context mContext;
-  std::optional<ui::OptionsMenu> mOptionsMenu;
+  tl::optional<ui::OptionsMenu> mOptionsMenu;
   MenuState mMenuState = MenuState::MainMenu;
   int mChosenEpisode = 0;
 };
 
 } // namespace rigel
-#endif

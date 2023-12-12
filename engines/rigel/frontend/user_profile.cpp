@@ -31,7 +31,7 @@ RIGEL_RESTORE_WARNINGS
 #include <array>
 #include <fstream>
 #include <iomanip>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <unordered_set>
 
 
@@ -903,7 +903,7 @@ bool UserProfile::hasProgressData() const
 }
 
 
-std::optional<std::filesystem::path> createOrGetPreferencesPath()
+tl::optional<std::filesystem::path> createOrGetPreferencesPath()
 {
   namespace fs = std::filesystem;
 
@@ -947,7 +947,7 @@ bool isPortableInstall()
 {
   namespace fs = std::filesystem;
 
-  static std::optional<bool> cachedResult;
+  static tl::optional<bool> cachedResult;
 
   if (cachedResult)
   {
@@ -988,7 +988,7 @@ UserProfile createEmptyUserProfile()
 }
 
 
-std::optional<UserProfile> loadUserProfile()
+tl::optional<UserProfile> loadUserProfile()
 {
   namespace fs = std::filesystem;
 

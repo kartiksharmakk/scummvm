@@ -45,8 +45,9 @@
 
 #if 0
 #include <filesystem>
-#include <optional>
 #endif
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
+
 
 #include <string>
 
@@ -54,8 +55,9 @@
 namespace Rigel
 {
 namespace assets {
+	//TODO replace std::filesystem with Scummvm filesystem
 	#if 0
-std::optional<ByteBuffer> tryLoadFile(const std::filesystem::path &path);
+tl::optional<ByteBuffer> tryLoadFile(const std::filesystem::path &path);
 
 /** Load entire contents of file with given name into ByteBuffer
  *

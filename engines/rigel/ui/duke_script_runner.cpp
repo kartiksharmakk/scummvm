@@ -37,7 +37,7 @@ namespace rigel::ui
 using engine::TiledTexture;
 
 using ExecutionResultOptional =
-  std::optional<DukeScriptRunner::ExecutionResult>;
+  tl::optional<DukeScriptRunner::ExecutionResult>;
 
 
 namespace
@@ -142,7 +142,7 @@ ExecutionResultOptional DukeScriptRunner::result() const
   if (hasFinishedExecution())
   {
     const auto selectedPage = hasMenuPages()
-      ? std::optional<int>(mPagerState->mCurrentPageIndex)
+      ? tl::optional<int>(mPagerState->mCurrentPageIndex)
       : std::nullopt;
 
     auto terminationType = ScriptTerminationType::RanToCompletion;

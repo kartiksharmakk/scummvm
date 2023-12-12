@@ -175,15 +175,15 @@ struct WorldState
 
   LevelBonusInfo mBonusInfo;
   std::string mLevelMusicFile;
-  std::optional<CheckpointData> mActivatedCheckpoint;
-  std::optional<EarthQuakeEffect> mEarthQuakeEffect;
-  std::optional<base::Color> mScreenFlashColor;
-  std::optional<base::Color> mBackdropFlashColor;
-  std::optional<base::Vec2> mTeleportTargetPosition;
-  std::optional<base::Vec2> mCloakPickupPosition;
+  tl::optional<CheckpointData> mActivatedCheckpoint;
+  tl::optional<EarthQuakeEffect> mEarthQuakeEffect;
+  tl::optional<base::Color> mScreenFlashColor;
+  tl::optional<base::Color> mBackdropFlashColor;
+  tl::optional<base::Vec2> mTeleportTargetPosition;
+  tl::optional<base::Vec2> mCloakPickupPosition;
   entityx::Entity mActiveBossEntity;
   int mBossStartingHealth = 0;
-  std::optional<int> mReactorDestructionFramesElapsed;
+  tl::optional<int> mReactorDestructionFramesElapsed;
   int mScreenShakeOffsetX = 0;
   data::map::BackdropSwitchCondition mBackdropSwitchCondition;
   int mWaterAnimStep = 0;

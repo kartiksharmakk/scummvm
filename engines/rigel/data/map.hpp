@@ -22,7 +22,7 @@
 
 #include <array>
 #include <cstddef>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <string>
 #include <vector>
 
@@ -84,13 +84,13 @@ struct LevelData {
 		base::Vec2 mPosition;
 		ActorID mID;
 		//TODO
-		//std::optional<base::Rect<int> > mAssignedArea;
+		//tl::optional<base::Rect<int> > mAssignedArea;
 	};
 
 	Image mTileSetImage;
 	Image mBackdropImage;
 	//TODO
-	//std::optional<Image> mSecondaryBackdropImage;
+	//tl::optional<Image> mSecondaryBackdropImage;
 
 	data::map::Map mMap;
 	std::vector<Actor> mActors;

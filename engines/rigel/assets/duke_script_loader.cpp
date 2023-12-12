@@ -46,7 +46,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cctype>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <sstream>
 #include <stdexcept>
 #include <unordered_set>
@@ -120,10 +120,10 @@ void parseScriptLines(
 		string("Missing end marker '" + endMarker + "' in Duke Script file"));
 }
 #endif
-//TODO fix optional usage
-#if 0
+//TODO fix Action usage
 
-std::optional<Action>
+#if 0
+tl::optional<Action>
 parseSingleActionCommand(const string &command, istream &lineTextStream) {
 	if (command == "FADEIN") {
 		return Action{FadeIn{}};

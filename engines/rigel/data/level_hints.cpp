@@ -44,8 +44,8 @@
 namespace Rigel {
 namespace data {
 	//TODO fix optional usage
-	#if 0
-std::optional<std::string>
+	
+tl::optional<std::string>
 LevelHints::getHint(const int episode, const int level) const {
 	using namespace std;
 
@@ -53,9 +53,11 @@ LevelHints::getHint(const int episode, const int level) const {
 		return hint.mEpisode == episode && hint.mLevel == level;
 	});
 
-	return iHint != end(mHints) ? std::optional<std::string>{iHint->mMessage}
-								: std::nullopt;
+	//TODO fix std::nullopt usage
+	#if 0
+	return iHint != end(mHints) ? tl::optional<std::string>{iHint->mMessage}: std::nullopt;
+	#endif
+	return iHint != end(mHints) ? tl::optional<std::string>{iHint->mMessage} : "";
 }
-#endif
 } // namespace data
 } // namespace Rigel

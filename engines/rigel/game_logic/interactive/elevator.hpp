@@ -23,7 +23,7 @@ RIGEL_DISABLE_WARNINGS
 #include <entityx/entityx.h>
 RIGEL_RESTORE_WARNINGS
 
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 
 
 namespace rigel::game_logic
@@ -50,7 +50,7 @@ struct Elevator
   };
 
   // Only present while player is attached
-  std::optional<State> mState;
+  tl::optional<State> mState;
 };
 
 } // namespace rigel::game_logic::behaviors

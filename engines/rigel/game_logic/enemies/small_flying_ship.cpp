@@ -45,7 +45,7 @@ void SmallFlyingShip::update(
       position + base::Vec2{0, offset - 1}, {{}, {1, 1}});
   };
 
-  auto findDistanceToGround = [&](const int maxDistance) -> std::optional<int> {
+  auto findDistanceToGround = [&](const int maxDistance) -> tl::optional<int> {
     for (int offset = 0; offset < maxDistance; ++offset)
     {
       if (isGroundAtOffset(offset))

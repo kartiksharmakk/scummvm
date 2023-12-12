@@ -112,7 +112,7 @@ private:
 	int mSelectedSoundIndex = 0;
 
 	#if 0
-	std::optional<data::ModLibrary> moLocalModLibrary;
+	tl::optional<data::ModLibrary> moLocalModLibrary;
 	#endif
 	std::vector<data::ModStatus> mModSelection;
 	bool mEnableTopLevelMods;

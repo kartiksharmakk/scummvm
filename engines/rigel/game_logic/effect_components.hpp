@@ -29,7 +29,7 @@ RIGEL_DISABLE_WARNINGS
 RIGEL_RESTORE_WARNINGS
 
 #include <cstdint>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <variant>
 
 
@@ -76,7 +76,7 @@ struct Particles
   {
   }
 
-  std::optional<base::Color> mColor;
+  tl::optional<base::Color> mColor;
   base::Vec2 mOffset;
   int mVelocityScaleX;
 };
@@ -150,7 +150,7 @@ struct DestructionEffects
   explicit DestructionEffects(
     EffectSpecList effectSpecs,
     TriggerCondition condition = TriggerCondition::OnKilled,
-    std::optional<engine::components::BoundingBox> cascadePlacementBox =
+    tl::optional<engine::components::BoundingBox> cascadePlacementBox =
       std::nullopt)
     : mEffectSpecs(effectSpecs)
     , mTriggerCondition(condition)
@@ -160,7 +160,7 @@ struct DestructionEffects
 
   EffectSpecList mEffectSpecs;
   TriggerCondition mTriggerCondition;
-  std::optional<engine::components::BoundingBox> mCascadePlacementBox;
+  tl::optional<engine::components::BoundingBox> mCascadePlacementBox;
   int mFramesElapsed = 0;
   bool mActivated = false;
 };

@@ -21,7 +21,7 @@
 #include "engine/map_renderer.hpp"
 #include "game_logic/global_dependencies.hpp"
 
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <vector>
 
 
@@ -48,7 +48,7 @@ struct DynamicGeometrySection
   {
   }
 
-  std::optional<base::Rect<int>> extraSectionRect() const
+  tl::optional<base::Rect<int>> extraSectionRect() const
   {
     if (mExtraSection)
     {
@@ -61,7 +61,7 @@ struct DynamicGeometrySection
   }
 
   engine::components::BoundingBox mLinkedGeometrySection;
-  std::optional<ExtraSection> mExtraSection;
+  tl::optional<ExtraSection> mExtraSection;
 
   // These two are for interpolation while sinking
   std::vector<engine::PackedTileData> mBottomRowCopy;

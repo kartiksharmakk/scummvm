@@ -79,7 +79,7 @@ public:
 		data::Image mTileSetImage;
 		data::Image mBackdropImage;
 		#if 0
-		std::optional<data::Image> mSecondaryBackdropImage;
+		tl::optional<data::Image> mSecondaryBackdropImage;
 		#endif
 		data::map::BackdropScrollMode mBackdropScrollMode;
 	};

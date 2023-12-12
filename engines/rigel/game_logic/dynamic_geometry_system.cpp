@@ -232,7 +232,7 @@ DynamicMapSectionData determineDynamicMapSections(
   engine::CollisionChecker checker{&map, dummyEntities, dummyEvents};
 
   auto findSectionBelowFallingSection =
-    [&](const base::Rect<int>& section) -> std::optional<std::tuple<int, int>> {
+    [&](const base::Rect<int>& section) -> tl::optional<std::tuple<int, int>> {
     for (auto y = section.bottom() + 1; y < map.height() &&
          !isOnSolidGround({{section.left(), y - 1}, {section.size.width, 1}},
                           map);

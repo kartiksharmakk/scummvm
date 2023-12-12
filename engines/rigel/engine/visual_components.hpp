@@ -55,7 +55,7 @@ RIGEL_RESTORE_WARNINGS
 
 #include <array>
 #include <bitset>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <vector>
 
 
@@ -85,7 +85,7 @@ struct SpriteDrawData {
 	std::vector<SpriteFrame> mFrames;
 	#if 0
 	base::ArrayView<int> mVirtualToRealFrameMap;
-	std::optional<int> mOrientationOffset;
+	tl::optional<int> mOrientationOffset;
 	#endif
 	int mDrawOrder;
 };
@@ -106,7 +106,7 @@ int virtualToRealFrame(
 	const int virtualFrame,
 	const SpriteDrawData &drawData
 	#if 0
-	const std::optional<components::Orientation> &orientation
+	const tl::optional<components::Orientation> &orientation
 	#endif
 	);
 
@@ -246,14 +246,14 @@ struct AnimationLoop {
 	AnimationLoop() = default;
 	explicit AnimationLoop(
 		const int delayInFrames,
-		std::optional<int> endFrame = std::nullopt)
+		tl::optional<int> endFrame = std::nullopt)
 		: AnimationLoop(delayInFrames, 0, endFrame) {
 	}
 
 	AnimationLoop(
 		const int delayInFrames,
 		const int startFrame,
-		std::optional<int> endFrame,
+		tl::optional<int> endFrame,
 		const int renderSlot = 0)
 		: mDelayInFrames(delayInFrames), mStartFrame(startFrame), mEndFrame(endFrame), mRenderSlot(renderSlot) {
 	}
@@ -261,7 +261,7 @@ struct AnimationLoop {
 	int mDelayInFrames = 0;
 	int mFramesElapsed = 0;
 	int mStartFrame = 0;
-	std::optional<int> mEndFrame;
+	tl::optional<int> mEndFrame;
 	int mRenderSlot = 0;
 };
 

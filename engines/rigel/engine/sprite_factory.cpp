@@ -375,7 +375,7 @@ void applyTweaks(
 }
 
 
-std::optional<int> orientationOffsetForActor(const ActorID actorId)
+tl::optional<int> orientationOffsetForActor(const ActorID actorId)
 {
   switch (actorId)
   {

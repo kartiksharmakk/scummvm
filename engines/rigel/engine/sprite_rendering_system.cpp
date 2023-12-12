@@ -227,7 +227,7 @@ int virtualToRealFrame(
 {
   const auto orientation = entity.has_component<const Orientation>()
     ? std::make_optional(*entity.component<const Orientation>())
-    : std::optional<Orientation>{};
+    : tl::optional<Orientation>{};
 
   return virtualToRealFrame(virtualFrame, drawData, orientation);
 }
@@ -236,7 +236,7 @@ int virtualToRealFrame(
 int virtualToRealFrame(
   const int virtualFrame,
   const SpriteDrawData& drawData,
-  const std::optional<Orientation>& orientation)
+  const tl::optional<Orientation>& orientation)
 {
   auto realFrame = virtualFrame;
   if (

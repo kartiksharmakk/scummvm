@@ -256,7 +256,7 @@ void drawBossHealthBar(
 
 
 HudRenderer::HudRenderer(
-  const std::optional<int> levelNumber,
+  const tl::optional<int> levelNumber,
   const data::GameOptions* pOptions,
   renderer::Renderer* pRenderer,
   engine::TiledTexture* pStatusSpriteSheet,

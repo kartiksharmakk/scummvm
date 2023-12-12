@@ -74,8 +74,8 @@ void LavaFountain::update(
   }
 
   const auto previousSequenceIndex = std::holds_alternative<Erupting>(mState)
-    ? std::optional{std::get<Erupting>(mState).mSequenceIndex}
-    : std::optional<int>{};
+    ? tl::optional{std::get<Erupting>(mState).mSequenceIndex}
+    : tl::optional<int>{};
 
   const auto& position = *entity.component<engine::components::WorldPosition>();
   auto& bbox = *entity.component<engine::components::BoundingBox>();
@@ -133,8 +133,8 @@ void LavaFountain::update(
     });
 
   const auto currentSequenceIndex = std::holds_alternative<Erupting>(mState)
-    ? std::optional{std::get<Erupting>(mState).mSequenceIndex}
-    : std::optional<int>{};
+    ? tl::optional{std::get<Erupting>(mState).mSequenceIndex}
+    : tl::optional<int>{};
   if (currentSequenceIndex != previousSequenceIndex)
   {
     auto& additionalFrames =

@@ -170,7 +170,7 @@ public:
 		mActorGrid.setValueAt(col, row, nullptr);
 	}
 
-	std::optional<base::Rect<int> >
+	tl::optional<base::Rect<int> >
 	findTileSectionRect(const int startCol, const int startRow) {
 		for (auto x = startCol; x < int(mActorGrid.width()); ++x) {
 			auto pTopRightMarkerCandidate = mActorGrid.valueAt(x, startRow);
@@ -599,7 +599,7 @@ LevelData loadLevel(
 	}
 
 	auto backdropImage = resources.loadBackdrop(header.backdrop);
-	std::optional<data::Image> alternativeBackdropImage;
+	tl::optional<data::Image> alternativeBackdropImage;
 	if (header.flagBitSet(0x40) || header.flagBitSet(0x80)) {
 		alternativeBackdropImage = resources.loadBackdrop(
 			backdropNameFromNumber(header.alternativeBackdropNumber));

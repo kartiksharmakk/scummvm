@@ -66,9 +66,11 @@ public:
     data::PersistentPlayerState* pPersistentPlayerState,
     const data::GameSessionId& sessionId,
     GameMode::Context context,
-	  #if 0
-    std::optional<base::Vec2> playerPositionOverride = std::nullopt,
-	  #endif
+
+	//TODO fix std::nullopt usage
+	#if 0
+    tl::optional<base::Vec2> playerPositionOverride = std::nullopt,
+	#endif
     bool showWelcomeMessage = false);
 
   void handleEvent(const SDL_Event& event);
@@ -77,9 +79,7 @@ public:
 
   bool levelFinished() const;
   bool gameQuit() const;
-  #if 0
-  std::optional<data::SavedGame> requestedGameToLoad() const;
-  #endif
+  tl::optional<data::SavedGame> requestedGameToLoad() const;
 
   std::set<data::Bonus> achievedBonuses() const;
 

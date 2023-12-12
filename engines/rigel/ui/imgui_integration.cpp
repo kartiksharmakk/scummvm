@@ -85,7 +85,7 @@ void updateUiScale(const int, const int newHeight)
 void init(
   SDL_Window* pWindow,
   void* pGlContext,
-  const std::optional<std::filesystem::path>& preferencesPath)
+  const tl::optional<std::filesystem::path>& preferencesPath)
 {
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();

@@ -45,7 +45,7 @@
 #include "rigel/renderer/texture.hpp"
 
 #include <cstdint>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <unordered_map>
 
 
@@ -107,7 +107,7 @@ class HudRenderer
 {
 public:
   HudRenderer(
-    std::optional<int> levelNumber,
+    tl::optional<int> levelNumber,
     const data::GameOptions* pOptions,
     renderer::Renderer* pRenderer,
     engine::TiledTexture* pStatusSpriteSheetRenderer,
@@ -154,7 +154,7 @@ private:
     const base::Vec2& position) const;
   void drawActorFrame(data::ActorID id, int frame, const base::Vec2& pos) const;
 
-  std::optional<int> mLevelNumber;
+  tl::optional<int> mLevelNumber;
   renderer::Renderer* mpRenderer;
   const data::GameOptions* mpOptions;
 

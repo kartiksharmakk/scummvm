@@ -40,18 +40,18 @@
 
 #include "rigel/base/array_view.hpp"
 #include "rigel/base/image.hpp"
-
-#include <filesystem>
 #if 0
-#include <optional>
+#include <filesystem>
 #endif
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
+
 #include <string>
 
 #if 0
 namespace Rigel {
 namespace assets {
-std::optional<data::Image> loadPng(const std::filesystem::path &path);
-std::optional<data::Image> loadPng(base::ArrayView<std::uint8_t> data);
+tl::optional<data::Image> loadPng(const std::filesystem::path &path);
+tl::optional<data::Image> loadPng(base::ArrayView<std::uint8_t> data);
 
 bool savePng(const std::filesystem::path &path, const data::Image &image);
 

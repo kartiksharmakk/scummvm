@@ -53,7 +53,7 @@ RIGEL_RESTORE_WARNINGS
   #include <stdio.h>
   #include <windows.h>
 
-static std::optional<rigel::base::ScopeGuard> win32ReenableStdIo()
+static tl::optional<rigel::base::ScopeGuard> win32ReenableStdIo()
 {
   if (AttachConsole(ATTACH_PARENT_PROCESS))
   {
@@ -100,7 +100,7 @@ static void enableDpiAwareness()
 
 #else
 
-static std::optional<rigel::base::ScopeGuard> win32ReenableStdIo()
+static tl::optional<rigel::base::ScopeGuard> win32ReenableStdIo()
 {
   return std::nullopt;
 }

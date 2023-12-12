@@ -45,7 +45,7 @@
 #include <cassert>
 #include <cstdint>
 #include <iterator>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 
 
 /* Decoder for the Creative Voice File (VOC) format
@@ -342,16 +342,17 @@ void decodeAudio(
 }
 
 } // namespace
-#if 0
 base::AudioBuffer decodeVoc(const ByteBuffer &data) {
 	LeStreamReader reader(data);
 
 	if (!readAndValidateVocHeader(reader)) {
+#if 0
 		throw std::invalid_argument("Invalid VOC file header");
+#endif
 	}
 
 	std::vector<base::Sample> decodedSamples;
-	std::optional<int> sampleRate;
+	tl::optional<int> sampleRate;
 
 	while (reader.hasData()) {
 		const auto chunkType = determineChunkType(reader.readU8());
@@ -369,8 +370,10 @@ base::AudioBuffer decodeVoc(const ByteBuffer &data) {
 		case ChunkType::TypedSoundData: {
 			const auto newSampleRate = determineSampleRate(chunkReader.readU8());
 			if (sampleRate && *sampleRate != newSampleRate) {
+#if 0
 				throw std::invalid_argument(
 					"Multiple sample rates in single VOC file aren't supported");
+#endif
 			} else if (!sampleRate) {
 				sampleRate = newSampleRate;
 			}
@@ -407,24 +410,26 @@ base::AudioBuffer decodeVoc(const ByteBuffer &data) {
 		case ChunkType::UntypedSoundData:
 		case ChunkType::ExtendedParameters:
 		case ChunkType::ExtendedTypedSoundData:
+#if 0
 			throw std::runtime_error("VOC file chunk type not supported");
+#endif
 
 		default:
 			// Marker, text, and repeat chunks will just be skipped over.
 			break;
 		}
-		
+
 		reader.skipBytes(chunkSize);
 	}
 
 	if (!sampleRate || decodedSamples.empty()) {
+#if 0
 		throw std::invalid_argument("VOC file didn't contain data");
+#endif
 	}
 
 	return {*sampleRate, std::move(decodedSamples)};
-#endif
 
-
- // namespace assets
+} // namespace assets
 } // namespace assets
 } // namespace Rigel

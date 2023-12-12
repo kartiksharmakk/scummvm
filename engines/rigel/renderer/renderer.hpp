@@ -53,10 +53,7 @@ RIGEL_RESTORE_WARNINGS
 #include <cstdint>
 #include <memory>
 
-// TODO fix optional usage  . it is a C++17 feature i cant use
-#if 0
-#include <optional>
-#endif
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 
 namespace Rigel
 {
@@ -377,9 +374,8 @@ public:
    */
 
 
-	#if 0
-	void setClipRect(const std::optional<base::Rect<int> > &clipRect);
-	#endif
+	
+	void setClipRect(const tl::optional<base::Rect<int> > &clipRect);
 
 	/** Bind render target
    *
@@ -404,10 +400,7 @@ public:
 	base::Vec2 globalTranslation() const;
 	base::Vec2f globalScale() const;
 
-	//TODO fix optional
-	#if 0
-	std::optional<base::Rect<int> > clipRect() const;
-	#endif
+	tl::optional<base::Rect<int> > clipRect() const;
 private:
 	struct Impl;
 	std::unique_ptr<Impl> mpImpl;

@@ -21,7 +21,7 @@
 #include "rigel/renderer/texture.hpp"
 
 #include <functional>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <vector>
 
 
@@ -37,7 +37,7 @@ public:
    */
 
 	#if 0
-	using FrameCallbackFunc = std::function<std::optional<int>(int)>;
+	using FrameCallbackFunc = std::function<tl::optional<int>(int)>;
 	#endif
 	explicit MoviePlayer(renderer::Renderer *pRenderer);
 
@@ -45,7 +45,7 @@ public:
 		const data::Movie &movie,
 		int frameDelayInFastTicks
 		#if 0
-		const std::optional<int> &repetitions = std::nullopt,
+		const tl::optional<int> &repetitions = std::nullopt,
 		
 		FrameCallbackFunc frameCallback = nullptr
 	
@@ -72,7 +72,7 @@ private:
 	bool mHasShownFirstFrame = false;
 	int mCurrentFrame = 0;
 	#if 0
-	std::optional<int> mRemainingRepetitions = 0;
+	tl::optional<int> mRemainingRepetitions = 0;
 	#endif
 	engine::TimeDelta mFrameDelay = 0.0;
 	engine::TimeDelta mElapsedTime = 0.0;

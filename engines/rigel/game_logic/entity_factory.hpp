@@ -30,7 +30,7 @@ RIGEL_DISABLE_WARNINGS
 #include <entityx/entityx.h>
 RIGEL_RESTORE_WARNINGS
 
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <unordered_map>
 #include <vector>
 

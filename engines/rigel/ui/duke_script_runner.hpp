@@ -50,7 +50,7 @@
 #include "rigel/ui/menu_navigation.hpp"
 
 #include <cstddef>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 
 
 namespace Rigel {
@@ -67,7 +67,7 @@ public:
 	struct ExecutionResult {
 		ScriptTerminationType mTerminationType;
 		#if 0
-		std::optional<int> mSelectedPage;
+		tl::optional<int> mSelectedPage;
 		#endif
 	};
 
@@ -93,13 +93,13 @@ public:
 
 	bool hasFinishedExecution() const;
 	#if 0
-	std::optional<ExecutionResult> result() const;
+	tl::optional<ExecutionResult> result() const;
 	#endif
 	void updateAndRender(engine::TimeDelta dt);
 	void handleEvent(const SDL_Event &event);
 
 	#if 0
-	std::optional<int> currentPageIndex() const {
+	tl::optional<int> currentPageIndex() const {
 		return mPagerState ? std::make_optional(mPagerState->mCurrentPageIndex)
 						   : std::nullopt;
 	}
@@ -245,23 +245,23 @@ private:
 	State mState = State::ReadyToExecute;
 
 	#if 0
-	std::optional<DelayState> mDelayState;
-	std::optional<NewsReporterState> mNewsReporterAnimationState;
+	tl::optional<DelayState> mDelayState;
+	tl::optional<NewsReporterState> mNewsReporterAnimationState;
 
-	std::optional<PagerState> mPagerState;
+	tl::optional<PagerState> mPagerState;
 	#endif
 	bool mMenuItemWasSelected = false;
 	
 	std::unordered_map<int, int> mPersistentMenuSelections;
 	#if 0
-	std::optional<MenuSelectionIndicatorState> mMenuSelectionIndicatorState;
-	std::optional<int> mCurrentPersistentSelectionSlot;
+	tl::optional<MenuSelectionIndicatorState> mMenuSelectionIndicatorState;
+	tl::optional<int> mCurrentPersistentSelectionSlot;
 
-	std::optional<CheckBoxesState> mCheckBoxStates;
+	tl::optional<CheckBoxesState> mCheckBoxStates;
 
-	std::optional<MessageBoxState> mMessageBoxState;
+	tl::optional<MessageBoxState> mMessageBoxState;
 
-	std::optional<engine::TimeDelta> mTimeSinceLastUserInput;
+	tl::optional<engine::TimeDelta> mTimeSinceLastUserInput;
 	#endif
 	MenuNavigationHelper mNavigationHelper;
 

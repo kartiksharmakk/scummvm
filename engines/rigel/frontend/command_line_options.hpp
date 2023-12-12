@@ -42,7 +42,7 @@
 #include "rigel/data/game_session_data.hpp"
 
 #if 0
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #endif
 #include <string>
 #include <utility>
@@ -65,14 +65,14 @@ struct CommandLineOptions
 {
   std::string mGamePath;
   #if 0
-  std::optional<data::GameSessionId> mLevelToJumpTo;
+  tl::optional<data::GameSessionId> mLevelToJumpTo;
   #endif
   bool mSkipIntro = false;
   bool mDebugModeEnabled = false;
   bool mDisableAudio = false;
   bool mPlayDemo = false;
   #if 0
-  std::optional<base::Vec2> mPlayerPosition;
+  tl::optional<base::Vec2> mPlayerPosition;
 #endif
 };
 

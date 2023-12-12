@@ -56,7 +56,7 @@ namespace Rigel {
 namespace assets {
 namespace {
 
-std::optional<data::Image>
+tl::optional<data::Image>
 convertToImage(unsigned char *pImageData, const int width, const int height) {
 	if (!pImageData) {
 		return {};
@@ -76,7 +76,7 @@ void writeToFile(void *pContext, void *pData, int size) {
 
 } // namespace
 
-std::optional<data::Image> loadPng(const std::filesystem::path &path) {
+tl::optional<data::Image> loadPng(const std::filesystem::path &path) {
 	if (const auto data = tryLoadFile(path)) {
 		return loadPng(*data);
 	}
@@ -84,7 +84,7 @@ std::optional<data::Image> loadPng(const std::filesystem::path &path) {
 	return {};
 }
 
-std::optional<data::Image> loadPng(base::ArrayView<std::uint8_t> data) {
+tl::optional<data::Image> loadPng(base::ArrayView<std::uint8_t> data) {
 	int width = 0;
 	int height = 0;
 	const auto imageDeleter = [](unsigned char *p) {

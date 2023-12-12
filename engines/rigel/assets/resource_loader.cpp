@@ -100,7 +100,7 @@ std::string replacementSpriteImageName(const int id, const int frame) {
 		   ".png";
 }
 
-std::optional<data::Image> loadReplacementTilesetIfPresent(
+tl::optional<data::Image> loadReplacementTilesetIfPresent(
 	const fs::path &resourcePath,
 	std::string_view name) {
 	using namespace std::literals;
@@ -155,7 +155,7 @@ ResourceLoader::ResourceLoader(
 }
 
 template<typename TryLoadFunc, typename T>
-std::optional<T> ResourceLoader::tryLoadReplacement(TryLoadFunc &&tryLoad) const {
+tl::optional<T> ResourceLoader::tryLoadReplacement(TryLoadFunc &&tryLoad) const {
 	for (auto iPath = mModPaths.rbegin(); iPath != mModPaths.rend(); ++iPath) {
 		if (auto oReplacement = tryLoad(*iPath)) {
 			return *oReplacement;
@@ -171,7 +171,7 @@ std::optional<T> ResourceLoader::tryLoadReplacement(TryLoadFunc &&tryLoad) const
 	return {};
 }
 
-std::optional<data::Image>
+tl::optional<data::Image>
 ResourceLoader::tryLoadPngReplacement(std::string_view filename) const {
 	return tryLoadReplacement(
 		[filename](const fs::path &path) { return loadPng(path / filename); });

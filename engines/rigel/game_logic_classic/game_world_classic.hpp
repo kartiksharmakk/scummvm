@@ -135,7 +135,7 @@ public:
 		const data::GameSessionId &sessionId,
 		GameMode::Context context,
 
-		std::optional<base::Vec2> playerPositionOverride = std::nullopt,
+		tl::optional<base::Vec2> playerPositionOverride = std::nullopt,
 		bool showWelcomeMessage = false,
 		const PlayerInput &initialInput = PlayerInput{});
 	~GameWorld_Classic() override;
@@ -195,7 +195,7 @@ private:
 
 	data::map::Map mMap;
 	#if 0
-	std::optional<engine::MapRenderer> mMapRenderer;
+	tl::optional<engine::MapRenderer> mMapRenderer;
 	#endif
 	data::PersistentPlayerState mPlayerModelAtLevelStart;
 	ui::HudRenderer mHudRenderer;
@@ -210,7 +210,7 @@ private:
 	std::unique_ptr<detail::State> mpState;
 	std::unique_ptr<QuickSaveData> mpQuickSave;
 
-	std::optional<data::PersistentPlayerState::CheckpointState> mCheckpointState;
+	tl::optional<data::PersistentPlayerState::CheckpointState> mCheckpointState;
 };
 #endif
 } // namespace game_logic

@@ -217,7 +217,7 @@ struct Renderer::Impl
 {
   struct State
   {
-    std::optional<base::Rect<int>> mClipRect;
+    tl::optional<base::Rect<int>> mClipRect;
     base::Color mColorModulation{255, 255, 255, 255};
     base::Color mOverlayColor;
     glm::vec2 mGlobalTranslation{0.0f, 0.0f};
@@ -662,7 +662,7 @@ struct Renderer::Impl
   }
 
 
-  void setClipRect(const std::optional<base::Rect<int>>& clipRect)
+  void setClipRect(const tl::optional<base::Rect<int>>& clipRect)
   {
     updateState(mStateStack.back().mClipRect, clipRect);
   }
@@ -1199,13 +1199,13 @@ base::Vec2f Renderer::globalScale() const
 }
 
 
-void Renderer::setClipRect(const std::optional<base::Rect<int>>& clipRect)
+void Renderer::setClipRect(const tl::optional<base::Rect<int>>& clipRect)
 {
   mpImpl->setClipRect(clipRect);
 }
 
 
-std::optional<base::Rect<int>> Renderer::clipRect() const
+tl::optional<base::Rect<int>> Renderer::clipRect() const
 {
   return mpImpl->mStateStack.back().mClipRect;
 }

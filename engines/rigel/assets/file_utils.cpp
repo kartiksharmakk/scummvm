@@ -53,9 +53,9 @@ namespace {
 const char *OUT_OF_DATA_ERROR_MSG = "No more data in stream";
 
 }
-
+//TODO replace std::filesystem with Scummvm Filesystem
 #if 0
-std::optional<ByteBuffer> tryLoadFile(const std::filesystem::path &path) {
+tl::optional<ByteBuffer> tryLoadFile(const std::filesystem::path &path) {
 	ifstream file(path, ios::binary | ios::ate);
 	if (!file.is_open()) {
 		return {};

@@ -60,7 +60,7 @@ public:
 		const data::GameSessionId &sessionId,
 		Context context
 		#if 0
-		std::optional<base::Vec2> playerPositionOverride = std::nullopt
+		tl::optional<base::Vec2> playerPositionOverride = std::nullopt
 	#endif
 	);
 

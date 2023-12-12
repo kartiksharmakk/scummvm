@@ -678,8 +678,8 @@ void OptionsMenu::updateAndRender(engine::TimeDelta dt)
       }
       else
       {
-        std::optional<int> oIndexToMoveUp;
-        std::optional<int> oIndexToMoveDown;
+        tl::optional<int> oIndexToMoveUp;
+        tl::optional<int> oIndexToMoveDown;
 
         const auto modListHeight = ImGui::GetContentRegionAvail().y -
           (shouldDrawGamePathChooser()

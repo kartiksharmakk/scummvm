@@ -55,7 +55,7 @@
 #include <vector>
 
 
-
+//TODO replace std::filesystem with Scummvm filesystem.
 #if 0
 namespace Rigel
 {
@@ -139,14 +139,14 @@ public:
 	bool hasFile(std::string_view name) const;
 
 private:
-	// The invoke_result of the TryLoadFunc is going to be a std::optional<T>,
+	// The invoke_result of the TryLoadFunc is going to be a tl::optional<T>,
 	// hence we need to unpack the underlying T via the optional's value_type
 	template<
 		typename TryLoadFunc,
 		typename T = typename std::
 			invoke_result_t<TryLoadFunc, const std::filesystem::path &>::value_type>
-	std::optional<T> tryLoadReplacement(TryLoadFunc &&tryLoad) const;
-	std::optional<data::Image>
+	tl::optional<T> tryLoadReplacement(TryLoadFunc &&tryLoad) const;
+	tl::optional<data::Image>
 	tryLoadPngReplacement(std::string_view filename) const;
 
 	data::Image loadEmbeddedImageAsset(

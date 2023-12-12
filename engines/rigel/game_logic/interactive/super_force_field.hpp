@@ -18,7 +18,7 @@
 
 #include "game_logic/global_dependencies.hpp"
 
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 
 
 namespace rigel::game_logic::behaviors
@@ -40,8 +40,8 @@ struct SuperForceField
 
   void startFizzle();
 
-  std::optional<int> mFizzleFramesElapsed;
-  std::optional<int> mDestructionFramesElapsed;
+  tl::optional<int> mFizzleFramesElapsed;
+  tl::optional<int> mDestructionFramesElapsed;
 };
 
 } // namespace rigel::game_logic::behaviors

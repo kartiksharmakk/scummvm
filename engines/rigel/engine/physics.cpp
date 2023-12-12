@@ -72,7 +72,7 @@ BoundingBox
 }
 
 
-std::optional<PhysicsCollisionInfo> applyPhysics(
+tl::optional<PhysicsCollisionInfo> applyPhysics(
   const CollisionChecker& collisionChecker,
   const data::map::Map& map,
   entityx::Entity entity,

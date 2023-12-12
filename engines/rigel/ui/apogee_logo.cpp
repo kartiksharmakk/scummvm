@@ -83,6 +83,7 @@ const auto TOTAL_TIME = TIME_FOR_VIDEO_PLAYBACK + engine::fastTicksToTime(60);
 
 } // namespace
 
+//TODO fix resource_loader.hpp
 #if 0
 ApogeeLogo::ApogeeLogo(GameMode::Context context)
 	: mMoviePlayer(context.mpRenderer), mpServiceProvider(context.mpServiceProvider), mLogoMovie(context.mpResources->loadMovie("NUKEM2.F5")) {

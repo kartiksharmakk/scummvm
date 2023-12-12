@@ -24,7 +24,7 @@ RIGEL_DISABLE_WARNINGS
 #include <entityx/entityx.h>
 RIGEL_RESTORE_WARNINGS
 
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 
 
 namespace rigel::data::map
@@ -46,7 +46,7 @@ struct PhysicsCollisionInfo
   bool mBottom;
 };
 
-std::optional<PhysicsCollisionInfo> applyPhysics(
+tl::optional<PhysicsCollisionInfo> applyPhysics(
   const CollisionChecker& collisionChecker,
   const data::map::Map& map,
   entityx::Entity entity,

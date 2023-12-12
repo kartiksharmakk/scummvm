@@ -37,9 +37,7 @@
 
 #pragma once
 
-#if 0
-#include <optional>
-#endif
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 
 #include <string>
 #include <utility>
@@ -64,9 +62,8 @@ struct LevelHints {
 	explicit LevelHints(std::vector<Hint> hints)
 		: mHints(std::move(hints)) {
 	}
-	#if 0
-	std::optional<std::string> getHint(int episode, int level) const;
-	#endif
+	
+	tl::optional<std::string> getHint(int episode, int level) const;
 	std::vector<Hint> mHints;
 };
 

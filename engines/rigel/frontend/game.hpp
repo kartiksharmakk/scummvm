@@ -39,7 +39,7 @@
 #include <SDL_gamecontroller.h>
 
 #include <memory>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <string>
 
 
@@ -87,7 +87,7 @@ public:
    * terminating the loop, otherwise, the game is done and the whole program
    * can be terminated.
    */
-  std::optional<StopReason> runOneFrame();
+  tl::optional<StopReason> runOneFrame();
 
 private:
   enum class FadeType
@@ -148,7 +148,7 @@ private:
   std::unique_ptr<audio::SoundSystem> mpSoundSystem;
   bool mIsShareWareVersion;
 
-  std::optional<renderer::FpsLimiter> mFpsLimiter;
+  tl::optional<renderer::FpsLimiter> mFpsLimiter;
   renderer::UpscalingBuffer mUpscalingBuffer;
   bool mCurrentFrameIsWidescreen = false;
 

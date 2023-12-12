@@ -23,7 +23,7 @@
 #include "rigel/data/saved_game.hpp"
 
 #include <filesystem>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <string>
 
 
@@ -69,10 +69,10 @@ public:
   data::GameOptions mOptions;
   data::ModLibrary mModLibrary;
 
-  std::optional<std::filesystem::path> mGamePath;
+  tl::optional<std::filesystem::path> mGamePath;
 
 private:
-  std::optional<std::filesystem::path> mProfilePath;
+  tl::optional<std::filesystem::path> mProfilePath;
   assets::ByteBuffer mOriginalJson;
 };
 #endif
@@ -92,7 +92,7 @@ UserProfile createEmptyUserProfile();
  * function, and you normally don't need to care.
  */
 #if 0
-std::optional<UserProfile> loadUserProfile();
+tl::optional<UserProfile> loadUserProfile();
 #endif
 /** Import original game's profile data
  *
@@ -120,7 +120,7 @@ UserProfile loadOrCreateUserProfile();
  * returned instead.
  */
 #if 0
-std::optional<std::filesystem::path> createOrGetPreferencesPath();
+tl::optional<std::filesystem::path> createOrGetPreferencesPath();
 #endif
 
 } // namespace rigel

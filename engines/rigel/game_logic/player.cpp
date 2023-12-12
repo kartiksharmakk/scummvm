@@ -279,7 +279,7 @@ base::Vec2
 }
 
 
-std::optional<int> recoilAnimationFrame(const VisualState state)
+tl::optional<int> recoilAnimationFrame(const VisualState state)
 {
   using VS = VisualState;
   switch (state)
@@ -1364,7 +1364,7 @@ void Player::updateLadderAttachment(const base::Vec2& movementVector)
   {
     const auto worldBBox = worldSpaceCollisionBox();
 
-    std::optional<base::Vec2> maybeLadderTouchPoint;
+    tl::optional<base::Vec2> maybeLadderTouchPoint;
     for (int i = 0; i < worldBBox.size.width; ++i)
     {
       const auto attributes =

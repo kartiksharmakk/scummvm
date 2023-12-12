@@ -18,7 +18,7 @@
 
 #include "game_logic/global_dependencies.hpp"
 
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 
 
 namespace rigel::game_logic::interaction
@@ -33,7 +33,7 @@ struct RespawnCheckpoint
     entityx::Entity entity);
 
   bool mInitialized = false;
-  std::optional<int> mActivationCountdown;
+  tl::optional<int> mActivationCountdown;
 };
 
 } // namespace rigel::game_logic::interaction

@@ -39,7 +39,7 @@ RIGEL_DISABLE_WARNINGS
 RIGEL_RESTORE_WARNINGS
 
 #include <iosfwd>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <vector>
 
 
@@ -69,7 +69,7 @@ public:
     data::PersistentPlayerState* pPersistentPlayerState,
     const data::GameSessionId& sessionId,
     GameMode::Context context,
-    std::optional<base::Vec2> playerPositionOverride = std::nullopt,
+    tl::optional<base::Vec2> playerPositionOverride = std::nullopt,
     bool showWelcomeMessage = false,
     const PlayerInput& initialInput = PlayerInput{});
   ~GameWorld() override;

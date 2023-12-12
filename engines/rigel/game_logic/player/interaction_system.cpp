@@ -122,7 +122,7 @@ data::TutorialMessageId tutorialFor(const components::InteractableType type)
 }
 
 
-std::optional<base::Vec2> findTeleporterTargetPosition(
+tl::optional<base::Vec2> findTeleporterTargetPosition(
   ex::EntityManager& es,
   ex::Entity sourceTeleporter)
 {
@@ -281,7 +281,7 @@ void PlayerInteractionSystem::updateItemCollection(entityx::EntityManager& es)
         collectable.mDelayUntilPickupAllowed == 0 &&
         worldSpaceBbox.intersects(playerBBox))
       {
-        std::optional<data::SoundId> soundToPlay;
+        tl::optional<data::SoundId> soundToPlay;
 
         const auto playerAtFullHealth =
           mpPersistentPlayerState->isAtFullHealth();

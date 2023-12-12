@@ -42,9 +42,7 @@
 #include "rigel/data/player_model.hpp"
 
 #include <array>
-#if 0
-#include <optional>
-#endif
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <string>
 
 
@@ -61,8 +59,6 @@ struct SavedGame {
 	int mScore = 0;
 };
 
-#if 0
-using SaveSlotArray = std::array<std::optional<SavedGame>, NUM_SAVE_SLOTS>;
-#endif
+using SaveSlotArray = std::array<tl::optional<SavedGame>, NUM_SAVE_SLOTS>;
 } // namespace data
 } // namespace Rigel

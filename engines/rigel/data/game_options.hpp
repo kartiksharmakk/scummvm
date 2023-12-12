@@ -46,7 +46,7 @@ RIGEL_RESTORE_WARNINGS
 
 #include <array>
 #include <cstdint>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 
 
 namespace Rigel {

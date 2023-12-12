@@ -148,7 +148,7 @@ std::unique_ptr<GameMode> createInitialGameMode(
 }
 
 
-std::optional<renderer::FpsLimiter>
+tl::optional<renderer::FpsLimiter>
   createLimiter(const data::GameOptions& options)
 {
   if (options.mEnableFpsLimit && !options.mEnableVsync)
@@ -288,7 +288,7 @@ Game::Game(
 }
 
 
-auto Game::runOneFrame() -> std::optional<StopReason>
+auto Game::runOneFrame() -> tl::optional<StopReason>
 {
   using namespace std::chrono;
   using base::defer;

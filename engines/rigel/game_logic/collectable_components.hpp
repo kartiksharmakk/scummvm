@@ -19,7 +19,7 @@
 #include "data/player_model.hpp"
 #include "data/tutorial_messages.hpp"
 
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <variant>
 
 
@@ -31,13 +31,13 @@ namespace components
 
 struct CollectableItem
 {
-  std::optional<int> mGivenScore;
-  std::optional<int> mGivenScoreAtFullHealth;
-  std::optional<int> mGivenHealth;
-  std::optional<data::InventoryItemType> mGivenItem;
-  std::optional<data::WeaponType> mGivenWeapon;
-  std::optional<data::CollectableLetterType> mGivenCollectableLetter;
-  std::optional<data::TutorialMessageId> mShownTutorialMessage;
+  tl::optional<int> mGivenScore;
+  tl::optional<int> mGivenScoreAtFullHealth;
+  tl::optional<int> mGivenHealth;
+  tl::optional<data::InventoryItemType> mGivenItem;
+  tl::optional<data::WeaponType> mGivenWeapon;
+  tl::optional<data::CollectableLetterType> mGivenCollectableLetter;
+  tl::optional<data::TutorialMessageId> mShownTutorialMessage;
   std::uint8_t mDelayUntilPickupAllowed = 0;
   bool mSpawnScoreNumbers = true;
 };
@@ -51,7 +51,7 @@ struct CollectableItemForCheat
 } // namespace components
 
 
-inline std::optional<int> givenScore(
+inline tl::optional<int> givenScore(
   const components::CollectableItem& collectable,
   const bool playerAtFullHealth)
 {

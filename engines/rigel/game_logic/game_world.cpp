@@ -210,7 +210,7 @@ GameWorld::GameWorld(
   data::PersistentPlayerState* pPersistentPlayerState,
   const data::GameSessionId& sessionId,
   GameMode::Context context,
-  std::optional<base::Vec2> playerPositionOverride,
+  tl::optional<base::Vec2> playerPositionOverride,
   bool showWelcomeMessage,
   const PlayerInput& initialInput)
   : mpRenderer(context.mpRenderer)
@@ -1096,7 +1096,7 @@ void GameWorld::activateGiveItemsCheat()
   // but that's not true. The 3rd weapon found in spawn order is always given,
   // or an earlier one if the level contains less than three weapon pickups.
   // Key items are removed from the level, but weapons and the cloak are not.
-  std::optional<data::WeaponType> weaponToGive;
+  tl::optional<data::WeaponType> weaponToGive;
 
   mpState->mEntities.each<CollectableItemForCheat>(
     [&, weaponsFound = 0](

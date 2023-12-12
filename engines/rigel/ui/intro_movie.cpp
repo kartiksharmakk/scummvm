@@ -109,7 +109,7 @@ IntroMovie::PlaybackConfigList
       46,
       1,
       [pServiceProvider = mpServiceProvider](const int frame) {
-        std::optional<int> newFrameDelay = std::nullopt;
+        tl::optional<int> newFrameDelay = std::nullopt;
 
         switch (frame) {
           case 0:

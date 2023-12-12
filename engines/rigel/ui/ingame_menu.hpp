@@ -55,7 +55,7 @@ RIGEL_DISABLE_WARNINGS
 RIGEL_RESTORE_WARNINGS
 
 #include <functional>
-#include <optional>
+#include "rigel/3party/tloptional/include/tl/optional.hpp"
 #include <stack>
 #include <variant>
 #include <vector>
@@ -98,13 +98,19 @@ public:
 
 	bool quitRequested() const { return mQuitRequested; }
 
-	#if 0
-	std::optional<data::SavedGame> requestedGameToLoad() const {
+	tl::optional<data::SavedGame> requestedGameToLoad() const {
+		#if 0
 		return mRequestedGameToLoad;
+		#endif
 	}
 	
-	bool isActive() const { return !mStateStack.empty() || mMenuToEnter; }
-#endif
+	bool isActive() const {
+	#if 0
+		return !mStateStack.empty() || mMenuToEnter;
+	#endif
+
+	}
+
 private:
 	using ExecutionResult = ui::DukeScriptRunner::ExecutionResult;
 
@@ -219,13 +225,13 @@ private:
 	GameMode::Context mContext;
 	data::SavedGame mSavedGame;
 	#if 0
-	std::optional<data::SavedGame> mRequestedGameToLoad;
+	tl::optional<data::SavedGame> mRequestedGameToLoad;
 	#endif
 	data::GameSessionId mSessionId;
 	#if 0
 	std::stack<State, std::vector<State> > mStateStack;
 	std::vector<SDL_Event> mEventQueue;
-	std::optional<MenuType> mMenuToEnter;
+	tl::optional<MenuType> mMenuToEnter;
 	#endif
 	game_logic::IGameWorld *mpGameWorld;
 	TopLevelMenu *mpTopLevelMenu = nullptr;

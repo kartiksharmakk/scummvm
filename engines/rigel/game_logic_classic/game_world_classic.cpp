@@ -449,7 +449,7 @@ GameWorld_Classic::GameWorld_Classic(
   data::PersistentPlayerState* pPersistentPlayerState,
   const data::GameSessionId& sessionId,
   GameMode::Context context,
-  std::optional<base::Vec2> playerPositionOverride,
+  tl::optional<base::Vec2> playerPositionOverride,
   bool showWelcomeMessage,
   const PlayerInput& initialInput)
   : mpRenderer(context.mpRenderer)
