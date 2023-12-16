@@ -509,7 +509,7 @@ std::string levelFileName(const int episode, const int level) {
 }
 
 LevelData loadLevel(
-	std::string_view mapName,
+	std::string mapName,
 	const ResourceLoader &resources,
 	const Difficulty chosenDifficulty) {
 	const auto levelData = resources.file(mapName);

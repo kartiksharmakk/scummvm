@@ -49,7 +49,7 @@ namespace assets {
 namespace {
 
 std::array<std::string, data::NUM_SAVE_SLOTS>
-loadNameList(std::string_view filename) {
+loadNameList(std::string filename) {
 	std::array<std::string, data::NUM_SAVE_SLOTS> result;
 
 	const auto data = loadFile(filename);
@@ -85,7 +85,7 @@ data::Difficulty readDifficulty(LeStreamReader &reader) {
 }
 
 data::SavedGame
-loadSavedGame(std::string_view filename, std::string saveSlotName) {
+loadSavedGame(std::string filename, std::string saveSlotName) {
 	static_assert(
 		static_cast<int>(data::WeaponType::Normal) == 0 &&
 		static_cast<int>(data::WeaponType::Laser) == 1 &&
@@ -119,7 +119,7 @@ loadSavedGame(std::string_view filename, std::string saveSlotName) {
 		static_cast<int>(score)};
 }
 
-data::HighScoreList loadHighScoreList(std::string_view filename) {
+data::HighScoreList loadHighScoreList(std::string filename) {
 	using std::begin;
 	using std::end;
 	using std::sort;

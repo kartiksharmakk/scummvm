@@ -182,7 +182,7 @@ MenuElementRenderer::MenuElementRenderer(
 }
 
 
-void MenuElementRenderer::drawText(int x, int y, std::string_view text) const
+void MenuElementRenderer::drawText(int x, int y, std::string text) const
 {
   for (auto i = 0u; i < text.size(); ++i)
   {
@@ -213,7 +213,7 @@ void MenuElementRenderer::drawText(int x, int y, std::string_view text) const
 void MenuElementRenderer::drawSmallWhiteText(
   int x,
   int y,
-  std::string_view text) const
+  std::string text) const
 {
   for (auto i = 0u; i < text.size(); ++i)
   {
@@ -248,7 +248,7 @@ void MenuElementRenderer::drawSmallWhiteText(
 void MenuElementRenderer::drawMultiLineText(
   const int x,
   const int y,
-  std::string_view text) const
+  std::string text) const
 {
   const std::vector<std::string> lines = strings::split(text, '\n');
   for (int i = 0; i < int(lines.size()); ++i)
@@ -261,7 +261,7 @@ void MenuElementRenderer::drawMultiLineText(
 void MenuElementRenderer::drawBigText(
   int x,
   int y,
-  std::string_view text,
+  std::string text,
   const base::Color& color) const
 {
   const auto saved = renderer::saveState(mpRenderer);
@@ -314,7 +314,7 @@ void MenuElementRenderer::drawCheckBox(
 void MenuElementRenderer::drawBonusScreenText(
   const int x,
   const int y,
-  std::string_view text) const
+  std::string text) const
 {
   //        col 0, row 0: ASCII chars 48-57, 65-74
   //        col 0, row 2: ASCII chars 75-90,37,61,46,33

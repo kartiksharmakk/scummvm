@@ -63,7 +63,7 @@ data::map::TileIndex convertTileIndex(const uint16_t rawIndex);
 //TODO fix string_view usage
 #if 0
 data::map::LevelData loadLevel(
-	std::string_view mapName,
+	std::string mapName,
 	const ResourceLoader &resources,
 	data::Difficulty chosenDifficulty);
 #endif

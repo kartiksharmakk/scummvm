@@ -61,9 +61,9 @@ class CMPFilePackage {
 public:
 	explicit CMPFilePackage(const std::filesystem::path &filePath);
 
-	ByteBuffer file(std::string_view name) const;
+	ByteBuffer file(std::string name) const;
 
-	bool hasFile(std::string_view name) const;
+	bool hasFile(std::string name) const;
 
 private:
 	struct DictEntry {
@@ -77,7 +77,7 @@ private:
 
 	using FileDict = std::unordered_map<std::string, DictEntry>;
 
-	FileDict::const_iterator findFileEntry(std::string_view name) const;
+	FileDict::const_iterator findFileEntry(std::string name) const;
 
 private:
 	std::vector<std::uint8_t> mFileData;

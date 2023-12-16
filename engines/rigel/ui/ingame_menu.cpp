@@ -60,7 +60,7 @@ constexpr auto TOP_LEVEL_MENU_ITEMS = std::array{
   "Help",
   "Quit Game"};
 
-constexpr int itemIndex(const std::string_view item)
+constexpr int itemIndex(const std::string item)
 {
   int result = 0;
   for (const auto candidate : TOP_LEVEL_MENU_ITEMS)
@@ -288,7 +288,7 @@ void IngameMenu::ScriptedMenu::updateAndRender(const engine::TimeDelta dt)
 IngameMenu::SavedGameNameEntry::SavedGameNameEntry(
   GameMode::Context context,
   const int slotIndex,
-  const std::string_view initialName)
+  const std::string initialName)
   : mTextEntryWidget(
       context.mpUiRenderer,
       SAVE_SLOT_NAME_ENTRY_POS_X,
@@ -490,7 +490,7 @@ void IngameMenu::onRestoreGameMenuFinished(const ExecutionResult& result)
 }
 
 
-void IngameMenu::saveGame(const int slotIndex, std::string_view name)
+void IngameMenu::saveGame(const int slotIndex, std::string name)
 {
   auto savedGame = mSavedGame;
   savedGame.mName = name;

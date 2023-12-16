@@ -220,7 +220,7 @@ private:
 	void updateMessageBoxAnimation(engine::TimeDelta dt);
 
 	#if 0
-	void drawBigText(int x, int y, int colorIndex, std::string_view text) const;
+	void drawBigText(int x, int y, int colorIndex, std::string text) const;
 	#endif
 	void bindCanvas();
 	void unbindCanvas();

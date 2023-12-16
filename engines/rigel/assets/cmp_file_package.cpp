@@ -58,7 +58,7 @@ using namespace std;
 #if 0
 namespace {
 
-std::string normalizedFileName(std::string_view fileName) {
+std::string normalizedFileName(std::string fileName) {
 	return strings::toUppercase(fileName);
 }
 
@@ -85,7 +85,7 @@ CMPFilePackage::CMPFilePackage(const std::filesystem::path &filePath)
 	}
 }
 
-ByteBuffer CMPFilePackage::file(std::string_view name) const {
+ByteBuffer CMPFilePackage::file(std::string name) const {
 	const auto it = findFileEntry(name);
 	if (it == mFileDict.end()) {
 		throw invalid_argument(
@@ -97,12 +97,12 @@ ByteBuffer CMPFilePackage::file(std::string_view name) const {
 	return ByteBuffer(fileStart, fileStart + fileHeader.fileSize);
 }
 
-bool CMPFilePackage::hasFile(std::string_view name) const {
+bool CMPFilePackage::hasFile(std::string name) const {
 	return findFileEntry(name) != mFileDict.end();
 }
 
 CMPFilePackage::FileDict::const_iterator
-CMPFilePackage::findFileEntry(std::string_view name) const {
+CMPFilePackage::findFileEntry(std::string name) const {
 	return mFileDict.find(normalizedFileName(name));
 }
 

@@ -387,7 +387,7 @@ void DukeScriptRunner::drawBigText(
   const int x,
   const int y,
   const int colorIndex,
-  std::string_view text) const
+  std::string text) const
 {
   mMenuElementRenderer.drawBigText(x, y, text, mCurrentPalette.at(colorIndex));
 }

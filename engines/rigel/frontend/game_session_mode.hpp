@@ -84,7 +84,7 @@ private:
 	void fadeToNewStage(StageT &stage);
 	void finishGameSession();
 	#if 0
-	void enterHighScore(std::string_view name);
+	void enterHighScore(std::string name);
 	#endif
 
 private:

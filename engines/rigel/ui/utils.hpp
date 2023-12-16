@@ -53,7 +53,7 @@ RIGEL_DISABLE_WARNINGS
 #endif
 RIGEL_RESTORE_WARNINGS
 
-#include <string_view>
+#include <string>
 
 
 namespace Rigel
@@ -74,14 +74,14 @@ ImU32 toImgui(const base::Color &color);
 renderer::Texture fullScreenImageAsTexture(
 	renderer::Renderer *pRenderer,
 	const assets::ResourceLoader &resources,
-	std::string_view imageName);
+	std::string imageName);
 
 engine::TiledTexture makeUiSpriteSheet(
 	renderer::Renderer *pRenderer,
 	const assets::ResourceLoader &resourceLoader,
 	const data::Palette16 &palette);
 
-void drawText(std::string_view text, int x, int y, const base::Color &color);
+void drawText(std::string text, int x, int y, const base::Color &color);
 
 #endif
 // TODO: There's probably a more appropriate place for this

@@ -41,12 +41,12 @@
 
 
 //TODO : sdl_video showing compilation errors
-//#include <SDL_video.h>
+#include <SDL_video.h>
 
 
 //TODO: string_view only available in C++17
-#if 0
-#include <string_view>
+
+#include <string>
 
 
 namespace Rigel
@@ -54,7 +54,7 @@ namespace Rigel
 	namespace sdl_utils{
 bool isRunningInDesktopEnvironment()
 {
-  const auto sdlVideoDriver = std::string_view(SDL_GetCurrentVideoDriver());
+  const auto sdlVideoDriver = std::string(SDL_GetCurrentVideoDriver());
 
   // clang-format off
   return
@@ -67,5 +67,3 @@ bool isRunningInDesktopEnvironment()
 
 }
 } // namespace rigel::sdl_utils
-
-#endif

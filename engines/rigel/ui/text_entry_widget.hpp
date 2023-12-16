@@ -68,7 +68,7 @@ public:
 		int maxTextLength,
 		Style textStyle
 		#if 0
-		std::string_view initialText = ""
+		std::string initialText = ""
 		#endif
 
 	);
@@ -76,7 +76,7 @@ public:
 	void handleEvent(const SDL_Event &event);
 	void updateAndRender(engine::TimeDelta dt);
 	#if 0
-	std::string_view text() const;
+	std::string text() const;
 	#endif
 private:
 	std::string mText;

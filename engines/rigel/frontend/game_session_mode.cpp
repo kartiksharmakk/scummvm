@@ -283,7 +283,7 @@ void GameSessionMode::finishGameSession()
   }
 }
 
-void GameSessionMode::enterHighScore(std::string_view name)
+void GameSessionMode::enterHighScore(std::string name)
 {
   SDL_StopTextInput();
 

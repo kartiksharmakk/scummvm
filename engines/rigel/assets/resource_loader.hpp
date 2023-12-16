@@ -95,9 +95,9 @@ public:
 	data::Image loadUiSpriteSheet() const;
 	data::Image loadUiSpriteSheet(const data::Palette16 &overridePalette) const;
 
-	data::Image loadStandaloneFullscreenImage(std::string_view name) const;
+	data::Image loadStandaloneFullscreenImage(std::string name) const;
 	data::Palette16
-	loadPaletteFromFullScreenImage(std::string_view imageName) const;
+	loadPaletteFromFullScreenImage(std::string imageName) const;
 
 	ActorData loadActor(
 		data::ActorID id,
@@ -118,11 +118,11 @@ public:
 	data::Image loadWideHudFrameImage() const;
 	data::Image loadUltrawideHudFrameImage() const;
 
-	data::Image loadBackdrop(std::string_view name) const;
-	TileSet loadCZone(std::string_view name) const;
-	data::Movie loadMovie(std::string_view name) const;
+	data::Image loadBackdrop(std::string name) const;
+	TileSet loadCZone(std::string name) const;
+	data::Movie loadMovie(std::string name) const;
 
-	data::Song loadMusic(std::string_view name) const;
+	data::Song loadMusic(std::string name) const;
 	bool hasSoundBlasterSound(data::SoundId id) const;
 	base::AudioBuffer loadSoundBlasterSound(data::SoundId id) const;
 
@@ -130,13 +130,13 @@ public:
 	replacementSoundPaths(data::SoundId id) const;
 	std::vector<std::filesystem::path> replacementMusicBasePaths() const;
 
-	ScriptBundle loadScriptBundle(std::string_view fileName) const;
+	ScriptBundle loadScriptBundle(std::string fileName) const;
 
 	data::LevelHints loadHintMessages() const;
 
-	ByteBuffer file(std::string_view name) const;
-	std::string fileAsText(std::string_view name) const;
-	bool hasFile(std::string_view name) const;
+	ByteBuffer file(std::string name) const;
+	std::string fileAsText(std::string name) const;
+	bool hasFile(std::string name) const;
 
 private:
 	// The invoke_result of the TryLoadFunc is going to be a tl::optional<T>,
@@ -147,17 +147,17 @@ private:
 			invoke_result_t<TryLoadFunc, const std::filesystem::path &>::value_type>
 	tl::optional<T> tryLoadReplacement(TryLoadFunc &&tryLoad) const;
 	tl::optional<data::Image>
-	tryLoadPngReplacement(std::string_view filename) const;
+	tryLoadPngReplacement(std::string filename) const;
 
 	data::Image loadEmbeddedImageAsset(
 		const char *replacementName,
 		base::ArrayView<std::uint8_t> data) const;
 
-	data::Image loadTiledFullscreenImage(std::string_view name) const;
+	data::Image loadTiledFullscreenImage(std::string name) const;
 	data::Image loadTiledFullscreenImage(
-		std::string_view name,
+		std::string name,
 		const data::Palette16 &overridePalette) const;
-	base::AudioBuffer loadSound(std::string_view name) const;
+	base::AudioBuffer loadSound(std::string name) const;
 
 	std::filesystem::path mGamePath;
 	std::vector<std::filesystem::path> mModPaths;

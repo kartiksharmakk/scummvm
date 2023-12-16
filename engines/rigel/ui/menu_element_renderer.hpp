@@ -77,16 +77,16 @@ public:
   //TODO string_view usage need to be replaced with scummvm derivative
   #if 0
 
-  void drawText(int x, int y, std::string_view text) const;
-  void drawSmallWhiteText(int x, int y, std::string_view text) const;
-  void drawMultiLineText(int x, int y, std::string_view text) const;
+  void drawText(int x, int y, std::string text) const;
+  void drawSmallWhiteText(int x, int y, std::string text) const;
+  void drawMultiLineText(int x, int y, std::string text) const;
   void
-    drawBigText(int x, int y, std::string_view text, const base::Color& color)
+    drawBigText(int x, int y, std::string text, const base::Color& color)
       const;
 
   void drawCheckBox(int x, int y, bool isChecked) const;
 
-  void drawBonusScreenText(int x, int y, std::string_view text) const;
+  void drawBonusScreenText(int x, int y, std::string text) const;
 
   #endif
 

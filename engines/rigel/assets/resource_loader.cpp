@@ -102,11 +102,11 @@ std::string replacementSpriteImageName(const int id, const int frame) {
 
 tl::optional<data::Image> loadReplacementTilesetIfPresent(
 	const fs::path &resourcePath,
-	std::string_view name) {
+	std::string name) {
 	using namespace std::literals;
 
 	std::regex tilesetNameRegex{"^CZONE([0-9A-Z])\\.MNI$", std::regex::icase};
-	std::match_results<std::string_view::const_iterator> matches;
+	std::match_results<std::string::const_iterator> matches;
 
 	if (
 		!std::regex_match(name.begin(), name.end(), matches, tilesetNameRegex) ||
@@ -172,7 +172,7 @@ tl::optional<T> ResourceLoader::tryLoadReplacement(TryLoadFunc &&tryLoad) const 
 }
 
 tl::optional<data::Image>
-ResourceLoader::tryLoadPngReplacement(std::string_view filename) const {
+ResourceLoader::tryLoadPngReplacement(std::string filename) const {
 	return tryLoadReplacement(
 		[filename](const fs::path &path) { return loadPng(path / filename); });
 }
@@ -204,12 +204,12 @@ data::Image ResourceLoader::loadUiSpriteSheet(
 }
 
 data::Image
-ResourceLoader::loadTiledFullscreenImage(std::string_view name) const {
+ResourceLoader::loadTiledFullscreenImage(std::string name) const {
 	return loadTiledFullscreenImage(name, data::GameTraits::INGAME_PALETTE);
 }
 
 data::Image ResourceLoader::loadTiledFullscreenImage(
-	std::string_view name,
+	std::string name,
 	const data::Palette16 &overridePalette) const {
 	return loadTiledImage(
 		file(name),
@@ -219,7 +219,7 @@ data::Image ResourceLoader::loadTiledFullscreenImage(
 }
 
 data::Image
-ResourceLoader::loadStandaloneFullscreenImage(std::string_view name) const {
+ResourceLoader::loadStandaloneFullscreenImage(std::string name) const {
 	const auto &data = file(name);
 	const auto paletteStart = data.begin() + FULL_SCREEN_IMAGE_DATA_SIZE;
 	const auto palette = load6bitPalette16(paletteStart, data.end());
@@ -264,7 +264,7 @@ data::Image ResourceLoader::loadUltrawideHudFrameImage() const {
 }
 
 data::Palette16 ResourceLoader::loadPaletteFromFullScreenImage(
-	std::string_view imageName) const {
+	std::string imageName) const {
 	const auto &data = file(imageName);
 	const auto paletteStart = data.begin() + FULL_SCREEN_IMAGE_DATA_SIZE;
 	return load6bitPalette16(paletteStart, data.end());
@@ -292,11 +292,11 @@ ActorData ResourceLoader::loadActor(
 	return ActorData{actorInfo.mDrawIndex, std::move(images)};
 }
 
-data::Image ResourceLoader::loadBackdrop(std::string_view name) const {
+data::Image ResourceLoader::loadBackdrop(std::string name) const {
 	using namespace std::literals;
 
 	std::regex backdropNameRegex{"^DROP([0-9]+)\\.MNI$", std::regex::icase};
-	std::match_results<std::string_view::const_iterator> matches;
+	std::match_results<std::string::const_iterator> matches;
 
 	if (
 		std::regex_match(name.begin(), name.end(), matches, backdropNameRegex) &&
@@ -312,7 +312,7 @@ data::Image ResourceLoader::loadBackdrop(std::string_view name) const {
 	return loadTiledFullscreenImage(name);
 }
 
-TileSet ResourceLoader::loadCZone(std::string_view name) const {
+TileSet ResourceLoader::loadCZone(std::string name) const {
 	using namespace data;
 	using namespace map;
 	using T = data::TileImageType;
@@ -370,7 +370,7 @@ TileSet ResourceLoader::loadCZone(std::string_view name) const {
 	return {std::move(fullImage), TileAttributeDict{std::move(attributes)}};
 }
 
-data::Movie ResourceLoader::loadMovie(std::string_view name) const {
+data::Movie ResourceLoader::loadMovie(std::string name) const {
 	// We don't use tryLoadReplacement here, because we don't look for movies
 	// in the top-level path.
 	for (auto iPath = mModPaths.rbegin(); iPath != mModPaths.rend(); ++iPath) {
@@ -383,7 +383,7 @@ data::Movie ResourceLoader::loadMovie(std::string_view name) const {
 	return assets::loadMovie(loadFile(mGamePath / fs::u8path(name)));
 }
 
-data::Song ResourceLoader::loadMusic(std::string_view name) const {
+data::Song ResourceLoader::loadMusic(std::string name) const {
 	return assets::loadSong(file(name));
 }
 
@@ -435,11 +435,11 @@ ResourceLoader::replacementMusicBasePaths() const {
 	return result;
 }
 
-base::AudioBuffer ResourceLoader::loadSound(std::string_view name) const {
+base::AudioBuffer ResourceLoader::loadSound(std::string name) const {
 	return assets::decodeVoc(file(name));
 }
 
-ScriptBundle ResourceLoader::loadScriptBundle(std::string_view fileName) const {
+ScriptBundle ResourceLoader::loadScriptBundle(std::string fileName) const {
 	return assets::loadScripts(fileAsText(fileName));
 }
 
@@ -447,7 +447,7 @@ data::LevelHints ResourceLoader::loadHintMessages() const {
 	return assets::loadHintMessages(fileAsText("HELP.MNI"));
 }
 
-ByteBuffer ResourceLoader::file(std::string_view name) const {
+ByteBuffer ResourceLoader::file(std::string name) const {
 	// TODO: Eliminate duplication with tryLoadReplacement?
 	for (auto iPath = mModPaths.rbegin(); iPath != mModPaths.rend(); ++iPath) {
 		const auto unpackedFilePath = *iPath / fs::u8path(name);
@@ -466,11 +466,11 @@ ByteBuffer ResourceLoader::file(std::string_view name) const {
 	return mFilePackage.file(name);
 }
 
-std::string ResourceLoader::fileAsText(std::string_view name) const {
+std::string ResourceLoader::fileAsText(std::string name) const {
 	return asText(file(name));
 }
 
-bool ResourceLoader::hasFile(std::string_view name) const {
+bool ResourceLoader::hasFile(std::string name) const {
 	// TODO: Eliminate duplication with tryLoadReplacement?
 	for (auto iPath = mModPaths.rbegin(); iPath != mModPaths.rend(); ++iPath) {
 		const auto unpackedFilePath = *iPath / fs::u8path(name);

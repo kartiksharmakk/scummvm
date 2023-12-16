@@ -166,7 +166,7 @@ private:
 			GameMode::Context context,
 			int slotIndex
 			#if 0
-			std::string_view initialName
+			std::string initialName
 		#endif
 		);
 
@@ -216,7 +216,7 @@ private:
 
 	void onRestoreGameMenuFinished(const ExecutionResult &result);
 	#if 0
-	void saveGame(int slotIndex, std::string_view name);
+	void saveGame(int slotIndex, std::string name);
 	#endif
 	void handleMenuEnterEvent(const SDL_Event &event);
 	void handleCheatCodes();

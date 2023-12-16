@@ -93,7 +93,7 @@ void showLoadingScreen(SDL_Window* pWindow)
 void setupForFirstLaunch(
   SDL_Window* pWindow,
   UserProfile& userProfile,
-  std::string_view commandLineGamePath)
+  std::string commandLineGamePath)
 {
   namespace fs = std::filesystem;
 

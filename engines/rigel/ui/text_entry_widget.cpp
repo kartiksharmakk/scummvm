@@ -44,7 +44,7 @@ TextEntryWidget::TextEntryWidget(
   const int posY,
   const int maxTextLength,
   const Style textStyle,
-  const std::string_view initialText)
+  const std::string initialText)
   : mText(initialText)
   , mpUiRenderer(pUiRenderer)
   , mPosX(posX)
@@ -82,7 +82,7 @@ void TextEntryWidget::handleEvent(const SDL_Event& event)
 
 void TextEntryWidget::updateAndRender(const engine::TimeDelta dt)
 {
-  auto drawText = [this](std::string_view text) {
+  auto drawText = [this](std::string text) {
     if (mTextStyle == Style::BigText)
     {
       mpUiRenderer->drawBigText(mPosX, mPosY, text, TEXT_COLOR);
@@ -115,7 +115,7 @@ void TextEntryWidget::updateAndRender(const engine::TimeDelta dt)
 }
 
 
-std::string_view TextEntryWidget::text() const
+std::string TextEntryWidget::text() const
 {
   return mText;
 }
