@@ -47,14 +47,17 @@
 
 #include <string>
 
-#if 0
+
 namespace Rigel {
 namespace assets {
-tl::optional<data::Image> loadPng(const std::filesystem::path &path);
+
 tl::optional<data::Image> loadPng(base::ArrayView<std::uint8_t> data);
 
+#if 0
+tl::optional<data::Image> loadPng(const std::filesystem::path &path);
+
 bool savePng(const std::filesystem::path &path, const data::Image &image);
+#endif
 
 } // namespace assets
 } // namespace Rigel
-#endif

@@ -43,8 +43,7 @@
 #include <cstdint>
 #include <cstdlib>
 
-#if 0
-namespace rigel
+namespace Rigel
 {
 namespace base {
 namespace detail {
@@ -146,11 +145,24 @@ private:
 	size_type mSize = 0u;
 };
 
-template<typename Container>
+/* Original code which used deduction guide c++17 feature , as a reference commented out.
 
+template<typename Container>
 ArrayView(Container) -> ArrayView<typename Container::value_type>;
+
+*/
+
+//In C++11, we cannot automatically deduce the template arguments when constructing a class template instance
+//so i would need to explicitly use this makeArrayView function where required 
+template<typename Container>
+ArrayView<typename Container::value_type> makeArrayView(const Container &c) {
+	return ArrayView<typename Container::value_type>(c.data(), c.size());
+}
+
+
+
+
 } // namespace base
 
 } // namespace rigel::base
 
-#endif
