@@ -1,3 +1,26 @@
+/* ScummVM - Graphic Adventure Engine
+ *
+ * ScummVM is the legal property of its developers, whose names
+ * are too numerous to list here. Please refer to the COPYRIGHT
+ * file distributed with this source distribution.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+
+
 /* Copyright (C) 2016, Nikolai Wuttke. All rights reserved.
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -14,10 +37,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "intro_movie.hpp"
+#include "rigel/ui/intro_movie.hpp"
 
-#include "assets/resource_loader.hpp"
-#include "frontend/game_service_provider.hpp"
+#include "rigel/assets/resource_loader.hpp"
+#include "rigel/frontend/game_service_provider.hpp"
 
 
 // Repetition counts and delays from original exe, determined from disassembly:
@@ -56,16 +79,16 @@
 // | 55 |   SB_1 |  1120 | // 4 seconds
 
 
-namespace rigel::ui
-{
+//TODO: fix C++17 std::nullopt usage
+#if 0
+namespace Rigel {
+namespace ui {
 
 using data::SoundId;
 
-
 IntroMovie::PlaybackConfigList
-  IntroMovie::createConfigurations(const assets::ResourceLoader& resources)
-{
-  // clang-format off
+IntroMovie::createConfigurations(const assets::ResourceLoader &resources) {
+	// clang-format off
   return {
     // Neo LA - the future
     {
@@ -182,64 +205,51 @@ IntroMovie::PlaybackConfigList
       }
     }
   };
-  // clang-format on
+	// clang-format on
 }
-
 
 IntroMovie::IntroMovie(GameMode::Context context)
-  : mpServiceProvider(context.mpServiceProvider)
-  , mMoviePlayer(context.mpRenderer)
-  , mCurrentConfiguration(0u)
-{
-  mMovieConfigurations = createConfigurations(*context.mpResources);
+	: mpServiceProvider(context.mpServiceProvider), mMoviePlayer(context.mpRenderer), mCurrentConfiguration(0u) {
+	mMovieConfigurations = createConfigurations(*context.mpResources);
 }
 
-
-void IntroMovie::start()
-{
-  mpServiceProvider->playMusic("RANGEA.IMF");
-  mCurrentConfiguration = 0u;
-  startNextMovie();
+void IntroMovie::start() {
+	mpServiceProvider->playMusic("RANGEA.IMF");
+	mCurrentConfiguration = 0u;
+	startNextMovie();
 }
 
+void IntroMovie::updateAndRender(engine::TimeDelta dt) {
+	if (isFinished()) {
+		return;
+	}
 
-void IntroMovie::updateAndRender(engine::TimeDelta dt)
-{
-  if (isFinished())
-  {
-    return;
-  }
+	mMoviePlayer.updateAndRender(dt);
 
-  mMoviePlayer.updateAndRender(dt);
+	if (mMoviePlayer.hasCompletedPlayback()) {
+		++mCurrentConfiguration;
+		if (isFinished()) {
+			mpServiceProvider->fadeOutScreen();
+			return;
+		}
 
-  if (mMoviePlayer.hasCompletedPlayback())
-  {
-    ++mCurrentConfiguration;
-    if (isFinished())
-    {
-      mpServiceProvider->fadeOutScreen();
-      return;
-    }
-
-    startNextMovie();
-  }
+		startNextMovie();
+	}
 }
 
-
-bool IntroMovie::isFinished() const
-{
-  return mCurrentConfiguration >= mMovieConfigurations.size();
+bool IntroMovie::isFinished() const {
+	return mCurrentConfiguration >= mMovieConfigurations.size();
 }
 
-
-void IntroMovie::startNextMovie()
-{
-  const auto& config = mMovieConfigurations[mCurrentConfiguration];
-  mMoviePlayer.playMovie(
-    config.mMovie,
-    config.mFrameDelay,
-    config.mRepetitions,
-    config.mFrameCallback);
+void IntroMovie::startNextMovie() {
+	const auto &config = mMovieConfigurations[mCurrentConfiguration];
+	mMoviePlayer.playMovie(
+		config.mMovie,
+		config.mFrameDelay,
+		config.mRepetitions,
+		config.mFrameCallback);
 }
 
-} // namespace rigel::ui
+} // namespace ui
+} // namespace Rigel
+#endif

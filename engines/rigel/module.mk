@@ -31,7 +31,8 @@ MODULE_OBJS = \
 	data/tutorial_messages.o \
 	data/unit_conversions.o \
 	engine/collision_checker.o \
-	game_logic_classic/game_world_classic.o \ 
+	game_logic_classic/game_world_classic.o \
+	frontend/intro_demo_loop_mode.o \
 	frontend/json_utils.o \
 	frontend/menu_mode.o \
 	renderer/fps_limiter.o \
@@ -41,6 +42,8 @@ MODULE_OBJS = \
 	ui/apogee_logo.o \
 	ui/bonus_screen.o \
 	ui/duke_3d_teaser_screen.o \
+	ui/intro_movie.o \
+	ui/movie_player.o \
 
 
 # This module can be built as a plugin

@@ -1,3 +1,26 @@
+/* ScummVM - Graphic Adventure Engine
+ *
+ * ScummVM is the legal property of its developers, whose names
+ * are too numerous to list here. Please refer to the COPYRIGHT
+ * file distributed with this source distribution.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+
+
 /* Copyright (C) 2016, Nikolai Wuttke. All rights reserved.
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -14,20 +37,22 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "intro_demo_loop_mode.hpp"
+#include "rigel/frontend/intro_demo_loop_mode.hpp"
 
-#include "menu_mode.hpp"
+#include "rigel/frontend/menu_mode.hpp"
 
-#include "assets/resource_loader.hpp"
-#include "base/match.hpp"
-#include "frontend/game_service_provider.hpp"
-#include "ui/duke_script_runner.hpp"
-#include "ui/menu_navigation.hpp"
+#include "rigel/assets/resource_loader.hpp"
+#include "rigel/base/match.hpp"
+#include "rigel/frontend/game_service_provider.hpp"
+#include "rigel/ui/duke_script_runner.hpp"
+#include "rigel/ui/menu_navigation.hpp"
 
 #include <stdexcept>
 
 
-namespace rigel
+//TODO: fix C++17 std::variant usage
+#if 0
+namespace Rigel
 {
 
 IntroDemoLoopMode::IntroDemoLoopMode(Context context, const Type type)
@@ -253,3 +278,4 @@ void IntroDemoLoopMode::advanceToNextStep()
 }
 
 } // namespace rigel
+#endif

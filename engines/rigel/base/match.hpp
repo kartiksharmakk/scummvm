@@ -20,30 +20,34 @@
 #include <variant>
 
 
-namespace rigel::base
-{
+namespace Rigel {
+namespace base {
+namespace detail {
 
-namespace detail
-{
-
-template <class... Ts>
-struct overloaded : Ts...
-{
-  using Ts::operator()...;
+//TODO:- applying a pack - expansion to a using - declaration requires at least '/std:c++17' 
+#if 0
+template<class... Ts>
+struct overloaded : Ts... {
+	using Ts::operator()...;
 };
+#endif
 
-template <class... Ts>
+//TODO: fix C++17 deduction usage
+#if 0
+template<class... Ts>
 overloaded(Ts...) -> overloaded<Ts...>;
+#endif
 
 } // namespace detail
 
-
-template <typename Variant, typename... Matchers>
-auto match(Variant&& variant, Matchers&&... matchers)
-{
-  return std::visit(
-    detail::overloaded{std::forward<Matchers>(matchers)...},
-    std::forward<Variant>(variant));
+//TODO: fix C++17 std::visit usage
+#if 0
+template<typename Variant, typename... Matchers>
+auto match(Variant &&variant, Matchers &&...matchers) {
+	return std::visit(
+		detail::overloaded{std::forward<Matchers>(matchers)...},
+		std::forward<Variant>(variant));
 }
-
-} // namespace rigel::base
+#endif
+} // namespace base
+} // namespace Rigel

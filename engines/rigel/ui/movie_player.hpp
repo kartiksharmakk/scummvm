@@ -36,20 +36,23 @@ public:
    * for all subsequent frames.
    */
 
-	#if 0
+	
 	using FrameCallbackFunc = std::function<tl::optional<int>(int)>;
-	#endif
+	
 	explicit MoviePlayer(renderer::Renderer *pRenderer);
 
 	void playMovie(
 		const data::Movie &movie,
-		int frameDelayInFastTicks
+		int frameDelayInFastTicks,
+
+		//TODO fix C++17 std::nullopt usage 
 		#if 0
 		const tl::optional<int> &repetitions = std::nullopt,
+		#endif
 		
 		FrameCallbackFunc frameCallback = nullptr
 	
-		#endif
+		
 		);
 	void updateAndRender(engine::TimeDelta timeDelta);
 	bool hasCompletedPlayback() const;
@@ -66,14 +69,12 @@ private:
 	renderer::Renderer *mpRenderer;
 	renderer::RenderTargetTexture mCanvas;
 	std::vector<FrameData> mAnimationFrames;
-#if 0
 	FrameCallbackFunc mFrameCallback = nullptr;
-	#endif
+	
 	bool mHasShownFirstFrame = false;
 	int mCurrentFrame = 0;
-	#if 0
 	tl::optional<int> mRemainingRepetitions = 0;
-	#endif
+	
 	engine::TimeDelta mFrameDelay = 0.0;
 	engine::TimeDelta mElapsedTime = 0.0;
 };

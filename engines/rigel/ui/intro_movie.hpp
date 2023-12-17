@@ -66,9 +66,9 @@ private:
 
 		const int mFrameDelay;
 		const int mRepetitions;
-		#if 0
+		
 		const ui::MoviePlayer::FrameCallbackFunc mFrameCallback;
-		#endif
+		
 	};
 
 	using PlaybackConfigList = std::vector<PlaybackConfig>;
