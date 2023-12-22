@@ -53,9 +53,9 @@ namespace Rigel
 {
 namespace data {
 	//:: is C++17 
-#if 0
-using Pixel = rigel::base::Color;
-#endif
+
+using Pixel = Rigel::base::Color;
+
 typedef Rigel::base::Color Pixel;
 using PixelBuffer = std::vector<Pixel>;
 

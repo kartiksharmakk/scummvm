@@ -41,17 +41,13 @@
 #include "rigel/assets/file_utils.hpp"
 #include "rigel/base/warnings.hpp"
 
-RIGEL_DISABLE_WARNINGS
-#if 0
-#include <stb_image.h>
-#include <stb_image_write.h>
-#endif
-RIGEL_RESTORE_WARNINGS
+#include "rigel/3party/stb/stb_image.h"
+#include "rigel/3party/stb/stb_image_write.h"
 
 #include <fstream>
 #include <memory>
 
-#if 0
+
 namespace Rigel {
 namespace assets {
 namespace {
@@ -76,7 +72,7 @@ void writeToFile(void *pContext, void *pData, int size) {
 
 } // namespace
 
-tl::optional<data::Image> loadPng(const std::filesystem::path &path) {
+tl::optional<data::Image> loadPng(const Common::Path &path) {
 	if (const auto data = tryLoadFile(path)) {
 		return loadPng(*data);
 	}
@@ -98,9 +94,11 @@ tl::optional<data::Image> loadPng(base::ArrayView<std::uint8_t> data) {
 	return convertToImage(pImageData.get(), width, height);
 }
 
-bool savePng(const std::filesystem::path &path, const data::Image &image) {
-	std::ofstream file(path, std::ios::binary);
-	if (!file.is_open()) {
+bool savePng(const Common::Path &path, const data::Image &image) {
+
+	Common::DumpFile file;
+	file.open(path.toString());
+	if (!file.isOpen()) {
 		return false;
 	}
 
@@ -114,4 +112,3 @@ bool savePng(const std::filesystem::path &path, const data::Image &image) {
 } // namespace assets
 } // namespace Rigel
 
-#endif

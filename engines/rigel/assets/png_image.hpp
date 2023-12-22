@@ -38,11 +38,11 @@
 
 #pragma once
 
+#define FORBIDDEN_SYMBOL_ALLOW_ALL
+
+#include "common/path.h"
 #include "rigel/base/array_view.hpp"
 #include "rigel/base/image.hpp"
-#if 0
-#include <filesystem>
-#endif
 #include "rigel/3party/tloptional/include/tl/optional.hpp"
 
 #include <string>
@@ -53,11 +53,9 @@ namespace assets {
 
 tl::optional<data::Image> loadPng(base::ArrayView<std::uint8_t> data);
 
-#if 0
-tl::optional<data::Image> loadPng(const std::filesystem::path &path);
+tl::optional<data::Image> loadPng(const Common::Path &path);
 
-bool savePng(const std::filesystem::path &path, const data::Image &image);
-#endif
+bool savePng(const Common::Path &path, const data::Image &image);
 
 } // namespace assets
 } // namespace Rigel

@@ -43,6 +43,8 @@
 
 #include "rigel/assets/byte_buffer.hpp"
 #include "common/path.h"
+#include "common/file.h"
+#include "common/error.h"
 #include <cstdint>
 #include "rigel/3party/tloptional/include/tl/optional.hpp"
 
