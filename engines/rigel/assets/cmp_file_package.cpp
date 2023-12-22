@@ -55,7 +55,6 @@ using namespace std;
 
 //TODO need to fix string_view and filesystem to a scummvm derivative before fixing this.
 
-#if 0
 namespace {
 
 std::string normalizedFileName(std::string fileName) {
@@ -64,7 +63,7 @@ std::string normalizedFileName(std::string fileName) {
 
 } // namespace
 
-CMPFilePackage::CMPFilePackage(const std::filesystem::path &filePath)
+CMPFilePackage::CMPFilePackage(const Common::Path &filePath)
 	: mFileData(loadFile(filePath)) {
 	LeStreamReader dictReader(mFileData.begin(), mFileData.end());
 
@@ -113,6 +112,5 @@ CMPFilePackage::DictEntry::DictEntry(
 }
 
 
-#endif
 } // namespace assets
 } // namespace Rigel

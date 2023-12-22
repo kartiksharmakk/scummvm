@@ -44,6 +44,7 @@
 #pragma once
 
 #include "rigel/assets/byte_buffer.hpp"
+#include "common/path.h"
 
 #include <cstddef>
 #include <filesystem>
@@ -52,14 +53,14 @@
 #include <vector>
 
 //TODO stringview and filesystem
-#if 0
+
 namespace Rigel
 {
 namespace assets {
 
 class CMPFilePackage {
 public:
-	explicit CMPFilePackage(const std::filesystem::path &filePath);
+	explicit CMPFilePackage(const Common::Path &filePath);
 
 	ByteBuffer file(std::string name) const;
 
@@ -86,4 +87,3 @@ private:
 
 } // namespace assets
 } // namespace rigel::assets
-#endif

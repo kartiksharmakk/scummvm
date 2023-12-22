@@ -39,7 +39,7 @@
 
 #pragma once
 
-#define FORBIDDEN_SYMBOL_ALLOW_ALL
+
 
 #include "rigel/assets/byte_buffer.hpp"
 #include "common/path.h"
