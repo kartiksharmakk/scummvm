@@ -38,6 +38,9 @@
 
 #pragma once
 
+#define FORBIDDEN_SYMBOL_ALLOW_ALL
+
+#include "common/path.h"
 #include "rigel/assets/actor_image_package.hpp"
 #include "rigel/assets/cmp_file_package.hpp"
 #include "rigel/assets/duke_script_loader.hpp"
@@ -50,13 +53,9 @@
 #include "rigel/data/sound_ids.hpp"
 #include "rigel/data/tile_attributes.hpp"
 
-#include <filesystem>
 #include <string>
 #include <vector>
 
-
-//TODO replace std::filesystem with Scummvm filesystem.
-#if 0
 namespace Rigel
 {
 namespace assets {
@@ -88,16 +87,16 @@ struct ActorData {
 class ResourceLoader {
 public:
 	ResourceLoader(
-		std::filesystem::path gamePath,
+		Common::Path gamePath,
 		bool enableTopLevelMods,
-		std::vector<std::filesystem::path> modPaths);
+		std::vector<Common::Path> modPaths);
 
 	data::Image loadUiSpriteSheet() const;
 	data::Image loadUiSpriteSheet(const data::Palette16 &overridePalette) const;
 
-	data::Image loadStandaloneFullscreenImage(std::string name) const;
+	data::Image loadStandaloneFullscreenImage(Common::String name) const;
 	data::Palette16
-	loadPaletteFromFullScreenImage(std::string imageName) const;
+	loadPaletteFromFullScreenImage(Common::String imageName) const;
 
 	ActorData loadActor(
 		data::ActorID id,
@@ -118,49 +117,59 @@ public:
 	data::Image loadWideHudFrameImage() const;
 	data::Image loadUltrawideHudFrameImage() const;
 
-	data::Image loadBackdrop(std::string name) const;
-	TileSet loadCZone(std::string name) const;
-	data::Movie loadMovie(std::string name) const;
+	data::Image loadBackdrop(Common::String name) const;
+	TileSet loadCZone(Common::String name) const;
+	data::Movie loadMovie(Common::String name) const;
 
-	data::Song loadMusic(std::string name) const;
+	data::Song loadMusic(Common::String name) const;
 	bool hasSoundBlasterSound(data::SoundId id) const;
 	base::AudioBuffer loadSoundBlasterSound(data::SoundId id) const;
 
-	std::vector<std::filesystem::path>
+	std::vector<Common::Path>
 	replacementSoundPaths(data::SoundId id) const;
-	std::vector<std::filesystem::path> replacementMusicBasePaths() const;
+	std::vector<Common::Path> replacementMusicBasePaths() const;
 
-	ScriptBundle loadScriptBundle(std::string fileName) const;
+	ScriptBundle loadScriptBundle(Common::String fileName) const;
 
 	data::LevelHints loadHintMessages() const;
 
-	ByteBuffer file(std::string name) const;
-	std::string fileAsText(std::string name) const;
-	bool hasFile(std::string name) const;
+	ByteBuffer file(Common::String name) const;
+	Common::String fileAsText(Common::String name) const;
+	bool hasFile(Common::String name) const;
 
 private:
 	// The invoke_result of the TryLoadFunc is going to be a tl::optional<T>,
 	// hence we need to unpack the underlying T via the optional's value_type
+
+	/* original code for reference   C++17 std::invoke_result_t usage
+	
 	template<
 		typename TryLoadFunc,
+		//fix 
 		typename T = typename std::
-			invoke_result_t<TryLoadFunc, const std::filesystem::path &>::value_type>
+			invoke_result_t<TryLoadFunc, const Common::Path &>::value_type>
 	tl::optional<T> tryLoadReplacement(TryLoadFunc &&tryLoad) const;
-	tl::optional<data::Image>
-	tryLoadPngReplacement(std::string filename) const;
+	*/
 
+	template<typename TryLoadFunc,
+		typename T = typename std::result_of<TryLoadFunc(const Common::Path &)>::type>
+	tl::optional<T> tryLoadReplacement(TryLoadFunc &&tryLoad) const;
+
+	tl::optional<data::Image>
+	tryLoadPngReplacement(Common::String filename) const;
+	
 	data::Image loadEmbeddedImageAsset(
 		const char *replacementName,
 		base::ArrayView<std::uint8_t> data) const;
-
-	data::Image loadTiledFullscreenImage(std::string name) const;
+	
+	data::Image loadTiledFullscreenImage(Common::String name) const;
 	data::Image loadTiledFullscreenImage(
-		std::string name,
+		Common::String name,
 		const data::Palette16 &overridePalette) const;
-	base::AudioBuffer loadSound(std::string name) const;
+	base::AudioBuffer loadSound(Common::String name) const;
 
-	std::filesystem::path mGamePath;
-	std::vector<std::filesystem::path> mModPaths;
+	Common::Path mGamePath;
+	std::vector<Common::Path> mModPaths;
 	bool mEnableTopLevelMods;
 
 	assets::CMPFilePackage mFilePackage;
@@ -169,4 +178,3 @@ private:
 
 } // namespace assets
 } // namespace rigel::assets
-#endif

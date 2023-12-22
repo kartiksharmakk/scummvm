@@ -36,6 +36,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#define FORBIDDEN_SYMBOL_ALLOW_ALL
+
+#include "common/file.h"
 #include "rigel/assets/resource_loader.hpp"
 
 #include "rigel/assets/ega_image_decoder.hpp"
@@ -54,10 +57,9 @@
 #include <regex>
 
 
+//TODO: fix std::regex_match usage
+
 #if 0
-namespace fs = std::filesystem;
-
-
 namespace Rigel {
 namespace assets {
 using namespace data;
@@ -95,18 +97,18 @@ const auto FULL_SCREEN_IMAGE_DATA_SIZE =
 // The files can contain full 32-bit RGBA values, there are no limitations.
 const auto ASSET_REPLACEMENTS_PATH = "asset_replacements";
 
-std::string replacementSpriteImageName(const int id, const int frame) {
-	return "actor" + std::to_string(id) + "_frame" + std::to_string(frame) +
+Common::String replacementSpriteImageName(const int id, const int frame) {
+	return "actor" + Common::String(id) + "_frame" + Common::String(frame) +
 		   ".png";
 }
 
 tl::optional<data::Image> loadReplacementTilesetIfPresent(
-	const fs::path &resourcePath,
-	std::string name) {
+	const Common::Path &resourcePath,
+	Common::String name) {
 	using namespace std::literals;
 
 	std::regex tilesetNameRegex{"^CZONE([0-9A-Z])\\.MNI$", std::regex::icase};
-	std::match_results<std::string::const_iterator> matches;
+	std::match_results<Common::String::const_iterator> matches;
 
 	if (
 		!std::regex_match(name.begin(), name.end(), matches, tilesetNameRegex) ||
@@ -130,7 +132,7 @@ int asIntroSoundIndex(const data::SoundId id) {
 		   3;
 }
 
-std::string digitizedSoundFilenameForId(const data::SoundId soundId) {
+Common::String digitizedSoundFilenameForId(const data::SoundId soundId) {
 	using namespace std::string_literals;
 
 	if (data::isIntroSound(soundId)) {
@@ -146,9 +148,9 @@ std::string digitizedSoundFilenameForId(const data::SoundId soundId) {
 } // namespace
 
 ResourceLoader::ResourceLoader(
-	std::filesystem::path gamePath,
+	Common::Path gamePath,
 	bool enableTopLevelMods,
-	std::vector<fs::path> modPaths)
+	std::vector<Common::Path> modPaths)
 	: mGamePath(std::move(gamePath)), mModPaths(std::move(modPaths)), mEnableTopLevelMods(enableTopLevelMods), mFilePackage(mGamePath / "NUKEM2.CMP"), mActorImagePackage(
 																																						   file(ActorImagePackage::IMAGE_DATA_FILE),
 																																						   file(ActorImagePackage::ACTOR_INFO_FILE)) {
@@ -172,9 +174,9 @@ tl::optional<T> ResourceLoader::tryLoadReplacement(TryLoadFunc &&tryLoad) const 
 }
 
 tl::optional<data::Image>
-ResourceLoader::tryLoadPngReplacement(std::string filename) const {
+ResourceLoader::tryLoadPngReplacement(Common::String filename) const {
 	return tryLoadReplacement(
-		[filename](const fs::path &path) { return loadPng(path / filename); });
+		[filename](const Common::Path &path) { return loadPng(path / filename); });
 }
 
 data::Image ResourceLoader::loadEmbeddedImageAsset(
@@ -204,12 +206,12 @@ data::Image ResourceLoader::loadUiSpriteSheet(
 }
 
 data::Image
-ResourceLoader::loadTiledFullscreenImage(std::string name) const {
+ResourceLoader::loadTiledFullscreenImage(Common::String name) const {
 	return loadTiledFullscreenImage(name, data::GameTraits::INGAME_PALETTE);
 }
 
 data::Image ResourceLoader::loadTiledFullscreenImage(
-	std::string name,
+	Common::String name,
 	const data::Palette16 &overridePalette) const {
 	return loadTiledImage(
 		file(name),
@@ -219,7 +221,7 @@ data::Image ResourceLoader::loadTiledFullscreenImage(
 }
 
 data::Image
-ResourceLoader::loadStandaloneFullscreenImage(std::string name) const {
+ResourceLoader::loadStandaloneFullscreenImage(Common::String name) const {
 	const auto &data = file(name);
 	const auto paletteStart = data.begin() + FULL_SCREEN_IMAGE_DATA_SIZE;
 	const auto palette = load6bitPalette16(paletteStart, data.end());
@@ -264,7 +266,7 @@ data::Image ResourceLoader::loadUltrawideHudFrameImage() const {
 }
 
 data::Palette16 ResourceLoader::loadPaletteFromFullScreenImage(
-	std::string imageName) const {
+	Common::String imageName) const {
 	const auto &data = file(imageName);
 	const auto paletteStart = data.begin() + FULL_SCREEN_IMAGE_DATA_SIZE;
 	return load6bitPalette16(paletteStart, data.end());
@@ -292,11 +294,11 @@ ActorData ResourceLoader::loadActor(
 	return ActorData{actorInfo.mDrawIndex, std::move(images)};
 }
 
-data::Image ResourceLoader::loadBackdrop(std::string name) const {
+data::Image ResourceLoader::loadBackdrop(Common::String name) const {
 	using namespace std::literals;
 
 	std::regex backdropNameRegex{"^DROP([0-9]+)\\.MNI$", std::regex::icase};
-	std::match_results<std::string::const_iterator> matches;
+	std::match_results<Common::String::const_iterator> matches;
 
 	if (
 		std::regex_match(name.begin(), name.end(), matches, backdropNameRegex) &&
@@ -312,7 +314,7 @@ data::Image ResourceLoader::loadBackdrop(std::string name) const {
 	return loadTiledFullscreenImage(name);
 }
 
-TileSet ResourceLoader::loadCZone(std::string name) const {
+TileSet ResourceLoader::loadCZone(Common::String name) const {
 	using namespace data;
 	using namespace map;
 	using T = data::TileImageType;
@@ -332,7 +334,7 @@ TileSet ResourceLoader::loadCZone(std::string name) const {
 	}
 
 	const auto oReplacementImage =
-		tryLoadReplacement([name](const fs::path &path) {
+		tryLoadReplacement([name](const Common::Path &path) {
 			return loadReplacementTilesetIfPresent(path, name);
 		});
 
@@ -370,20 +372,20 @@ TileSet ResourceLoader::loadCZone(std::string name) const {
 	return {std::move(fullImage), TileAttributeDict{std::move(attributes)}};
 }
 
-data::Movie ResourceLoader::loadMovie(std::string name) const {
+data::Movie ResourceLoader::loadMovie(Common::String name) const {
 	// We don't use tryLoadReplacement here, because we don't look for movies
 	// in the top-level path.
 	for (auto iPath = mModPaths.rbegin(); iPath != mModPaths.rend(); ++iPath) {
-		const auto moddedFile = *iPath / fs::u8path(name);
-		if (fs::exists(moddedFile)) {
+		const auto moddedFile = *iPath / Common::Path(name);
+		if (Common::File::exists(moddedFile)) {
 			return assets::loadMovie(loadFile(moddedFile));
 		}
 	}
 
-	return assets::loadMovie(loadFile(mGamePath / fs::u8path(name)));
+	return assets::loadMovie(loadFile(mGamePath / Common::Path(name)));
 }
 
-data::Song ResourceLoader::loadMusic(std::string name) const {
+data::Song ResourceLoader::loadMusic(Common::String name) const {
 	return assets::loadSong(file(name));
 }
 
@@ -401,14 +403,14 @@ ResourceLoader::loadSoundBlasterSound(const data::SoundId id) const {
 	return {};
 }
 
-std::vector<std::filesystem::path>
+std::vector<Common::Path>
 ResourceLoader::replacementSoundPaths(data::SoundId id) const {
 	using namespace std::literals;
 
 	const auto expectedName =
 		"sound" s + std::to_string(static_cast<int>(id) + 1) + ".wav";
 
-	auto result = std::vector<std::filesystem::path>{};
+	auto result = std::vector<Common::Path>{};
 	result.reserve(mModPaths.size());
 
 	std::transform(
@@ -424,10 +426,10 @@ ResourceLoader::replacementSoundPaths(data::SoundId id) const {
 	return result;
 }
 
-std::vector<std::filesystem::path>
+std::vector<Common::Path>
 ResourceLoader::replacementMusicBasePaths() const {
 	auto result =
-		std::vector<std::filesystem::path>{mModPaths.rbegin(), mModPaths.rend()};
+		std::vector<Common::Path>{mModPaths.rbegin(), mModPaths.rend()};
 
 	if (mEnableTopLevelMods) {
 		result.push_back(mGamePath / ASSET_REPLACEMENTS_PATH);
@@ -435,11 +437,11 @@ ResourceLoader::replacementMusicBasePaths() const {
 	return result;
 }
 
-base::AudioBuffer ResourceLoader::loadSound(std::string name) const {
+base::AudioBuffer ResourceLoader::loadSound(Common::String name) const {
 	return assets::decodeVoc(file(name));
 }
 
-ScriptBundle ResourceLoader::loadScriptBundle(std::string fileName) const {
+ScriptBundle ResourceLoader::loadScriptBundle(Common::String fileName) const {
 	return assets::loadScripts(fileAsText(fileName));
 }
 
@@ -447,18 +449,18 @@ data::LevelHints ResourceLoader::loadHintMessages() const {
 	return assets::loadHintMessages(fileAsText("HELP.MNI"));
 }
 
-ByteBuffer ResourceLoader::file(std::string name) const {
+ByteBuffer ResourceLoader::file(Common::String name) const {
 	// TODO: Eliminate duplication with tryLoadReplacement?
 	for (auto iPath = mModPaths.rbegin(); iPath != mModPaths.rend(); ++iPath) {
-		const auto unpackedFilePath = *iPath / fs::u8path(name);
-		if (fs::exists(unpackedFilePath)) {
+		const auto unpackedFilePath = *iPath / Common::Path(name);
+		if (Common::File::exists(unpackedFilePath)) {
 			return loadFile(unpackedFilePath);
 		}
 	}
 
 	if (mEnableTopLevelMods) {
-		const auto unpackedFilePath = mGamePath / fs::u8path(name);
-		if (fs::exists(unpackedFilePath)) {
+		const auto unpackedFilePath = mGamePath / Common::Path(name);
+		if (Common::File::exists(unpackedFilePath)) {
 			return loadFile(unpackedFilePath);
 		}
 	}
@@ -466,22 +468,22 @@ ByteBuffer ResourceLoader::file(std::string name) const {
 	return mFilePackage.file(name);
 }
 
-std::string ResourceLoader::fileAsText(std::string name) const {
+Common::String ResourceLoader::fileAsText(Common::String name) const {
 	return asText(file(name));
 }
 
-bool ResourceLoader::hasFile(std::string name) const {
+bool ResourceLoader::hasFile(Common::String name) const {
 	// TODO: Eliminate duplication with tryLoadReplacement?
 	for (auto iPath = mModPaths.rbegin(); iPath != mModPaths.rend(); ++iPath) {
-		const auto unpackedFilePath = *iPath / fs::u8path(name);
-		if (fs::exists(unpackedFilePath)) {
+		const auto unpackedFilePath = *iPath / Common::Path(name);
+		if (Common::File::exists(unpackedFilePath)) {
 			return true;
 		}
 	}
 
 	if (mEnableTopLevelMods) {
-		const auto unpackedFilePath = mGamePath / fs::u8path(name);
-		if (fs::exists(unpackedFilePath)) {
+		const auto unpackedFilePath = mGamePath / Common::Path(name);
+		if (Common::File::exists(unpackedFilePath)) {
 			return true;
 		}
 	}

@@ -26,12 +26,9 @@
 namespace Rigel {
 namespace assets {
 
-//TODO fix Script bundle usage of C++17 <variant>
-#if 0
 using ScriptBundle = std::unordered_map<std::string, data::script::Script>;
 
 ScriptBundle loadScripts(const std::string &scriptSource);
-#endif
 data::LevelHints loadHintMessages(const std::string &scriptSource);
 
 
