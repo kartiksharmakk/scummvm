@@ -38,12 +38,7 @@
 #pragma once
 
 #include "rigel/base/warnings.hpp"
-
-RIGEL_DISABLE_WARNINGS
-#if 0
-#include <glad/glad.h>
-#endif
-RIGEL_RESTORE_WARNINGS
+#include "graphics/opengl/glad.h"
 
 #ifdef APIENTRY
   #undef APIENTRY
