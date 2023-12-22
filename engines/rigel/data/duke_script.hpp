@@ -161,50 +161,44 @@ struct ShowSaveSlots {
 
 struct PagesDefinition;
 
-// TODO header <variant> is a feature of C++17
-#if 0
-using Action = std::variant<
-	AnimateNewsReporter,
-	std::shared_ptr<PagesDefinition>,
-	ConfigurePersistentMenuSelection,
-	Delay,
-	DisableMenuFunctionality,
-	DrawBigText,
-	DrawMessageBoxText,
-	DrawSprite,
-	DrawText,
-	EnableTextOffset,
-	EnableTimeOutToDemo,
-	FadeIn,
-	FadeOut,
-	ScheduleFadeInBeforeNextWaitState,
-	SetPalette,
-	SetupCheckBoxes,
-	ShowFullScreenImage,
-	ShowKeyBindings,
-	ShowMenuSelectionIndicator,
-	ShowMessageBox,
-	ShowSaveSlots,
-	StopNewsReporterAnimation,
-	WaitForUserInput>;
+union Action {
+	AnimateNewsReporter animateNewsReporter;
+	std::shared_ptr<PagesDefinition> pagesDefinition;
+	ConfigurePersistentMenuSelection configurePersistentMenuSelection;
+	Delay delay;
+	DisableMenuFunctionality disableMenuFunctionality;
+	DrawBigText drawBigText;
+	DrawMessageBoxText drawMessageBoxText;
+	DrawSprite drawSprite;
+	DrawText drawText;
+	EnableTextOffset enableTextOffset;
+	EnableTimeOutToDemo enableTimeOutToDemo;
+	FadeIn fadeIn;
+	FadeOut fadeOut;
+	ScheduleFadeInBeforeNextWaitState scheduleFadeInBeforeNextWaitState;
+	SetPalette setPalette;
+	SetupCheckBoxes setupCheckBoxes;
+	ShowFullScreenImage showFullScreenImage;
+	ShowKeyBindings showKeyBindings;
+	ShowMenuSelectionIndicator showMenuSelectionIndicator;
+	ShowMessageBox showMessageBox;
+	ShowSaveSlots showSaveSlots;
+	StopNewsReporterAnimation stopNewsReporterAnimation;
+	WaitForUserInput waitForUserInput;
+};
 
 using Script = std::vector<Action>;
-#endif
 
 
 //TODO fix Script by finding solution to <variant>
-#if 0
 struct PagesDefinition {
 	template<typename PagesT>
 	explicit PagesDefinition(PagesT &&pages_)
 		: pages(std::forward<PagesT>(pages_)) {
 	}
-
-	
 	std::vector<Script> pages;
 	
 };
-#endif
 
 
 } // namespace script
