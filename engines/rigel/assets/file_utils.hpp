@@ -39,13 +39,11 @@
 
 #pragma once
 
+#define FORBIDDEN_SYMBOL_ALLOW_ALL
+
 #include "rigel/assets/byte_buffer.hpp"
-
+#include "common/path.h"
 #include <cstdint>
-
-#if 0
-#include <filesystem>
-#endif
 #include "rigel/3party/tloptional/include/tl/optional.hpp"
 
 
@@ -55,25 +53,28 @@
 namespace Rigel
 {
 namespace assets {
-	//TODO replace std::filesystem with Scummvm filesystem
-	#if 0
-tl::optional<ByteBuffer> tryLoadFile(const std::filesystem::path &path);
+
+tl::optional<ByteBuffer> tryLoadFile(const Common::Path &path);
 
 /** Load entire contents of file with given name into ByteBuffer
  *
  * Throws an exception if the file can't be opened.
  */
-ByteBuffer loadFile(const std::filesystem::path &path);
+ByteBuffer loadFile(const Common::Path &path);
+
+/* Original code block for future reference
 
 inline ByteBuffer loadFile(const std::string &fileName) {
 	return loadFile(std::filesystem::u8path(fileName));
 }
-#endif
+*/
+inline ByteBuffer loadFile(const Common::String &fileName) {
+	//TODO check if std::filesystem::u8path is proper replacement with Common::Path
+	return loadFile(Common::Path(fileName));
+}
 void saveToFile(
-	const assets::ByteBuffer &buffer
-	#if 0
-	const std::filesystem::path &filePath)
-	#endif
+	const assets::ByteBuffer &buffer,
+	const Common::Path &filePath
 	);
 
 std::string asText(const ByteBuffer &buffer);

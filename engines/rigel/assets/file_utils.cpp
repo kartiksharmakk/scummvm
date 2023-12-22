@@ -38,11 +38,14 @@
  */
 
 #include "file_utils.hpp"
+#include "common/file.h"
+#include "common/error.h"
 
 #include <cassert>
 #include <fstream>
 #include <stdexcept>
 
+//TODO : properly port code to utilize scummVM File read features . 
 
 namespace Rigel {
 namespace assets {
@@ -53,49 +56,48 @@ namespace {
 const char *OUT_OF_DATA_ERROR_MSG = "No more data in stream";
 
 }
-//TODO replace std::filesystem with Scummvm Filesystem
-#if 0
-tl::optional<ByteBuffer> tryLoadFile(const std::filesystem::path &path) {
-	ifstream file(path, ios::binary | ios::ate);
-	if (!file.is_open()) {
+
+tl::optional<ByteBuffer> tryLoadFile(const Common::Path &path) {
+
+	Common::File file;
+
+	file.open(path);
+	if (!file.isOpen()) {
 		return {};
 	}
 
-	const auto fileSize = static_cast<size_t>(file.tellg());
-	file.seekg(0);
+	const auto fileSize = file.size();
+	//file.seek(0);
 	ByteBuffer data(fileSize);
-	static_assert(sizeof(char) == sizeof(uint8_t));
+	static_assert(sizeof(char) == sizeof(uint8_t), "sizeof(char) == sizeof(uint8_t)");
 	file.read(reinterpret_cast<char *>(data.data()), fileSize);
 	return data;
+
 }
-#endif
 
-#if 0
-ByteBuffer loadFile(const std::filesystem::path &path) {
+ByteBuffer loadFile(const Common::Path &path) {
 	auto buffer = tryLoadFile(path);
-
 	if (!buffer) {
-		throw runtime_error(string("File can't be opened: ") + path.u8string());
+		error("File can't be opened");
 	}
 
 	return *buffer;
 }
 
-#endif
-
-#if 0
 void saveToFile(
 	const assets::ByteBuffer &buffer,
-	const std::filesystem::path &filePath) {
-	std::ofstream file(filePath, std::ios::binary);
-	if (!file.is_open()) {
-		throw runtime_error(string("File can't be opened: ") + filePath.u8string());
+	const Common::Path &filePath) {
+
+	Common::DumpFile file;
+
+	file.open(filePath.toString());
+	if (!file.isOpen()) {
+		error("File can't be opened");
 	}
-	file.exceptions(ios::failbit | ios::badbit);
+	//file.exceptions(ios::failbit | ios::badbit);
 
 	file.write(reinterpret_cast<const char *>(buffer.data()), buffer.size());
 }
-#endif
 
 std::string asText(const ByteBuffer &buffer) {
 	const auto pBytesAsChars = reinterpret_cast<const char *>(buffer.data());
