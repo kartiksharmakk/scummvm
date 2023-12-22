@@ -39,10 +39,10 @@
 
 #include "rigel/base/math_utils.hpp"
 
-#if 0
-#include <dbopl.h>
-#include <opl3.h>
-#endif
+
+#include "rigel/3party/dbopl/dbopl.h"
+#include "rigel/3party/nuked-opl3/opl3.h"
+
 
 #include <algorithm>
 #include <array>
@@ -50,8 +50,7 @@
 #include <memory>
 #include <variant>
 
-//TODO fix dbopl.h and opl3.h usage
-#if 0
+//TODO fix std::variant , std::clamp usage
 namespace Rigel {
 namespace audio {
 constexpr auto OPL2_SAMPLE_RATE = 49716;
@@ -86,11 +85,14 @@ public:
 			destination = std::transform(
 				mTempBuffer.begin(),
 				mTempBuffer.begin() + samplesForIteration,
-				destination,
+				destination
+				#if 0
 				[volumeScale](const auto sample32Bit) {
 					return static_cast<std::int16_t>(
 						std::clamp(base::round(sample32Bit * volumeScale), -16384, 16384));
-				});
+				}
+				#endif
+			);
 
 			numSamples -= samplesForIteration;
 		}
@@ -134,6 +136,7 @@ private:
 
 } // namespace detail
 
+#if 0
 class AdlibEmulator {
 public:
 	enum class Type {
@@ -188,7 +191,6 @@ private:
 
 	std::unique_ptr<Emulator> mpEmulator;
 };
-
+#endif
 } // namespace audio
 } // namespace Rigel
-#endif
