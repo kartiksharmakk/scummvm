@@ -36,15 +36,12 @@ template <typename... Args>
 std::unique_ptr<game_logic::IGameWorld>
   createGameWorld(const data::GameplayStyle gameplayStyle, Args&&... args)
 {
-  if (gameplayStyle == data::GameplayStyle::Classic)
-  {
-    return std::make_unique<game_logic::GameWorld_Classic>(
+  //if (gameplayStyle == data::GameplayStyle::Classic)
+  
+    
+  return std::make_unique<game_logic::GameWorld_Classic>(
       std::forward<Args>(args)...);
-  }
-  else
-  {
-    return std::make_unique<game_logic::GameWorld>(std::forward<Args>(args)...);
-  }
+  
 }
 
 } // namespace
