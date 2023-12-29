@@ -41,6 +41,7 @@
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 
 #include "common/path.h"
+#include "common/debug.h"
 #include "rigel/assets/actor_image_package.hpp"
 #include "rigel/assets/cmp_file_package.hpp"
 #include "rigel/assets/duke_script_loader.hpp"
@@ -143,17 +144,26 @@ private:
 
 	/* original code for reference   C++17 std::invoke_result_t usage
 	
+	
+	*/
+
+	//TODO: fix std::invoke_result_t usage
+	#if 0
+
 	template<
 		typename TryLoadFunc,
 		//fix 
 		typename T = typename std::
 			invoke_result_t<TryLoadFunc, const Common::Path &>::value_type>
 	tl::optional<T> tryLoadReplacement(TryLoadFunc &&tryLoad) const;
-	*/
 
+	/* a c++11 incomplete solution
+	
 	template<typename TryLoadFunc,
 		typename T = typename std::result_of<TryLoadFunc(const Common::Path &)>::type>
 	tl::optional<T> tryLoadReplacement(TryLoadFunc &&tryLoad) const;
+	*/
+	#endif
 
 	tl::optional<data::Image>
 	tryLoadPngReplacement(Common::String filename) const;

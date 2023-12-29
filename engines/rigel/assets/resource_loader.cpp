@@ -57,9 +57,6 @@
 #include <regex>
 
 
-//TODO: fix std::regex_match usage
-
-#if 0
 namespace Rigel {
 namespace assets {
 using namespace data;
@@ -105,22 +102,23 @@ Common::String replacementSpriteImageName(const int id, const int frame) {
 tl::optional<data::Image> loadReplacementTilesetIfPresent(
 	const Common::Path &resourcePath,
 	Common::String name) {
-	using namespace std::literals;
 
-	std::regex tilesetNameRegex{"^CZONE([0-9A-Z])\\.MNI$", std::regex::icase};
-	std::match_results<Common::String::const_iterator> matches;
+	if (name.size() == 9 &&
+		name.substr(0, 5) == "CZONE" &&
+		name.substr(name.size() - 4) == ".MNI")
 
-	if (
-		!std::regex_match(name.begin(), name.end(), matches, tilesetNameRegex) ||
-		matches.size() != 2) {
+	{
+
+		const Common::String number = name.substr(5, 1);
+
+		const Common::String replacementName = "tileset" + number + ".png";
+		const Common::Path replacementPath = resourcePath.join(replacementName, '/');
+
+		return loadPng(replacementPath);
+	} else {
 		return {};
+
 	}
-
-	const auto number = matches[1].str();
-	const auto replacementName = "tileset" s + number + ".png";
-	const auto replacementPath = resourcePath / replacementName;
-
-	return loadPng(replacementPath);
 }
 
 int asSoundIndex(const data::SoundId id) {
@@ -133,13 +131,13 @@ int asIntroSoundIndex(const data::SoundId id) {
 }
 
 Common::String digitizedSoundFilenameForId(const data::SoundId soundId) {
-	using namespace std::string_literals;
+	
 
 	if (data::isIntroSound(soundId)) {
-		return "INTRO" s + std::to_string(asIntroSoundIndex(soundId)) + ".MNI";
+		return "INTRO" + Common::String(asIntroSoundIndex(soundId)) + ".MNI";
 	}
 
-	return "SB_" s + std::to_string(asSoundIndex(soundId)) + ".MNI";
+	return "SB_" + Common::String(asSoundIndex(soundId)) + ".MNI";
 }
 
 #include "ultrawide_hud_image.ipp"
@@ -151,11 +149,13 @@ ResourceLoader::ResourceLoader(
 	Common::Path gamePath,
 	bool enableTopLevelMods,
 	std::vector<Common::Path> modPaths)
-	: mGamePath(std::move(gamePath)), mModPaths(std::move(modPaths)), mEnableTopLevelMods(enableTopLevelMods), mFilePackage(mGamePath / "NUKEM2.CMP"), mActorImagePackage(
+	: mGamePath(std::move(gamePath)), mModPaths(std::move(modPaths)), mEnableTopLevelMods(enableTopLevelMods), mFilePackage(mGamePath.join("NUKEM2.CMP",'/')), mActorImagePackage(
 																																						   file(ActorImagePackage::IMAGE_DATA_FILE),
 																																						   file(ActorImagePackage::ACTOR_INFO_FILE)) {
 }
 
+//TODO: fix std::invoke_result_t usage in resource_loader.hpp
+#if 0
 template<typename TryLoadFunc, typename T>
 tl::optional<T> ResourceLoader::tryLoadReplacement(TryLoadFunc &&tryLoad) const {
 	for (auto iPath = mModPaths.rbegin(); iPath != mModPaths.rend(); ++iPath) {
@@ -176,8 +176,9 @@ tl::optional<T> ResourceLoader::tryLoadReplacement(TryLoadFunc &&tryLoad) const 
 tl::optional<data::Image>
 ResourceLoader::tryLoadPngReplacement(Common::String filename) const {
 	return tryLoadReplacement(
-		[filename](const Common::Path &path) { return loadPng(path / filename); });
+		[filename](const Common::Path &path) { return loadPng(path.join(filename,'/')); });
 }
+#endif
 
 data::Image ResourceLoader::loadEmbeddedImageAsset(
 	const char *replacementName,
@@ -272,6 +273,7 @@ data::Palette16 ResourceLoader::loadPaletteFromFullScreenImage(
 	return load6bitPalette16(paletteStart, data.end());
 }
 
+#if 0
 ActorData ResourceLoader::loadActor(
 	data::ActorID id,
 	const data::Palette16 &palette) const {
@@ -293,18 +295,16 @@ ActorData ResourceLoader::loadActor(
 
 	return ActorData{actorInfo.mDrawIndex, std::move(images)};
 }
+#endif
 
 data::Image ResourceLoader::loadBackdrop(Common::String name) const {
-	using namespace std::literals;
+	
 
-	std::regex backdropNameRegex{"^DROP([0-9]+)\\.MNI$", std::regex::icase};
-	std::match_results<Common::String::const_iterator> matches;
+	if (name.size() == 8 && name.substr(0, 4) == "DROP" &&
+    name.substr(name.size() - 4) == ".MNI" ){
 
-	if (
-		std::regex_match(name.begin(), name.end(), matches, backdropNameRegex) &&
-		matches.size() == 2) {
-		const auto number = matches[1].str();
-		const auto replacementName = "backdrop" s + number + ".png";
+		const auto number = name.substr(4, 1);
+		const auto replacementName = "backdrop" + number + ".png";
 
 		if (const auto oReplacement = tryLoadPngReplacement(replacementName)) {
 			return *oReplacement;
@@ -313,7 +313,7 @@ data::Image ResourceLoader::loadBackdrop(Common::String name) const {
 
 	return loadTiledFullscreenImage(name);
 }
-
+#if 0
 TileSet ResourceLoader::loadCZone(Common::String name) const {
 	using namespace data;
 	using namespace map;
@@ -322,8 +322,7 @@ TileSet ResourceLoader::loadCZone(Common::String name) const {
 	const auto &data = file(name);
 	LeStreamReader attributeReader(
 		data.begin(), data.begin() + GameTraits::CZone::attributeBytesTotal);
-
-	vector<uint16_t> attributes;
+	std::vector<uint16_t> attributes;
 	attributes.reserve(GameTraits::CZone::numTilesTotal);
 	for (TileIndex index = 0; index < GameTraits::CZone::numTilesTotal; ++index) {
 		attributes.push_back(attributeReader.readU16());
@@ -332,7 +331,7 @@ TileSet ResourceLoader::loadCZone(Common::String name) const {
 			attributeReader.skipBytes(sizeof(uint16_t) * 4);
 		}
 	}
-
+	
 	const auto oReplacementImage =
 		tryLoadReplacement([name](const Common::Path &path) {
 			return loadReplacementTilesetIfPresent(path, name);
@@ -342,7 +341,7 @@ TileSet ResourceLoader::loadCZone(Common::String name) const {
 		return {
 			std::move(*oReplacementImage), TileAttributeDict{std::move(attributes)}};
 	}
-
+	
 	Image fullImage(
 		tilesToPixels(GameTraits::CZone::tileSetImageWidth),
 		tilesToPixels(GameTraits::CZone::tileSetImageHeight));
@@ -371,19 +370,21 @@ TileSet ResourceLoader::loadCZone(Common::String name) const {
 
 	return {std::move(fullImage), TileAttributeDict{std::move(attributes)}};
 }
-
+#endif
+#if 0
 data::Movie ResourceLoader::loadMovie(Common::String name) const {
 	// We don't use tryLoadReplacement here, because we don't look for movies
 	// in the top-level path.
 	for (auto iPath = mModPaths.rbegin(); iPath != mModPaths.rend(); ++iPath) {
-		const auto moddedFile = *iPath / Common::Path(name);
+		const auto moddedFile = *iPath.join(name, '/');
 		if (Common::File::exists(moddedFile)) {
 			return assets::loadMovie(loadFile(moddedFile));
 		}
 	}
 
-	return assets::loadMovie(loadFile(mGamePath / Common::Path(name)));
+	return assets::loadMovie(loadFile(mGamePath.join(name,'/')));
 }
+#endif
 
 data::Song ResourceLoader::loadMusic(Common::String name) const {
 	return assets::loadSong(file(name));
@@ -405,10 +406,9 @@ ResourceLoader::loadSoundBlasterSound(const data::SoundId id) const {
 
 std::vector<Common::Path>
 ResourceLoader::replacementSoundPaths(data::SoundId id) const {
-	using namespace std::literals;
+	
 
-	const auto expectedName =
-		"sound" s + std::to_string(static_cast<int>(id) + 1) + ".wav";
+	const Common::String expectedName = "sound" + Common::String(static_cast<int>(id) + 1) + ".wav";
 
 	auto result = std::vector<Common::Path>{};
 	result.reserve(mModPaths.size());
@@ -417,11 +417,15 @@ ResourceLoader::replacementSoundPaths(data::SoundId id) const {
 		mModPaths.rbegin(),
 		mModPaths.rend(),
 		std::back_inserter(result),
-		[&](const auto &path) { return path / expectedName; });
+		[&](const auto &path) { return path.join(expectedName,'/'); });
 
+
+	//TODO : fix ASSET_REPLACEMENTS_PATH usage
+	#if 0
 	if (mEnableTopLevelMods) {
 		result.push_back(mGamePath / ASSET_REPLACEMENTS_PATH / expectedName);
 	}
+	#endif
 
 	return result;
 }
@@ -431,9 +435,12 @@ ResourceLoader::replacementMusicBasePaths() const {
 	auto result =
 		std::vector<Common::Path>{mModPaths.rbegin(), mModPaths.rend()};
 
+	//TODO : fix ASSET_REPLACEMENTS_PATH usage
+	#if 0
 	if (mEnableTopLevelMods) {
 		result.push_back(mGamePath / ASSET_REPLACEMENTS_PATH);
 	}
+	#endif
 	return result;
 }
 
@@ -441,6 +448,9 @@ base::AudioBuffer ResourceLoader::loadSound(Common::String name) const {
 	return assets::decodeVoc(file(name));
 }
 
+
+//TODO: fix asText in file_utils.cpp  from std::string to Common::String
+#if 0
 ScriptBundle ResourceLoader::loadScriptBundle(Common::String fileName) const {
 	return assets::loadScripts(fileAsText(fileName));
 }
@@ -490,7 +500,6 @@ bool ResourceLoader::hasFile(Common::String name) const {
 
 	return mFilePackage.hasFile(name);
 }
-
+#endif
 } // namespace assets
 } // namespace Rigel
-#endif
