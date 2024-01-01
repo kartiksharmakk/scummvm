@@ -45,10 +45,8 @@
 #include "rigel/renderer/opengl.hpp"
 
 RIGEL_DISABLE_WARNINGS
-#if 0
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/mat4x4.hpp>
-#endif
+#include "rigel/3party/glm/gtc/type_ptr.hpp"
+#include "rigel/3party/glm/mat4x4.hpp"
 RIGEL_RESTORE_WARNINGS
 
 #include <functional>
@@ -56,7 +54,6 @@ RIGEL_RESTORE_WARNINGS
 #include <string>
 #include <unordered_map>
 
-#if 0
 namespace Rigel {
 namespace renderer {
 
@@ -193,4 +190,3 @@ base::ScopeGuard useTemporarily(const Shader &shader);
 
 } // namespace renderer
 } // namespace Rigel
-#endif

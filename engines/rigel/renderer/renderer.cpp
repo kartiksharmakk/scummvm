@@ -26,8 +26,8 @@
 #include "sdl_utils/error.hpp"
 
 RIGEL_DISABLE_WARNINGS
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/mat4x4.hpp>
+#include "rigel/3party/glm/gtc/matrix_transform.hpp"
+#include "rigel/3party/glm/mat4x4.hpp"
 RIGEL_RESTORE_WARNINGS
 
 #include <algorithm>

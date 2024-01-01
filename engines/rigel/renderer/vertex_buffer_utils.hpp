@@ -21,7 +21,7 @@
 
 RIGEL_DISABLE_WARNINGS
 #if 0
-#include <glm/vec2.hpp>
+#include "rigel/3party/glm/vec2.hpp"
 #endif
 RIGEL_RESTORE_WARNINGS
 

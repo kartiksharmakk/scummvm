@@ -23,7 +23,7 @@
 
 RIGEL_DISABLE_WARNINGS
 #if 0
-#include <glm/mat4x4.hpp>
+#include "rigel/3party/glm/mat4x4.hpp"
 #endif
 RIGEL_RESTORE_WARNINGS
 
