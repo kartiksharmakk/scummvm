@@ -36,7 +36,6 @@ MODULE_OBJS = \
 	frontend/json_utils.o \
 	frontend/menu_mode.o \
 	renderer/fps_limiter.o \
-	renderer/upscaling.o \
 	sdl_utils/platform.o \
 	sdl_utils/error.o \
 	ui/apogee_logo.o \

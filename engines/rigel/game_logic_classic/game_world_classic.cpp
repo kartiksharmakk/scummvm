@@ -47,7 +47,6 @@
 #include "rigel/frontend/game_service_provider.hpp"
 #include "rigel/frontend/user_profile.hpp"
 #include "rigel/game_logic_common/utils.hpp"
-#include "rigel/renderer/upscaling.hpp"
 #include "rigel/renderer/viewport_utils.hpp"
 
 #include "rigel/game_logic_classic/actors.h"

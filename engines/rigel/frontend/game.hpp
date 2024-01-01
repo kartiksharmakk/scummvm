@@ -30,7 +30,6 @@
 #include "renderer/fps_limiter.hpp"
 #include "renderer/renderer.hpp"
 #include "renderer/texture.hpp"
-#include "renderer/upscaling.hpp"
 #include "sdl_utils/ptr.hpp"
 #include "ui/duke_script_runner.hpp"
 #include "ui/fps_display.hpp"

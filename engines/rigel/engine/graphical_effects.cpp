@@ -20,7 +20,6 @@
 #include "data/game_traits.hpp"
 #include "renderer/renderer.hpp"
 #include "renderer/shader_code.hpp"
-#include "renderer/upscaling.hpp"
 #include "renderer/viewport_utils.hpp"
 
 #include <algorithm>

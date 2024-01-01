@@ -23,7 +23,6 @@
 #include "data/duke_script.hpp"
 #include "data/game_traits.hpp"
 #include "engine/timing.hpp"
-#include "renderer/upscaling.hpp"
 #include "ui/imgui_integration.hpp"
 
 #include "anti_piracy_screen_mode.hpp"

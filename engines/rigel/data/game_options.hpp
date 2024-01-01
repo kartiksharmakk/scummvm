@@ -91,13 +91,6 @@ enum class AdlibPlaybackType : std::uint8_t {
 	NukedOpl3
 };
 
-enum class UpscalingFilter : std::uint8_t {
-	None,
-	SharpBilinear,
-	PixelPerfect,
-	Bilinear,
-};
-
 enum class WidescreenHudStyle : std::uint8_t {
 	Classic,
 	Modern,
@@ -137,7 +130,6 @@ struct GameOptions {
 	int mMaxFps = 60;            // Only relevant when mEnableFpsLimit == true
 	bool mShowFpsCounter = false;
 	bool mEnableScreenFlashes = true;
-	UpscalingFilter mUpscalingFilter = UpscalingFilter::None;
 	bool mAspectRatioCorrectionEnabled = true;
 
 	// Sound
