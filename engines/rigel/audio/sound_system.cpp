@@ -48,8 +48,8 @@
 
 #if 0
 #include <loguru.hpp>
-#include <speex/speex_resampler.h>
 #endif
+#include "rigel/3party/speex_resampler/speex/speex_resampler.h"
 
 #include <algorithm>
 #include <cassert>
