@@ -25,7 +25,7 @@ RIGEL_DISABLE_WARNINGS
 #include <SDL_filesystem.h>
 #include <SDL_keyboard.h>
 #include "rigel/3party/loguru/loguru.hpp"
-#include <nlohmann/json.hpp>
+#include "rigel/3party/nlohmann/nlohmann/json.hpp"
 RIGEL_RESTORE_WARNINGS
 
 #include <array>
