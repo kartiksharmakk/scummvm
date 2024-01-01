@@ -54,7 +54,7 @@
 #include "rigel/game_logic_classic/game.h"
 
 #if 0
-#include <loguru.hpp>
+#include "rigel/3party/loguru/loguru.hpp"
 
 
 

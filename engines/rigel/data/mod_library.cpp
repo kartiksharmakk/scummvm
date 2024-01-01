@@ -18,7 +18,7 @@
 
 #include "base/container_utils.hpp"
 
-#include <loguru.hpp>
+#include "rigel/3party/loguru/loguru.hpp"
 
 #include <algorithm>
 #include <cassert>

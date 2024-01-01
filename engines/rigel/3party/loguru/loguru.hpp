@@ -58,14 +58,14 @@ Website: www.ilikebigbits.com
 	* Version 2.1.0 - 2019-09-23 - Update fmtlib + add option to loguru::init to NOT set main thread name.
 
 # Compiling
-	Just include <loguru.hpp> where you want to use Loguru.
+	Just include "rigel/3party/loguru/loguru.hpp" where you want to use Loguru.
 	Then, in one .cpp file #include <loguru.cpp>
 	Make sure you compile with -std=c++11 -lstdc++ -lpthread -ldl
 
 # Usage
 	For details, please see the official documentation at emilk.github.io/loguru
 
-	#include <loguru.hpp>
+	#include "rigel/3party/loguru/loguru.hpp"
 
 	int main(int argc, char* argv[]) {
 		loguru::init(argc, argv);

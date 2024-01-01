@@ -32,7 +32,7 @@ RIGEL_DISABLE_WARNINGS
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include <imgui.h>
-#include <loguru.hpp>
+#include "rigel/3party/loguru/loguru.hpp"
 RIGEL_RESTORE_WARNINGS
 
 #include <filesystem>

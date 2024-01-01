@@ -43,7 +43,7 @@
 #include <SDL_messagebox.h>
 
 RIGEL_DISABLE_WARNINGS
-#include <loguru.hpp>
+#include "rigel/3party/loguru/loguru.hpp"
 #include <lyra/lyra.hpp>
 RIGEL_RESTORE_WARNINGS
 

@@ -35,7 +35,7 @@
 
 RIGEL_DISABLE_WARNINGS
 #include <imgui.h>
-#include <loguru.hpp>
+#include "rigel/3party/loguru/loguru.hpp"
 RIGEL_RESTORE_WARNINGS
 
 #include <ctime>

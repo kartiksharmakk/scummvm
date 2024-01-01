@@ -46,9 +46,7 @@
 #include "rigel/base/string_utils.hpp"
 #include "rigel/sdl_utils/error.hpp"
 
-#if 0
-#include <loguru.hpp>
-#endif
+#include "rigel/3party/loguru/loguru.hpp"
 #include "rigel/3party/speex_resampler/speex/speex_resampler.h"
 
 #include <algorithm>

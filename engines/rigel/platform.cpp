@@ -18,7 +18,7 @@
 
 #include "sdl_utils/error.hpp"
 
-#include <loguru.hpp>
+#include "rigel/3party/loguru/loguru.hpp"
 
 
 namespace rigel::platform
