@@ -37,11 +37,12 @@ MODULE_OBJS = \
 	frontend/menu_mode.o \
 	renderer/custom_quad_batch.o \
 	renderer/fps_limiter.o \
+	renderer/opengl.o \
 	renderer/shader.o \
 	renderer/shader_code.o \
 	renderer/texture.o \
 	renderer/texture_atlas.o \
-	renderer/opengl.o \
+	renderer/viewport_utils.o \
 	sdl_utils/platform.o \
 	sdl_utils/error.o \
 	ui/apogee_logo.o \
