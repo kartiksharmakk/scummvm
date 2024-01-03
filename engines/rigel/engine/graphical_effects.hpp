@@ -73,11 +73,11 @@ public:
 	[[nodiscard]] auto bindBackgroundBuffer() { return mBackgroundBuffer.bind(); }
 	void drawBackgroundBuffer();
 
-	#if 0
+	
 	void drawWaterEffect(
 		base::ArrayView<WaterEffectArea> areas,
 		int surfaceAnimationStep);
-	#endif
+	
 	void drawCloakEffect(
 		renderer::TextureId textureId,
 		const renderer::TexCoords &texCoords,
@@ -85,9 +85,9 @@ public:
 
 private:
 	renderer::Renderer *mpRenderer;
-	#if 0
 	renderer::Shader mWaterEffectShader;
 	renderer::Shader mCloakEffectShader;
+	#if 0
 	renderer::CustomQuadBatch mBatch;
 	#endif
 	renderer::RenderTargetTexture mBackgroundBuffer;

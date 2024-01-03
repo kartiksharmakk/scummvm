@@ -31,6 +31,8 @@ MODULE_OBJS = \
 	data/tutorial_messages.o \
 	data/unit_conversions.o \
 	engine/collision_checker.o \
+	engine/graphical_effects.o \
+	engine/random_number_generator.o \
 	game_logic_classic/game_world_classic.o \
 	frontend/intro_demo_loop_mode.o \
 	frontend/json_utils.o \
