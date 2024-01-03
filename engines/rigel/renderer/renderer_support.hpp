@@ -93,10 +93,8 @@ inline TexCoords toTexCoords(
 using QuadVertices = std::array<float, 4 * (2 + 2)>;
 
 struct CustomQuadBatchData {
-	#if 0
 	base::ArrayView<TextureId> mTextures;
 	base::ArrayView<float> mVertexBuffer;
-	#endif
 	const Shader *mpShader;
 };
 

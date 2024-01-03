@@ -20,11 +20,10 @@
 #include "rigel/renderer/renderer_support.hpp"
 
 RIGEL_DISABLE_WARNINGS
-#if 0
 #include "rigel/3party/glm/vec2.hpp"
-#endif
-RIGEL_RESTORE_WARNINGS
 
+RIGEL_RESTORE_WARNINGS
+//TODO: fix base/static_vector
 #if 0
 namespace Rigel {
 namespace renderer {

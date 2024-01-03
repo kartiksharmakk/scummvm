@@ -39,6 +39,7 @@ MODULE_OBJS = \
 	renderer/shader.o \
 	renderer/shader_code.o \
 	renderer/opengl.o \
+	renderer/custom_quad_batch.o \
 	sdl_utils/platform.o \
 	sdl_utils/error.o \
 	ui/apogee_logo.o \

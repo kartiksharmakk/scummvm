@@ -124,9 +124,7 @@ public:
 	void drawCustomQuadBatch(const CustomQuadBatchData &batch);
 
 	void submitVertexBuffers(
-		#if 0
 		base::ArrayView<VertexBufferId> buffers,
-		#endif
 		TextureId texture);
 
 	/** Draw rectangle outline, 1 pixel wide
@@ -197,9 +195,7 @@ public:
 
 	// Resource management API
 	////////////////////////////////////////////////////////////////////////
-	#if 0
 	VertexBufferId createVertexBuffer(base::ArrayView<float> vertices);
-	#endif
 	void destroyVertexBuffer(const VertexBufferId buffer);
 
 	/** Create a texture
@@ -228,10 +224,8 @@ public:
 
 	TextureId createMonoTexture(
 		int width,
-		int height
-		#if 0
+		int height,
 		base::ArrayView<std::uint8_t> data
-		#endif
 	);
 
 	/** Destroy a previously created texture or render target
