@@ -1,3 +1,24 @@
+/* ScummVM - Graphic Adventure Engine
+ *
+ * ScummVM is the legal property of its developers, whose names
+ * are too numerous to list here. Please refer to the COPYRIGHT
+ * file distributed with this source distribution.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 /* Copyright (C) 2021, Nikolai Wuttke. All rights reserved.
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -14,27 +35,25 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "shader_code.hpp"
+#include "rigel/renderer/shader_code.hpp"
 
 #include <array>
 
+namespace Rigel {
+namespace renderer {
 
-namespace rigel::renderer
-{
+namespace {
 
-namespace
-{
+const char *FRAGMENT_SOURCE_SIMPLE = R"shd(
+	DEFAULT_PRECISION_DECLARATION
+		OUTPUT_COLOR_DECLARATION
 
-const char* FRAGMENT_SOURCE_SIMPLE = R"shd(
-DEFAULT_PRECISION_DECLARATION
-OUTPUT_COLOR_DECLARATION
-
-IN HIGHP vec2 texCoordFrag;
+			IN HIGHP vec2 texCoordFrag;
 
 uniform sampler2D textureData;
 
 void main() {
-  OUTPUT_COLOR = TEXTURE_LOOKUP(textureData, texCoordFrag);
+	OUTPUT_COLOR = TEXTURE_LOOKUP(textureData, texCoordFrag);
 }
 )shd";
 
@@ -52,18 +71,18 @@ uniform vec4 colorModulation;
 uniform bool enableRepeat;
 
 void main() {
-  HIGHP vec2 texCoords = texCoordFrag;
-  if (enableRepeat) {
-    texCoords.x = fract(texCoords.x);
-    texCoords.y = fract(texCoords.y);
-  }
+	HIGHP vec2 texCoords = texCoordFrag;
+	if (enableRepeat) {
+		texCoords.x = fract(texCoords.x);
+		texCoords.y = fract(texCoords.y);
+	}
 
-  vec4 baseColor = TEXTURE_LOOKUP(textureData, texCoords);
-  vec4 modulated = baseColor * colorModulation;
-  float targetAlpha = modulated.a;
+	vec4 baseColor = TEXTURE_LOOKUP(textureData, texCoords);
+	vec4 modulated = baseColor * colorModulation;
+	float targetAlpha = modulated.a;
 
-  OUTPUT_COLOR =
-    vec4(mix(modulated.rgb, overlayColor.rgb, overlayColor.a), targetAlpha);
+	OUTPUT_COLOR =
+		vec4(mix(modulated.rgb, overlayColor.rgb, overlayColor.a), targetAlpha);
 }
 )shd";
 
@@ -76,9 +95,9 @@ OUT vec4 colorFrag;
 uniform mat4 transform;
 
 void main() {
-  SET_POINT_SIZE(1.0);
-  gl_Position = transform * vec4(position, 0.0, 1.0);
-  colorFrag = color;
+	SET_POINT_SIZE(1.0);
+	gl_Position = transform * vec4(position, 0.0, 1.0);
+	colorFrag = color;
 }
 )shd";
 
@@ -89,18 +108,16 @@ OUTPUT_COLOR_DECLARATION
 IN vec4 colorFrag;
 
 void main() {
-  OUTPUT_COLOR = colorFrag;
+	OUTPUT_COLOR = colorFrag;
 }
 )shd";
 
-
-constexpr auto TEXTURED_QUAD_TEXTURE_UNIT_NAMES = std::array{"textureData"};
+constexpr auto TEXTURED_QUAD_TEXTURE_UNIT_NAMES = std::array<const char*,1>{"textureData"};
 
 } // namespace
 
-
-const char* STANDARD_VERTEX_SOURCE = R"shd(
-ATTRIBUTE HIGHP vec2 position;
+const char *STANDARD_VERTEX_SOURCE = R"shd(
+	ATTRIBUTE HIGHP vec2 position;
 ATTRIBUTE HIGHP vec2 texCoord;
 
 OUT HIGHP vec2 texCoordFrag;
@@ -108,8 +125,8 @@ OUT HIGHP vec2 texCoordFrag;
 uniform mat4 transform;
 
 void main() {
-  gl_Position = transform * vec4(position, 0.0, 1.0);
-  texCoordFrag = vec2(texCoord.x, 1.0 - texCoord.y);
+	gl_Position = transform * vec4(position, 0.0, 1.0);
+	texCoordFrag = vec2(texCoord.x, 1.0 - texCoord.y);
 }
 )shd";
 
@@ -120,18 +137,17 @@ const ShaderSpec TEXTURED_QUAD_SHADER{
   STANDARD_VERTEX_SOURCE,
   FRAGMENT_SOURCE};
 
-
 const ShaderSpec SIMPLE_TEXTURED_QUAD_SHADER{
-  VertexLayout::PositionAndTexCoords,
-  TEXTURED_QUAD_TEXTURE_UNIT_NAMES,
-  STANDARD_VERTEX_SOURCE,
-  FRAGMENT_SOURCE_SIMPLE};
-
+	VertexLayout::PositionAndTexCoords,
+	TEXTURED_QUAD_TEXTURE_UNIT_NAMES,
+	STANDARD_VERTEX_SOURCE,
+	FRAGMENT_SOURCE_SIMPLE};
 
 const ShaderSpec SOLID_COLOR_SHADER{
-  VertexLayout::PositionAndColor,
-  {},
-  VERTEX_SOURCE_SOLID,
-  FRAGMENT_SOURCE_SOLID};
+	VertexLayout::PositionAndColor,
+	{},
+	VERTEX_SOURCE_SOLID,
+	FRAGMENT_SOURCE_SOLID};
 
-} // namespace rigel::renderer
+} // namespace renderer
+} // namespace Rigel

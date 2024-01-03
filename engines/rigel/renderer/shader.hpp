@@ -47,6 +47,7 @@
 RIGEL_DISABLE_WARNINGS
 #include "rigel/3party/glm/gtc/type_ptr.hpp"
 #include "rigel/3party/glm/mat4x4.hpp"
+#include "rigel/3party/glm/gtc/matrix_transform.hpp"
 RIGEL_RESTORE_WARNINGS
 
 #include <functional>
