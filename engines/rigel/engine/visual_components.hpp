@@ -83,10 +83,8 @@ struct SpriteFrame {
 
 struct SpriteDrawData {
 	std::vector<SpriteFrame> mFrames;
-	#if 0
 	base::ArrayView<int> mVirtualToRealFrameMap;
 	tl::optional<int> mOrientationOffset;
-	#endif
 	int mDrawOrder;
 };
 
@@ -104,10 +102,8 @@ int virtualToRealFrame(
 
 int virtualToRealFrame(
 	const int virtualFrame,
-	const SpriteDrawData &drawData
-	#if 0
+	const SpriteDrawData &drawData,
 	const tl::optional<components::Orientation> &orientation
-	#endif
 	);
 
 namespace components {
@@ -172,7 +168,6 @@ struct Sprite {
 
 		std::int8_t mFrame = IGNORE_RENDER_SLOT;
 	};
-	#if 0
 	Sprite() = default;
 	Sprite(
 		const SpriteDrawData *pDrawData,
@@ -184,7 +179,6 @@ struct Sprite {
 			++index;
 		}
 	}
-	#endif
 	void flashWhite() { mFlashingWhiteStates.set(); }
 
 	void flashWhite(const int renderSlot) {
@@ -241,15 +235,16 @@ struct OverrideDrawOrder {
 	int mDrawOrder;
 };
 
-#if 0
+
 struct AnimationLoop {
 	AnimationLoop() = default;
+	#if 0
 	explicit AnimationLoop(
 		const int delayInFrames,
 		tl::optional<int> endFrame = std::nullopt)
 		: AnimationLoop(delayInFrames, 0, endFrame) {
 	}
-
+	#endif
 	AnimationLoop(
 		const int delayInFrames,
 		const int startFrame,
@@ -278,7 +273,7 @@ struct AnimationSequence {
 	int mRenderSlot = 0;
 	bool mRepeat = false;
 };
-#endif
+
 } // namespace components
 } // namespace engine
 } // namespace Rigel
