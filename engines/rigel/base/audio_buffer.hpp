@@ -13,6 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -26,6 +27,7 @@ namespace base {
 using Sample = std::int16_t;
 
 /** Mono, 16-bit signed little-endian PCM */
+#include "rigel/rigel.h"
 struct AudioBuffer {
 	int mSampleRate;
 	std::vector<Sample> mSamples;

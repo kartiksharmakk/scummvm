@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#include "rigel/rigel.h"
 
 
 
@@ -39,12 +40,14 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
 /* This file defines macros which can be used to temporarily disable compiler
  * warnings. This is mainly useful when including 3rd party headers.
  */
+#include "rigel/rigel.h"
 
 #if defined(_MSC_VER)
 
@@ -53,11 +56,13 @@
     __pragma(warning(disable : 4244))                                          \
     __pragma(warning(disable : 4706))                                          \
     /**/
+#include "rigel/rigel.h"
 
   #define RIGEL_DISABLE_CLASSIC_CODE_WARNINGS                                  \
     __pragma(warning(push))                                                    \
     __pragma(warning(disable : 4706))                                          \
     /**/
+#include "rigel/rigel.h"
 
   #define RIGEL_RESTORE_WARNINGS __pragma(warning(pop))
 
@@ -94,12 +99,14 @@
     _Pragma("clang diagnostic ignored \"-Wextra-semi-stmt\"")                    \
     _Pragma("clang diagnostic ignored \"-Wsuggest-override\"")                   \
     /**/
+#include "rigel/rigel.h"
 
   #define RIGEL_DISABLE_CLASSIC_CODE_WARNINGS                                  \
     _Pragma("clang diagnostic push")                                           \
     _Pragma("clang diagnostic ignored \"-Wconversion\"")                       \
     _Pragma("clang diagnostic ignored \"-Wcast-align\"")                       \
     /**/
+#include "rigel/rigel.h"
 
   #define RIGEL_RESTORE_WARNINGS _Pragma("clang diagnostic pop")
 
@@ -110,10 +117,12 @@
     _Pragma("GCC diagnostic ignored \"-Wpedantic\"")                           \
     _Pragma("GCC diagnostic ignored \"-Wimplicit-fallthrough\"")               \
     /**/
+#include "rigel/rigel.h"
 
   #define RIGEL_DISABLE_CLASSIC_CODE_WARNINGS                                  \
     _Pragma("GCC diagnostic push")                                             \
     /**/
+#include "rigel/rigel.h"
 
   #define RIGEL_RESTORE_WARNINGS _Pragma("GCC diagnostic pop")
 

@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#include "rigel/rigel.h"
 
 
 /* Copyright (C) 2016, Nikolai Wuttke. All rights reserved.
@@ -35,6 +36,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -119,6 +121,7 @@ public:
 	void takeDamage(int amount);
 
 	/** Immediately set health to 0 */
+#include "rigel/rigel.h"
 	void takeFatalDamage();
 	void giveHealth(int amount);
 
@@ -136,6 +139,7 @@ public:
    *
    * This implements the "eat" cheat code.
    */
+#include "rigel/rigel.h"
 	void resetHealthAndScore();
 
 	TutorialMessageState &tutorialMessages();

@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#include "rigel/rigel.h"
 
 
 
@@ -36,6 +37,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -91,6 +93,7 @@ public:
    * screen. The game world should be rendered before rendering the menu, in
    * order to make the menu appear overlaid on top of the gameplay.
    */
+#include "rigel/rigel.h"
 	bool isTransparent() const;
 
 	void handleEvent(const SDL_Event &event);

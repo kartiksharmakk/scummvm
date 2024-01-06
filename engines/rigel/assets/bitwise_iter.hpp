@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#include "rigel/rigel.h"
 
 
 
@@ -37,6 +38,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -52,6 +54,7 @@ namespace assets {
  * iterator, it can be used in multi-pass algorithms, even though it doesn't
  * satisfy the requirements for ForwardIterator.
  */
+#include "rigel/rigel.h"
 template<typename OriginalIterType>
 class BitWiseIterator {
 public:

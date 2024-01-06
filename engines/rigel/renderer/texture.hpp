@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#include "rigel/rigel.h"
 
 
 /* Copyright (C) 2016, Nikolai Wuttke. All rights reserved.
@@ -35,6 +36,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -55,6 +57,7 @@ class Shader;
  * provided by the Renderer class. It automatically manages life-time
  * and offers convenient drawing functions for various use cases.
  */
+#include "rigel/rigel.h"
 class Texture {
 public:
 	Texture() = default;
@@ -84,9 +87,11 @@ public:
 	Texture &operator=(const Texture &) = delete;
 
 	/** Render entire texture at given position */
+#include "rigel/rigel.h"
 	void render(const base::Vec2 &position) const;
 
 	/** Render entire texture at given position */
+#include "rigel/rigel.h"
 	void render(int x, int y) const;
 
 	/** Render a part of the texture at given position
@@ -97,6 +102,7 @@ public:
    * can be larger than the texture itself, which will cause the texture
    * to be drawn multiple times (repeated).
    */
+#include "rigel/rigel.h"
 	void
 	render(const base::Vec2 &position, const base::Rect<int> &sourceRect) const;
 
@@ -182,6 +188,7 @@ void drawWithCustomShader(
  * Once the outermost scope's binding is destroyed, the default render target
  * will be active again (i.e. drawing to the screen)
  */
+#include "rigel/rigel.h"
 class RenderTargetTexture : public Texture {
 public:
 	RenderTargetTexture() = default;

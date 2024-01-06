@@ -13,6 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -35,6 +36,7 @@ public:
    * shown. If it returns a number, it will be used to set the new frame delay
    * for all subsequent frames.
    */
+#include "rigel/rigel.h"
 
 	
 	using FrameCallbackFunc = std::function<tl::optional<int>(int)>;

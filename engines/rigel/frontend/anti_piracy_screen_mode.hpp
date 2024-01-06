@@ -13,6 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -28,6 +29,7 @@ namespace rigel
  * Shows the anti-piracy screen (LCR.MNI) until any key is pressed, then
  * switches to Intro/Demo loop.
  */
+#include "rigel/rigel.h"
 class AntiPiracyScreenMode : public GameMode
 {
 public:

@@ -13,6 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -43,11 +44,13 @@ struct InterpolateMotion {
  * active if their bounding box intersects the active region, i.e. they are
  * visible on screen.
  * */
+#include "rigel/rigel.h"
 struct Active {
 	bool mIsOnScreen = true;
 };
 
 /** Specifies when to activate entity */
+#include "rigel/rigel.h"
 struct ActivationSettings {
 	enum class Policy {
 		// Entity is always active

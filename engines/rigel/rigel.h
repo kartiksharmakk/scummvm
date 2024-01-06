@@ -21,6 +21,7 @@
 
 #ifndef RIGEL_H
 #define RIGEL_H
+#define FORBIDDEN_SYMBOL_ALLOW_ALL
 
 #include "common/scummsys.h"
 #include "common/system.h"

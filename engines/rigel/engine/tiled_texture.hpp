@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#include "rigel/rigel.h"
 
 
 
@@ -36,6 +37,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -64,12 +66,15 @@ public:
 	renderer::QuadVertices generateVertices(int index, int posX, int posY) const;
 
 	/** Renders the given tile plus the one below it (vertical slice) */
+#include "rigel/rigel.h"
 	void renderTileSlice(int baseIndex, const base::Vec2 &tlPosition) const;
 
 	/** Renders two adjacent slices (4x4 group of tiles) */
+#include "rigel/rigel.h"
 	void renderTileQuad(int baseIndex, const base::Vec2 &tlPosition) const;
 
 	/** Renders two adjacent quads (8x4 group of tiles) */
+#include "rigel/rigel.h"
 	void renderTileDoubleQuad(int baseIndex, const base::Vec2 &tlPosition) const;
 
 	void renderTileAtPixelPos(int index, const base::Vec2 &pxPosition) const;

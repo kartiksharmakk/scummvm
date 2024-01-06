@@ -13,6 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -34,6 +35,7 @@ namespace rigel::sdl_utils
  * always returns the left variant for any of these keys. Other key codes
  * are returned unchanged.
  */
+#include "rigel/rigel.h"
 inline SDL_Keycode normalizeLeftRightVariants(const SDL_Keycode keyCode)
 {
   if (keyCode == SDLK_RCTRL)

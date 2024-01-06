@@ -13,6 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -57,6 +58,7 @@ struct MovingBody {
 	/** When set, the body will move through walls, but collision events will
    * still be emitted.
    */
+#include "rigel/rigel.h"
 	bool mIgnoreCollisions;
 	bool mIsActive = true;
 };
@@ -64,6 +66,7 @@ struct MovingBody {
 /** Marker component which is added to all entities that had a collision with
  * the level geometry on the last physics update.
  */
+#include "rigel/rigel.h"
 struct CollidedWithWorld {
 };
 
@@ -72,6 +75,7 @@ struct CollidedWithWorld {
  * Other MovingBody entities will collide against the bounding box of any
  * SolidBody entity as if it were part of the world.
  * */
+#include "rigel/rigel.h"
 struct SolidBody {
 };
 

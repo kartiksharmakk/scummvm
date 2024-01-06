@@ -13,6 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -39,6 +40,7 @@ namespace rigel
  *   * if a property is an array, it must have the same number of elements in
  *     both JSON trees.
  */
+#include "rigel/rigel.h"
 nlohmann::json merge(nlohmann::json base, nlohmann::json extension);
 
 } // namespace rigel

@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#include "rigel/rigel.h"
 
 
 
@@ -36,6 +37,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -61,6 +63,7 @@ using TextureId = std::uint32_t;
  * enabled. Use the toTexCoords() helper function to create these from
  * a source rectangle.
  */
+#include "rigel/rigel.h"
 struct TexCoords {
 	float left;
 	float top;
@@ -75,6 +78,7 @@ struct TexCoords {
  * coordinates, like e.g. "from 8,8 to 32,64". This helper function
  * converts from the latter to the former.
  */
+#include "rigel/rigel.h"
 inline TexCoords toTexCoords(
 	const base::Rect<int> &sourceRect,
 	const int texWidth,

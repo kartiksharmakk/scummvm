@@ -13,6 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -52,6 +53,7 @@ void removeSafely(entityx::Entity entity)
 
 
 /** Like Entity::assign, but first removes the component if already present. */
+#include "rigel/rigel.h"
 template <typename ComponentT, typename... Args>
 void reassign(entityx::Entity entity, Args&&... args)
 {
@@ -74,6 +76,7 @@ inline bool isOnScreen(const entityx::Entity entity)
  * off screen. This function resets their activation. This means that they will
  * be back to inactive until they come on-screen again.
  */
+#include "rigel/rigel.h"
 inline void resetActivation(entityx::Entity entity)
 {
   removeSafely<components::Active>(entity);

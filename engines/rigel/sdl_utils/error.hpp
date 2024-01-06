@@ -13,6 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -26,6 +27,7 @@ namespace sdl_utils {
 class Error : public std::runtime_error {
 public:
 	/** Will call SDL_GetError() to determine message */
+#include "rigel/rigel.h"
 	Error();
 
 	explicit Error(const std::string &message);

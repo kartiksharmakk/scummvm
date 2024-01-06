@@ -13,6 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -59,6 +60,7 @@ class CollisionChecker;
  *
  * For directly moving entities, the functions in movement.hpp should be used.
  */
+#include "rigel/rigel.h"
 class PhysicsSystem : public entityx::Receiver<PhysicsSystem>
 {
 public:
@@ -72,6 +74,7 @@ public:
    * Processes physics for all entities with the required components which
    * exist at the time of the call.
    */
+#include "rigel/rigel.h"
   void update(entityx::EntityManager& es);
 
   /** Process currently existing entities
@@ -80,6 +83,7 @@ public:
    * exist at the time of the call. Starts collecting entities
    * for the 2nd phase.
    */
+#include "rigel/rigel.h"
   void updatePhase1(entityx::EntityManager& es);
 
   /** Process entities spawned after phase 1
@@ -88,6 +92,7 @@ public:
    * the right components after the call to updatePhase1().
    * Stops collecting.
    */
+#include "rigel/rigel.h"
   void updatePhase2(entityx::EntityManager& es);
 
   void

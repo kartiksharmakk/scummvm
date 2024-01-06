@@ -13,6 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -31,6 +32,7 @@ namespace renderer {
  * large texture. We can then draw individual images by using the
  * corresponding part of the large texture.
  */
+#include "rigel/rigel.h"
 class TextureAtlas {
 public:
 	struct DrawData {
@@ -47,6 +49,7 @@ public:
    * to address these images when drawing: The first image in the list is
    * referenced by index 0, the 2nd one by index 1, etc.
    */
+#include "rigel/rigel.h"
 	TextureAtlas(Renderer *pRenderer, const std::vector<data::Image> &images);
 
 	/** Draw image from atlas at given location
@@ -54,6 +57,7 @@ public:
    * The index parameter corresponds to the index in the list given on
    * construction.
    */
+#include "rigel/rigel.h"
 	void draw(int index, const base::Rect<int> &destRect) const;
 
 	/** Draw (part of) image from atlas at given location
@@ -61,6 +65,7 @@ public:
    * Like the other overload of draw(), but allows specifying a source
    * rectangle to draw just a part of the specified image.
    */
+#include "rigel/rigel.h"
 	void draw(
 		int index,
 		const base::Rect<int> &srcRect,

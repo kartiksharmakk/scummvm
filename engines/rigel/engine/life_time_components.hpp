@@ -13,6 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -25,6 +26,7 @@ namespace rigel::engine::components
 {
 
 /** Marks entity to be destroyed when some condition is fulfilled */
+#include "rigel/rigel.h"
 struct AutoDestroy
 {
   enum class Condition

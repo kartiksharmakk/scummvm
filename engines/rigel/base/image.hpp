@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#include "rigel/rigel.h"
 
 
 
@@ -40,6 +41,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -63,6 +65,7 @@ using PixelBuffer = std::vector<Pixel>;
  *
  * Always RGBA, 8-bit to keep things simple.
  */
+#include "rigel/rigel.h"
 class Image {
 public:
 	Image(PixelBuffer &&pixels, std::size_t width, std::size_t height);

@@ -13,6 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "rigel/rigel.h"
 
 #pragma once
 
@@ -32,6 +33,7 @@ namespace rigel
  * restarting the game in case the user switches to a different game path from
  * the options menu.
  */
+#include "rigel/rigel.h"
 int gameMain(const CommandLineOptions& options);
 
 } // namespace rigel
