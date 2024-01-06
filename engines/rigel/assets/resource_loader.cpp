@@ -36,11 +36,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define FORBIDDEN_SYMBOL_ALLOW_ALL
-
-#include "common/file.h"
 #include "rigel/assets/resource_loader.hpp"
-
 #include "rigel/assets/ega_image_decoder.hpp"
 #include "rigel/assets/file_utils.hpp"
 #include "rigel/assets/movie_loader.hpp"

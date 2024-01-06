@@ -40,9 +40,6 @@
 
 #pragma once
 
-#define FORBIDDEN_SYMBOL_ALLOW_ALL
-
-#include "common/path.h"
 #include "rigel/base/array_view.hpp"
 #include "rigel/base/image.hpp"
 #include "rigel/3party/tloptional/include/tl/optional.hpp"

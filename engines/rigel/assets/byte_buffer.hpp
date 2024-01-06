@@ -16,7 +16,6 @@
 #include "rigel/rigel.h"
 
 #pragma once
-#define FORBIDDEN_SYMBOL_ALLOW_ALL
 
 #include <cstdint>
 #include <vector>

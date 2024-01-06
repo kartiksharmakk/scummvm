@@ -40,10 +40,6 @@
 
 #pragma once
 
-#define FORBIDDEN_SYMBOL_ALLOW_ALL
-
-#include "common/path.h"
-#include "common/debug.h"
 #include "rigel/assets/actor_image_package.hpp"
 #include "rigel/assets/cmp_file_package.hpp"
 #include "rigel/assets/duke_script_loader.hpp"
