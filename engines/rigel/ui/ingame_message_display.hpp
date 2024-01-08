@@ -89,7 +89,6 @@ private:
 	State mState;
 	#endif
 	std::string mMessage;
-	// TODO: Use a string_view instead of a second string once upgraded to C++ 17
 	std::string mPrintedMessage;
 	MessagePriority mCurrentPriority = MessagePriority::Normal;
 

@@ -83,9 +83,8 @@ void skipWhiteSpace(istream &sourceStream) {
 	}
 }
 
-//TODO string_view
-#if 0
-bool isCommand(string_view line) {
+
+bool isCommand(string line) {
 	return strings::startsWith(line, "//");
 }
 
@@ -93,7 +92,7 @@ void stripCommandPrefix(string &line) {
 	strings::trimLeft(line, "/");
 }
 
-
+#if 0
 template<typename Callable>
 void parseScriptLines(
 	istream &sourceTextStream,
@@ -270,7 +269,7 @@ vector<Action> parseTextCommandWithBigText(
 	return textActions;
 }
 
-Action parseDrawSpriteCommand(const int x, const int y, string_view source) {
+Action parseDrawSpriteCommand(const int x, const int y, string source) {
 	if (source.size() < 5) {
 		throw invalid_argument("Corrupt Duke Script file");
 	}

@@ -38,14 +38,8 @@
  */
 
 #include "rigel/sdl_utils/platform.hpp"
-
-
 //TODO : sdl_video showing compilation errors
 #include <SDL_video.h>
-
-
-//TODO: string_view only available in C++17
-
 #include <string>
 
 

@@ -61,13 +61,9 @@ std::string levelFileName(const int episode, const int level);
 
 data::map::TileIndex convertTileIndex(const uint16_t rawIndex);
 
-
-//TODO fix string_view usage
-#if 0
 data::map::LevelData loadLevel(
 	std::string mapName,
 	const ResourceLoader &resources,
 	data::Difficulty chosenDifficulty);
-#endif
 } // namespace assets
 } // namespace Rigel

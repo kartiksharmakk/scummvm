@@ -76,8 +76,8 @@ public:
     const assets::ResourceLoader& resources);
 
 
-  //TODO string_view usage need to be replaced with scummvm derivative
-  #if 0
+
+
 
   void drawText(int x, int y, std::string text) const;
   void drawSmallWhiteText(int x, int y, std::string text) const;
@@ -89,8 +89,6 @@ public:
   void drawCheckBox(int x, int y, bool isChecked) const;
 
   void drawBonusScreenText(int x, int y, std::string text) const;
-
-  #endif
 
   /** Draw message box frame at given position, with slide-in animation
    *

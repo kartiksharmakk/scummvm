@@ -69,7 +69,7 @@ class ResourceLoader;
 namespace Rigel {
 namespace ui {
 
-	//TODO fix imgui and string_view usage 
+	//TODO fix imgui
 	#if 0
 ImU32 toImgui(const base::Color &color);
 

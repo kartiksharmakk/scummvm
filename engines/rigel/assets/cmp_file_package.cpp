@@ -51,10 +51,6 @@
 namespace Rigel {
 namespace assets {
 using namespace std;
-
-
-//TODO need to fix string_view and filesystem to a scummvm derivative before fixing this.
-
 namespace {
 
 std::string normalizedFileName(std::string fileName) {
