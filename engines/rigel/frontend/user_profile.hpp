@@ -51,7 +51,6 @@ constexpr auto USER_PROFILE_FILE_EXTENSION = ".rigel";
  * types used within one of those types, you need to adapt the serialization
  * and deserialization code in the implementation of this class!
  */
-#include "rigel/rigel.h"
 #if 0
 class UserProfile
 {
@@ -64,7 +63,6 @@ public:
   void saveToDisk();
 
   /** Returns true if the profile contains saved games and/or high scores */
-#include "rigel/rigel.h"
   bool hasProgressData() const;
 
   data::SaveSlotArray mSaveSlots;
@@ -94,7 +92,6 @@ UserProfile createEmptyUserProfile();
  * Note that the name of the profile file is an implementation detail of this
  * function, and you normally don't need to care.
  */
-#include "rigel/rigel.h"
 #if 0
 tl::optional<UserProfile> loadUserProfile();
 #endif
@@ -104,13 +101,11 @@ tl::optional<UserProfile> loadUserProfile();
  * Duke Nukem II formats found at the given game path. Overwrites the contents
  * of the passed in profile, so best used on an empty one.
  */
-#include "rigel/rigel.h"
 void importOriginalGameProfileData(
   UserProfile& profile,
   const std::string& gamePath);
 
 /** Loads existing profile if found, creates a new one otherwise. */
-#include "rigel/rigel.h"
 UserProfile loadOrCreateUserProfile();
 
 
@@ -125,7 +120,6 @@ UserProfile loadOrCreateUserProfile();
  * path cannot be determined due to an error, and empty optional will be
  * returned instead.
  */
-#include "rigel/rigel.h"
 #if 0
 tl::optional<std::filesystem::path> createOrGetPreferencesPath();
 #endif

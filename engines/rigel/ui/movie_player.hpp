@@ -36,7 +36,6 @@ public:
    * shown. If it returns a number, it will be used to set the new frame delay
    * for all subsequent frames.
    */
-#include "rigel/rigel.h"
 
 	
 	using FrameCallbackFunc = std::function<tl::optional<int>(int)>;

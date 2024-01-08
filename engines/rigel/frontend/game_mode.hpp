@@ -18,10 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
-
-
-
 
 /* Copyright (C) 2016, Nikolai Wuttke. All rights reserved.
  *
@@ -82,7 +78,6 @@ class DukeScriptRunner;
 struct GameMode
 {
   /** Contains everything a mode needs */
-#include "rigel/rigel.h"
   struct Context
   {
     const assets::ResourceLoader* mpResources;

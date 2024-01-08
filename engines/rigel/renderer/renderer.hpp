@@ -19,8 +19,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
-
 
 /* Copyright (C) 2016, Nikolai Wuttke. All rights reserved.
  *
@@ -76,7 +74,6 @@ constexpr auto INVALID_VERTEX_BUFFER_ID = VertexBufferId(0);
  * A valid OpenGL context must be created before instantiating this
  * class.
  */
-#include "rigel/rigel.h"
 class Renderer {
 public:
 	explicit Renderer(SDL_Window *pWindow);
@@ -108,7 +105,6 @@ public:
    * For best efficiency, consider using a renderer::TextureAtlas to
    * combine multiple images into a single texture.
    */
-#include "rigel/rigel.h"
 	void drawTexture(
 		TextureId texture,
 		const TexCoords &sourceRect,
@@ -123,7 +119,6 @@ public:
    * Position is modified by the current global scale and translation.
    * Color modulation and overlay color are ignored.
    */
-#include "rigel/rigel.h"
 	void drawPoint(const base::Vec2 &position, const base::Color &color);
 
 	void drawCustomQuadBatch(const CustomQuadBatchData &batch);
@@ -141,7 +136,6 @@ public:
    * and translation.
    * Color modulation and overlay color are ignored.
    */
-#include "rigel/rigel.h"
 	void drawRectangle(const base::Rect<int> &rect, const base::Color &color);
 
 	/** Draw filled rectangle
@@ -153,7 +147,6 @@ public:
    * and translation.
    * Color modulation and overlay color are ignored.
    */
-#include "rigel/rigel.h"
 	void
 	drawFilledRectangle(const base::Rect<int> &rect, const base::Color &color);
 
@@ -166,7 +159,6 @@ public:
    * translation.
    * Color modulation and overlay color are ignored.
    */
-#include "rigel/rigel.h"
 	void drawLine(
 		const base::Vec2 &start,
 		const base::Vec2 &end,
@@ -175,11 +167,9 @@ public:
 	}
 
 	/** Convenience overload for drawLine() */
-#include "rigel/rigel.h"
 	void drawLine(int x1, int y1, int x2, int y2, const base::Color &color);
 
 	/** Fill screen/render target with solid color */
-#include "rigel/rigel.h"
 	void clear(const base::Color &clearColor = {0, 0, 0, 255});
 
 	/** Display current frame on screen
@@ -190,7 +180,6 @@ public:
    *
    * Use SDL_GL_SetSwapInterval to configure V-Sync.
    */
-#include "rigel/rigel.h"
 	void swapBuffers();
 
 	/** Explicitly submit any pending draw calls to OpenGL
@@ -202,7 +191,6 @@ public:
    * when combining it with independent rendering code like a UI
    * library, you can use it to explicitly trigger submission.
    */
-#include "rigel/rigel.h"
 	void submitBatch();
 
 	// Resource management API
@@ -222,7 +210,6 @@ public:
    * When a texture is no longer needed, it must be destroyed using
    * destroyTexture().
    */
-#include "rigel/rigel.h"
 	TextureId createTexture(const data::Image &image);
 
 	/** Create a render target texture
@@ -233,7 +220,6 @@ public:
    * Like createTexture, but the resulting texture can be bound as a
    * render target using setRenderTarget().
    */
-#include "rigel/rigel.h"
 	TextureId createRenderTargetTexture(int width, int height);
 
 	TextureId createMonoTexture(
@@ -247,7 +233,6 @@ public:
    * This is a low-level API. Using the Texture and RenderTarget classes
    * instead is recommended for most use cases.
    */
-#include "rigel/rigel.h"
 	void destroyTexture(TextureId texture);
 
 	void setFilteringEnabled(TextureId texture, bool enabled);
@@ -270,7 +255,6 @@ public:
    * It's recommended to use the saveState() helper function, which
    * guarantees this.
    */
-#include "rigel/rigel.h"
 	void pushState();
 
 	/** Restore last saved state snapshot
@@ -279,11 +263,9 @@ public:
    * Does only interrupt the current batch if the restored snapshot
    * is different from the current state.
    */
-#include "rigel/rigel.h"
 	void popState();
 
 	/** Reset all state to default values */
-#include "rigel/rigel.h"
 	void resetState();
 
 	/** Set color to overlay on top of texture colors
@@ -301,7 +283,6 @@ public:
    * _Note_: Using a non-default overlay color causes a more
    * expensive shader to be used.
    */
-#include "rigel/rigel.h"
 	void setOverlayColor(const base::Color &color);
 
 	/** Set color to multiply texture colors by
@@ -317,7 +298,6 @@ public:
    * _Note_: Using a non-default color modulation causes a more
    * expensive shader to be used.
    */
-#include "rigel/rigel.h"
 	void setColorModulation(const base::Color &colorModulation);
 
 	/** Enable/disable texture repeat for drawTexture()
@@ -339,7 +319,6 @@ public:
    * _Note_: Enabling repeat causes a more
    * expensive shader to be used.
    */
-#include "rigel/rigel.h"
 	void setTextureRepeatEnabled(bool enable);
 
 	/** Set offset to be added to all coordinates before rendering
@@ -357,7 +336,6 @@ public:
    * without modifying the code. E.g. drawing the same UI multiple
    * times at different locations.
    */
-#include "rigel/rigel.h"
 	void setGlobalTranslation(const base::Vec2 &translation);
 
 	/** Set scale factor to be applied to all coordinates before rendering
@@ -378,7 +356,6 @@ public:
    * screen resolution, without needing the client code to be aware of
    * this. Also see upscaling_utils.hpp.
    */
-#include "rigel/rigel.h"
 	void setGlobalScale(const base::Vec2f &scale);
 
 	/** Set clipping rectangle to constrain rendering
@@ -389,7 +366,6 @@ public:
    * other words, only pixels contained in the rectangle are actually
    * drawn, everything outside the rectangle remains unchanged.
    */
-#include "rigel/rigel.h"
 
 
 	
@@ -408,7 +384,6 @@ public:
    * A texture id of 0 binds the default render target, i.e. the
    * screen.
    */
-#include "rigel/rigel.h"
 	void setRenderTarget(TextureId target);
 
 	data::Image grabCurrentFramebuffer();
@@ -430,7 +405,6 @@ private:
  * Use this to snapshot the current renderer state, and automatically
  * restore it when leaving the current scope.
  */
-#include "rigel/rigel.h"
 [[nodiscard]] inline auto saveState(Renderer *pRenderer) {
 	pRenderer->pushState();
 	return base::defer([=]() { pRenderer->popState(); });

@@ -18,8 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
-
 
 /* Copyright (C) 2016, Nikolai Wuttke. All rights reserved.
  *
@@ -97,7 +95,6 @@ public:
    *
    * Returns true if the animation is finished.
    */
-#include "rigel/rigel.h"
   bool drawMessageBox(
     int x,
     int y,
@@ -110,7 +107,6 @@ public:
    * elapsedTime should be the total elapsed time since the text entry cursor
    * is being drawn.
    */
-#include "rigel/rigel.h"
   void drawTextEntryCursor(int x, int y, engine::TimeDelta elapsedTime) const;
 
   /** Draw menu selection indicator (spinning arrow) at given position.
@@ -118,7 +114,6 @@ public:
    * elapsedTime should be the total elapsed time since the selection indicator
    * is being drawn.
    */
-#include "rigel/rigel.h"
   void
     drawSelectionIndicator(int x, int y, engine::TimeDelta elapsedTime) const;
 

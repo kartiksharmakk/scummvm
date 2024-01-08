@@ -27,7 +27,6 @@ namespace sdl_utils {
 class Error : public std::runtime_error {
 public:
 	/** Will call SDL_GetError() to determine message */
-#include "rigel/rigel.h"
 	Error();
 
 	explicit Error(const std::string &message);

@@ -18,7 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
 
 
 /* Copyright (C) 2016, Nikolai Wuttke. All rights reserved.
@@ -144,7 +143,6 @@ private:
 	
 	
 	*/
-#include "rigel/rigel.h"
 
 	//TODO: fix std::invoke_result_t usage
 	#if 0
@@ -162,7 +160,6 @@ private:
 		typename T = typename std::result_of<TryLoadFunc(const Common::Path &)>::type>
 	tl::optional<T> tryLoadReplacement(TryLoadFunc &&tryLoad) const;
 	*/
-#include "rigel/rigel.h"
 	#endif
 
 	tl::optional<data::Image>

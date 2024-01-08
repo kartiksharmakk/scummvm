@@ -26,7 +26,6 @@ namespace rigel::engine::components
 {
 
 /** Marks entity to be destroyed when some condition is fulfilled */
-#include "rigel/rigel.h"
 struct AutoDestroy
 {
   enum class Condition

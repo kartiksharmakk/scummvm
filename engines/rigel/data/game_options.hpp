@@ -18,7 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
 
 /* Copyright (C) 2019, Nikolai Wuttke. All rights reserved.
  *
@@ -113,7 +112,7 @@ enum class GameplayStyle : std::uint8_t {
  * If you add something to this struct, you most likely want to add
  * serialization and UI as well!
  */
-#include "rigel/rigel.h"
+
 struct GameOptions {
 	// Graphics
 	WindowMode mWindowMode = DEFAULT_WINDOW_MODE;

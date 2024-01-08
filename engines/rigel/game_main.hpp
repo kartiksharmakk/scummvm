@@ -33,7 +33,6 @@ namespace rigel
  * restarting the game in case the user switches to a different game path from
  * the options menu.
  */
-#include "rigel/rigel.h"
 int gameMain(const CommandLineOptions& options);
 
 } // namespace rigel

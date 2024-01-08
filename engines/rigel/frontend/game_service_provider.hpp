@@ -18,9 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
-
-
 
 /* Copyright (C) 2017, Nikolai Wuttke. All rights reserved.
  *
@@ -88,7 +85,6 @@ struct GameControllerInfo
 
 
 /** Interface for functionality available to game modes */
-#include "rigel/rigel.h"
 struct IGameServiceProvider
 {
   virtual ~IGameServiceProvider() = default;

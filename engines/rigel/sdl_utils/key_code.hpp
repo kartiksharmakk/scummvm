@@ -35,7 +35,6 @@ namespace rigel::sdl_utils
  * always returns the left variant for any of these keys. Other key codes
  * are returned unchanged.
  */
-#include "rigel/rigel.h"
 inline SDL_Keycode normalizeLeftRightVariants(const SDL_Keycode keyCode)
 {
   if (keyCode == SDLK_RCTRL)

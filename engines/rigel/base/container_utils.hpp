@@ -18,7 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
 
 
 /* Copyright (C) 2016, Nikolai Wuttke. All rights reserved.
@@ -56,7 +55,6 @@ auto transformed(const RangeT &range, Callable elementTransform) {
 	* std::invoke_result_t is c++17
 	std::vector<std::invoke_result_t<Callable, decltype(*std::begin(range))>> result;
 	*/
-#include "rigel/rigel.h"
 	std::vector<typename std::result_of<Callable(decltype(*std::begin(range)))>::type> result;
 
 	const auto start = std::begin(range);

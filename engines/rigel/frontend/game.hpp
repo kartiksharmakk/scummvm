@@ -53,7 +53,6 @@ namespace rigel
  * returning the right path based on the given command line options and user
  * profile.
  */
-#include "rigel/rigel.h"
 std::filesystem::path effectiveGamePath(
   const CommandLineOptions& options,
   const UserProfile& profile);
@@ -88,7 +87,6 @@ public:
    * terminating the loop, otherwise, the game is done and the whole program
    * can be terminated.
    */
-#include "rigel/rigel.h"
   tl::optional<StopReason> runOneFrame();
 
 private:

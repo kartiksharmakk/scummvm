@@ -29,7 +29,6 @@ namespace rigel
  * Shows the anti-piracy screen (LCR.MNI) until any key is pressed, then
  * switches to Intro/Demo loop.
  */
-#include "rigel/rigel.h"
 class AntiPiracyScreenMode : public GameMode
 {
 public:

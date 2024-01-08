@@ -64,7 +64,6 @@ struct TileRenderData {
  * It's the client's responsibility to separately keep track of the
  * width of the section, since that's needed by renderCachedSection.
  */
-#include "rigel/rigel.h"
 std::vector<PackedTileData>
 copyMapData(const base::Rect<int> &section, const data::map::Map &map);
 

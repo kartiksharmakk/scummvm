@@ -19,8 +19,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
-
 
 /* Copyright (C) 2016, Nikolai Wuttke. All rights reserved.
  *
@@ -201,7 +199,6 @@ struct Sprite {
  * Sprite's render slots. It's also possible to specify a position offset for
  * each frame.
  */
-#include "rigel/rigel.h"
 struct ExtendedFrameList {
 	struct RenderSpec {
 		int mFrame = 0;
@@ -227,7 +224,6 @@ struct SpriteStrip {
  * An entity marked with this component will always have its Sprite drawn after
  * drawing the world, even if it is placed on top of foreground tiles.
  */
-#include "rigel/rigel.h"
 struct DrawTopMost {
 };
 

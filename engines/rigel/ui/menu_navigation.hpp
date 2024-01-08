@@ -18,9 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
-
-
 
 /* Copyright (C) 2020, Nikolai Wuttke. All rights reserved.
  *

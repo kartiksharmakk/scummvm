@@ -18,7 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
 
 
 
@@ -63,7 +62,6 @@ namespace detail {
  *
  * Only allows read access.
  */
-#include "rigel/rigel.h"
 template<typename T>
 class [[nodiscard]] ArrayView {
 public:
@@ -154,7 +152,6 @@ template<typename Container>
 ArrayView(Container) -> ArrayView<typename Container::value_type>;
 
 */
-#include "rigel/rigel.h"
 
 //In C++11, we cannot automatically deduce the template arguments when constructing a class template instance
 //so i would need to explicitly use this makeArrayView function where required 

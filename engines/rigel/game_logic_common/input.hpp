@@ -22,11 +22,9 @@ namespace Rigel {
 namespace game_logic {
 struct Button {
 	/** True if the button is currently pressed (down) */
-#include "rigel/rigel.h"
 	bool mIsPressed = false;
 
 	/** True if there was at least one button-down event since the last update */
-#include "rigel/rigel.h"
 	bool mWasTriggered = false;
 };
 

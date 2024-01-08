@@ -18,7 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
 
 
 
@@ -64,7 +63,6 @@ tl::optional<ByteBuffer> tryLoadFile(const Common::Path &path);
  *
  * Throws an exception if the file can't be opened.
  */
-#include "rigel/rigel.h"
 ByteBuffer loadFile(const Common::Path &path);
 
 /* Original code block for future reference
@@ -73,7 +71,6 @@ inline ByteBuffer loadFile(const std::string &fileName) {
 	return loadFile(std::filesystem::u8path(fileName));
 }
 */
-#include "rigel/rigel.h"
 inline ByteBuffer loadFile(const Common::String &fileName) {
 	//TODO check if std::filesystem::u8path is proper replacement with Common::Path
 	return loadFile(Common::Path(fileName));
@@ -89,7 +86,6 @@ std::string asText(const ByteBuffer &buffer);
  *
  * All readX() methods will throw if there is not enough data left.
  */
-#include "rigel/rigel.h"
 class LeStreamReader {
 public:
 	explicit LeStreamReader(const ByteBuffer &data);
@@ -98,14 +94,12 @@ public:
 	std::uint8_t readU8();
 	std::uint16_t readU16();
 	/** Read 32bit little-endian word encoded as 3 bytes */
-#include "rigel/rigel.h"
 	std::uint32_t readU24();
 	std::uint32_t readU32();
 
 	std::int8_t readS8();
 	std::int16_t readS16();
 	/** Read 32bit little-endian word encoded as 3 bytes */
-#include "rigel/rigel.h"
 	std::int32_t readS24();
 	std::int32_t readS32();
 

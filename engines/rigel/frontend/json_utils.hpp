@@ -40,7 +40,6 @@ namespace rigel
  *   * if a property is an array, it must have the same number of elements in
  *     both JSON trees.
  */
-#include "rigel/rigel.h"
 nlohmann::json merge(nlohmann::json base, nlohmann::json extension);
 
 } // namespace rigel

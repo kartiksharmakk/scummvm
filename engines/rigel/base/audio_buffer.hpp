@@ -27,7 +27,6 @@ namespace base {
 using Sample = std::int16_t;
 
 /** Mono, 16-bit signed little-endian PCM */
-#include "rigel/rigel.h"
 struct AudioBuffer {
 	int mSampleRate;
 	std::vector<Sample> mSamples;

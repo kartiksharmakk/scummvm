@@ -18,10 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
-
-
-
 
 /* Copyright (C) 2018, Nikolai Wuttke. All rights reserved.
  *

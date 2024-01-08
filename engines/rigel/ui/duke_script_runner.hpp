@@ -18,8 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
-
 
 /* Copyright (C) 2016, Nikolai Wuttke. All rights reserved.
  *
@@ -91,7 +89,6 @@ public:
    * Escape while in-game, the "Confirm Quit" dialog box is shown on top of
    * the game.
    */
-#include "rigel/rigel.h"
 	void clearCanvas();
 
 	bool hasFinishedExecution() const;

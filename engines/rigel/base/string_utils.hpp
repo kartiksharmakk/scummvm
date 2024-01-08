@@ -18,7 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
 
 /* Copyright (C) 2021, Nikolai Wuttke. All rights reserved.
  *
@@ -51,13 +50,11 @@ namespace Rigel
 namespace strings {
 /** Split a string based on a single char delimiter and return the output
  */
-#include "rigel/rigel.h"
 [[nodiscard]] std::vector<std::string>
 split(std::string input, char delimiter);
 
 /** Checks if an input string has the given prefix
  */
-#include "rigel/rigel.h"
 [[nodiscard]] bool
 startsWith(std::string input, std::string prefix) noexcept;
 
@@ -66,11 +63,9 @@ startsWith(std::string input, std::string prefix) noexcept;
  *
  * Does everything inplace.
  */
-#include "rigel/rigel.h"
 
 
 /** Like trimLeft, but works for temporaries/r-values (returns a new value) */
-#include "rigel/rigel.h"
 [[nodiscard]] std::string
 trimLeft(std::string input, const char *what = "\n\r\t ");
 
@@ -79,11 +74,9 @@ trimLeft(std::string input, const char *what = "\n\r\t ");
  *
  * Does everything inplace.
  */
-#include "rigel/rigel.h"
 
 
 /** Like trimRight, but works for temporaries/r-values (returns a new value) */
-#include "rigel/rigel.h"
 [[nodiscard]] std::string
 trimRight(std::string input, const char *what = "\n\r\t ");
 
@@ -92,11 +85,9 @@ trimRight(std::string input, const char *what = "\n\r\t ");
  *
  * Does everything inplace.
  */
-#include "rigel/rigel.h"
 
 
 /** Like trim, but works for temporaries/r-values (returns a new value) */
-#include "rigel/rigel.h"
 [[nodiscard]] std::string
 trim(std::string input, const char *what = "\n\r\t ");
 

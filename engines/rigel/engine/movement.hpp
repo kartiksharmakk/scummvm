@@ -45,14 +45,12 @@ class CollisionChecker;
  * (i.e. no walking off the edge of a platform) and there must be no
  * collisions with the world.
  */
-#include "rigel/rigel.h"
 bool walk(
   const CollisionChecker& collisionChecker,
   entityx::Entity entity,
   components::Orientation orientation);
 
 /** As above, but for walking on the ceiling */
-#include "rigel/rigel.h"
 bool walkOnCeiling(
   const CollisionChecker& collisionChecker,
   entityx::Entity entity,

@@ -18,8 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
-
 
 /* Copyright (C) 2020, Nikolai Wuttke. All rights reserved.
  *
@@ -63,7 +61,6 @@ namespace Rigel
  * If you add something here, you'll want to extend the code in main.cpp
  * as well!
  */
-#include "rigel/rigel.h"
 struct CommandLineOptions
 {
   std::string mGamePath;

@@ -18,7 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
 
 
 /* Copyright (C) 2016, Nikolai Wuttke. All rights reserved.
@@ -50,7 +49,6 @@ namespace Rigel
 {
 namespace assets {
 /** Expand single RLE word by calling callback for each output byte */
-#include "rigel/rigel.h"
 template<typename Callable>
 void expandSingleRleWord(
 	const std::int8_t marker,
@@ -71,7 +69,6 @@ void expandSingleRleWord(
 }
 
 /** Decompress RLE data with unknown size - assumes terminating 0 marker */
-#include "rigel/rigel.h"
 template<typename Callable>
 void decompressRle(LeStreamReader &reader, Callable callback) {
 	for (;;) {
@@ -85,7 +82,6 @@ void decompressRle(LeStreamReader &reader, Callable callback) {
 }
 
 /** Decompress RLE data with known size (number of RLE marker words) */
-#include "rigel/rigel.h"
 template<typename Callable>
 void decompressRle(
 	LeStreamReader &reader,

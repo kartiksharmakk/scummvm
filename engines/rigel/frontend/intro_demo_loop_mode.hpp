@@ -18,8 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
-
 
 /* Copyright (C) 2016, Nikolai Wuttke. All rights reserved.
  *
@@ -75,7 +73,6 @@ class DukeScriptRunner;
  * start, although it then starts on the Apogee Logo and includes the story
  * cutscene/animation.
  */
-#include "rigel/rigel.h"
 class IntroDemoLoopMode : public GameMode
 {
 public:
@@ -93,7 +90,6 @@ public:
    * is shown after the intro movie.
    * Normally, the Apogee Logo comes last, and the story is not shown.
    */
-#include "rigel/rigel.h"
   IntroDemoLoopMode(Context context, Type type);
   #if 0
   std::unique_ptr<GameMode> updateAndRender(

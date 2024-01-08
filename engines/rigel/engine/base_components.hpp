@@ -44,13 +44,11 @@ struct InterpolateMotion {
  * active if their bounding box intersects the active region, i.e. they are
  * visible on screen.
  * */
-#include "rigel/rigel.h"
 struct Active {
 	bool mIsOnScreen = true;
 };
 
 /** Specifies when to activate entity */
-#include "rigel/rigel.h"
 struct ActivationSettings {
 	enum class Policy {
 		// Entity is always active

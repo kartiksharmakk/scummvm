@@ -49,7 +49,6 @@ class SpecialEffectsRenderer;
  * Sprite and an AnimationLoop component. Adjusts the sprite's animation frame
  * based on the animation.
  */
-#include "rigel/rigel.h"
 void updateAnimatedSprites(entityx::EntityManager& es);
 
 

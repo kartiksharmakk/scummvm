@@ -18,7 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "rigel/rigel.h"
 
 
 /* Copyright (C) 2016, Nikolai Wuttke. All rights reserved.
@@ -71,7 +70,6 @@ using RawBuffer = std::vector<std::uint8_t>;
  * that point on, sound effects and music playback can be triggered at any time
  * using the class' interface. Sound and music volume can also be adjusted.
  */
-#include "rigel/rigel.h"
 class SoundSystem {
 public:
 	explicit SoundSystem(
@@ -88,11 +86,9 @@ public:
    * Starts playback of the song identified by the given name, and returns
    * immediately. Music plays in parallel to any sound effects.
    */
-#include "rigel/rigel.h"
 	void playSong(const std::string &name);
 
 	/** Stop playing current song (if playing) */
-#include "rigel/rigel.h"
 	void stopMusic() const;
 
 	/** Start playing specified sound effect
@@ -103,11 +99,9 @@ public:
    * playing. In the latter case, the already playing sound effect will be cut
    * off and playback will restart from the beginning.
    */
-#include "rigel/rigel.h"
 	void playSound(data::SoundId id) const;
 
 	/** Stop playing specified sound effect (if currently playing) */
-#include "rigel/rigel.h"
 	void stopSound(data::SoundId id) const;
 	void stopAllSounds() const;
 
