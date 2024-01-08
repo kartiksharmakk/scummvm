@@ -30,7 +30,7 @@ const ADGameDescription gameDescriptions[] = {
 	{
 		"rigel",
 		nullptr,
-		AD_ENTRY1s("NUKEM2.CMP", "bdade5d254e485f093eb03e66260289b", 3075327),
+		AD_ENTRY1s("NUKEM2.CMP", "a1c39a14d82d7c5cf92bbde5b838ce5b", 5496675),
 		Common::EN_ANY,
 		Common::kPlatformDOS,
 		ADGF_UNSTABLE,
