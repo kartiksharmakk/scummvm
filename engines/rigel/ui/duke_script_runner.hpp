@@ -66,22 +66,16 @@ public:
 
 	struct ExecutionResult {
 		ScriptTerminationType mTerminationType;
-		#if 0
 		tl::optional<int> mSelectedPage;
-		#endif
 	};
 
 	DukeScriptRunner(
 		assets::ResourceLoader *pResourceLoader,
 		renderer::Renderer *pRenderer,
-		#if 0
 		const data::SaveSlotArray *pSaveSlots,
-		#endif
 		IGameServiceProvider *pServiceProvider);
 
-	#if 0
 	void executeScript(const data::script::Script &script);
-	#endif
 	/** Clear canvas to transparent
    *
    * Allows starting off with a transparent canvas, in order to make it possible
@@ -92,18 +86,19 @@ public:
 	void clearCanvas();
 
 	bool hasFinishedExecution() const;
-	#if 0
 	tl::optional<ExecutionResult> result() const;
-	#endif
 	void updateAndRender(engine::TimeDelta dt);
 	void handleEvent(const SDL_Event &event);
-
-	#if 0
+	
 	tl::optional<int> currentPageIndex() const {
+		warning("STUB: currentPageIndex()");
+		//TODO: fix std::make_optional usage
+#if 0
 		return mPagerState ? std::make_optional(mPagerState->mCurrentPageIndex)
 						   : tl::nullopt;
+#endif
 	}
-	#endif
+	
 private:
 	enum class State {
 		ReadyToExecute,
@@ -148,9 +143,7 @@ private:
 	};
 
 	struct PagerState {
-		#if 0
 		std::vector<data::script::Script> mPageScripts;
-		#endif
 		PagingMode mMode;
 		int mCurrentPageIndex;
 		int mMaxPageIndex;
@@ -177,9 +170,7 @@ private:
 		int mTextPosY;
 	};
 
-	#if 0
 	void startExecution(const data::script::Script &script);
-	#endif
 	void interpretNextAction();
 
 	bool isInWaitState() const;
@@ -219,9 +210,7 @@ private:
 	void updateAndRenderDynamicElements(engine::TimeDelta dt);
 	void updateMessageBoxAnimation(engine::TimeDelta dt);
 
-	#if 0
 	void drawBigText(int x, int y, int colorIndex, std::string text) const;
-	#endif
 	void bindCanvas();
 	void unbindCanvas();
 
@@ -229,31 +218,24 @@ private:
 	const assets::ResourceLoader *mpResourceBundle;
 	data::Palette16 mCurrentPalette;
 	renderer::Renderer *mpRenderer;
-	#if 0
 	const data::SaveSlotArray *mpSaveSlots;
-	#endif
 	IGameServiceProvider *mpServices;
 	engine::TiledTexture mUiSpriteSheetRenderer;
 	MenuElementRenderer mMenuElementRenderer;
 
 	renderer::RenderTargetTexture mCanvas;
 
-	#if 0
 	data::script::Script mCurrentInstructions;
-	#endif
 	std::size_t mProgramCounter;
 	State mState = State::ReadyToExecute;
 
-	#if 0
 	tl::optional<DelayState> mDelayState;
 	tl::optional<NewsReporterState> mNewsReporterAnimationState;
 
 	tl::optional<PagerState> mPagerState;
-	#endif
 	bool mMenuItemWasSelected = false;
 	
 	std::unordered_map<int, int> mPersistentMenuSelections;
-	#if 0
 	tl::optional<MenuSelectionIndicatorState> mMenuSelectionIndicatorState;
 	tl::optional<int> mCurrentPersistentSelectionSlot;
 
@@ -262,7 +244,6 @@ private:
 	tl::optional<MessageBoxState> mMessageBoxState;
 
 	tl::optional<engine::TimeDelta> mTimeSinceLastUserInput;
-	#endif
 	MenuNavigationHelper mNavigationHelper;
 
 	bool mFadeInBeforeNextWaitStateScheduled = false;
