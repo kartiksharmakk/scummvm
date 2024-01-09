@@ -83,7 +83,6 @@ void skipWhiteSpace(istream &sourceStream) {
 	}
 }
 
-
 bool isCommand(string line) {
 	return strings::startsWith(line, "//");
 }
@@ -92,12 +91,14 @@ void stripCommandPrefix(string &line) {
 	strings::trimLeft(line, "/");
 }
 
-#if 0
 template<typename Callable>
 void parseScriptLines(
 	istream &sourceTextStream,
 	const string &endMarker,
 	Callable consumeLine) {
+
+	warning("STUB: parseScriptLines()");
+#if 0
 	skipWhiteSpace(sourceTextStream);
 	for (string line; getline(sourceTextStream, line, '\n');) {
 		strings::trim(line);
@@ -117,13 +118,15 @@ void parseScriptLines(
 
 	throw invalid_argument(
 		string("Missing end marker '" + endMarker + "' in Duke Script file"));
-}
 #endif
+}
+
 //TODO fix Action usage
 
-#if 0
 tl::optional<Action>
 parseSingleActionCommand(const string &command, istream &lineTextStream) {
+	warning("STUB: parseSingleActionCommand()");
+#if 0
 	if (command == "FADEIN") {
 		return Action{FadeIn{}};
 	} else if (command == "FADEOUT") {
@@ -242,6 +245,7 @@ parseSingleActionCommand(const string &command, istream &lineTextStream) {
 	}
 
 	return std::nullopt;
+#endif
 }
 
 vector<Action> parseTextCommandWithBigText(
@@ -249,8 +253,10 @@ vector<Action> parseTextCommandWithBigText(
 	const int y,
 	const string &sourceText,
 	const string::const_iterator bigTextMarkerIter) {
+	warning("STUB: parseTextCommandWithBigText()");
+#if 0
 	vector<Action> textActions;
-
+	
 	const auto numPrecedingCharacters =
 		static_cast<int>(distance(sourceText.begin(), bigTextMarkerIter));
 	if (numPrecedingCharacters > 0) {
@@ -267,9 +273,13 @@ vector<Action> parseTextCommandWithBigText(
 		DrawBigText{x + positionOffset, y, colorIndex, move(bigTextPart)});
 
 	return textActions;
+#endif
 }
 
 Action parseDrawSpriteCommand(const int x, const int y, string source) {
+	warning("STUB: parseDrawSpriteCommand()");
+#if 0
+	
 	if (source.size() < 5) {
 		throw invalid_argument("Corrupt Duke Script file");
 	}
@@ -279,6 +289,7 @@ Action parseDrawSpriteCommand(const int x, const int y, string source) {
 
 	return {
 		DrawSprite{x + 2, y + 1, stoi(actorNumberString), stoi(frameNumberString)}};
+#endif
 }
 
 vector<Action> parseTextCommand(istream &lineTextStream) {
@@ -306,7 +317,9 @@ vector<Action> parseTextCommand(istream &lineTextStream) {
 	// using the big font colorized with palette index 7.
 	// If there is other text preceding the 'big font' marker, it will be
 	// drawn in the normal font.
-
+	warning("STUB: parseTextCommand()");
+#if 0
+	
 	int x = 0;
 	int y = 0;
 	lineTextStream >> x;
@@ -338,12 +351,15 @@ vector<Action> parseTextCommand(istream &lineTextStream) {
 	}
 
 	return textActions;
+#endif
 }
 
 vector<Action> parseCommand(
 	const std::string &command,
 	istream &sourceTextStream,
 	istream &currentLineStream) {
+	warning("STUB: parseCommand()");
+#if 0
 	vector<Action> actions;
 
 	if (command == "MENU") {
@@ -364,14 +380,19 @@ vector<Action> parseCommand(
 	}
 
 	return actions;
+#endif
 }
 
 PagesDefinition parsePagesDefinition(istream &sourceTextStream) {
+	warning("STUB: parsePagesDefinition()");
+#if 0
 	vector<data::script::Script> pages(1);
 	parseScriptLines(
 		sourceTextStream,
 		"PAGESEND",
 		[&pages, &sourceTextStream](const auto &command, auto &lineTextStream) {
+
+
 			if (command == "APAGE") {
 				pages.emplace_back(Script{});
 			} else {
@@ -383,9 +404,12 @@ PagesDefinition parsePagesDefinition(istream &sourceTextStream) {
 		});
 
 	return PagesDefinition{pages};
+#endif
 }
 
 data::script::Script parseScript(istream &sourceTextStream) {
+	warning("STUB: parseScript()");
+#if 0
 	data::script::Script script;
 
 	parseScriptLines(
@@ -423,9 +447,12 @@ data::script::Script parseScript(istream &sourceTextStream) {
 	}
 
 	return script;
+#endif
 }
 
 bool skipToHintsSection(istream &sourceTextStream) {
+	warning("STUB: skipToHintsSection()");
+#if 0
 	while (!sourceTextStream.eof()) {
 		skipWhiteSpace(sourceTextStream);
 
@@ -440,11 +467,17 @@ bool skipToHintsSection(istream &sourceTextStream) {
 	}
 
 	return false;
+#endif
 }
 
 } // namespace
 
+
+//TODO fix the hacky union derivative to std::variant usage properly inside duke_script.hpp
+#if 0
 ScriptBundle loadScripts(const string &scriptSource) {
+	warning("STUB: loadScripts()");
+
 	istringstream sourceStream(scriptSource);
 
 	ScriptBundle bundle;
@@ -461,9 +494,13 @@ ScriptBundle loadScripts(const string &scriptSource) {
 	}
 
 	return bundle;
-}
 
+}
+#endif
+#if 0
 data::LevelHints loadHintMessages(const std::string &scriptSource) {
+	warning("STUB: loadScripts()");
+
 	istringstream sourceStream(scriptSource);
 
 	const auto hintsFound = skipToHintsSection(sourceStream);
@@ -510,8 +547,9 @@ data::LevelHints loadHintMessages(const std::string &scriptSource) {
 	return data::LevelHints{hints};
 }
 
-#endif
 
-} // extra } to be removed when # is removed
+
+} // remove } after getting rid of endif
+#endif
 } // namespace assets
 } // namespace Rigel
