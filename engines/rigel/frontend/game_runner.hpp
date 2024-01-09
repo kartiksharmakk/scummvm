@@ -66,9 +66,8 @@ public:
     const data::GameSessionId& sessionId,
     GameMode::Context context,
 
-	//TODO fix std::nullopt usage
 	#if 0
-    tl::optional<base::Vec2> playerPositionOverride = std::nullopt,
+    tl::optional<base::Vec2> playerPositionOverride = tl::nullopt,
 	#endif
     bool showWelcomeMessage = false);
 

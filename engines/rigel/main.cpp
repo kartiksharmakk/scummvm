@@ -89,7 +89,7 @@ static tl::optional<rigel::base::ScopeGuard> win32ReenableStdIo()
     });
   }
 
-  return std::nullopt;
+  return tl::nullopt;
 }
 
 
@@ -102,7 +102,7 @@ static void enableDpiAwareness()
 
 static tl::optional<rigel::base::ScopeGuard> win32ReenableStdIo()
 {
-  return std::nullopt;
+  return tl::nullopt;
 }
 
 

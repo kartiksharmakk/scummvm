@@ -527,7 +527,7 @@ LevelData loadLevel(
 		if (isValidActorId(type)) {
 			#if 0
 			actors.emplace_back(
-				LevelData::Actor{position, static_cast<ActorID>(type), std::nullopt});
+				LevelData::Actor{position, static_cast<ActorID>(type), tl::nullopt});
 			#endif
 		}
 	}

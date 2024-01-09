@@ -241,7 +241,7 @@ struct AnimationLoop {
 	#if 0
 	explicit AnimationLoop(
 		const int delayInFrames,
-		tl::optional<int> endFrame = std::nullopt)
+		tl::optional<int> endFrame = tl::nullopt)
 		: AnimationLoop(delayInFrames, 0, endFrame) {
 	}
 	#endif

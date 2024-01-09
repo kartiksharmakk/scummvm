@@ -91,11 +91,11 @@ DukeScriptRunner::DukeScriptRunner(
 
 void DukeScriptRunner::executeScript(const data::script::Script& script)
 {
-  mCurrentPersistentSelectionSlot = std::nullopt;
-  mPagerState = std::nullopt;
-  mCheckBoxStates = std::nullopt;
-  mMessageBoxState = std::nullopt;
-  mDelayState = std::nullopt;
+  mCurrentPersistentSelectionSlot = tl::nullopt;
+  mPagerState = tl::nullopt;
+  mCheckBoxStates = tl::nullopt;
+  mMessageBoxState = tl::nullopt;
+  mDelayState = tl::nullopt;
   mFadeInBeforeNextWaitStateScheduled = false;
   mDisableMenuFunctionalityForNextPagesDefinition = false;
   mTextBoxOffsetEnabled = false;
@@ -143,7 +143,7 @@ ExecutionResultOptional DukeScriptRunner::result() const
   {
     const auto selectedPage = hasMenuPages()
       ? tl::optional<int>(mPagerState->mCurrentPageIndex)
-      : std::nullopt;
+      : tl::nullopt;
 
     auto terminationType = ScriptTerminationType::RanToCompletion;
     if (mState == State::ExecutionInterrupted)
@@ -163,7 +163,7 @@ ExecutionResultOptional DukeScriptRunner::result() const
   }
   else
   {
-    return std::nullopt;
+    return tl::nullopt;
   }
 }
 
@@ -177,7 +177,7 @@ bool DukeScriptRunner::isInWaitState() const
 void DukeScriptRunner::clearWaitState()
 {
   mState = State::ExecutingScript;
-  mDelayState = std::nullopt;
+  mDelayState = tl::nullopt;
 }
 
 
@@ -193,7 +193,7 @@ void DukeScriptRunner::handleEvent(const SDL_Event& event)
   if (navigationEvent == NavigationEvent::Cancel)
   {
     mState = State::ExecutionInterrupted;
-    mTimeSinceLastUserInput = std::nullopt;
+    mTimeSinceLastUserInput = tl::nullopt;
     hideMenuSelectionIndicator();
     return;
   }
@@ -341,7 +341,7 @@ void DukeScriptRunner::updateTimeoutToDemo(const engine::TimeDelta dt)
     if (*mTimeSinceLastUserInput >= START_DEMO_TIMEOUT)
     {
       mState = State::ExecutionTimedOut;
-      mTimeSinceLastUserInput = std::nullopt;
+      mTimeSinceLastUserInput = tl::nullopt;
     }
   }
 }
@@ -379,7 +379,7 @@ void DukeScriptRunner::animateNewsReporter(
 
 void DukeScriptRunner::stopNewsReporterAnimation()
 {
-  mNewsReporterAnimationState = std::nullopt;
+  mNewsReporterAnimationState = tl::nullopt;
 }
 
 
@@ -400,7 +400,7 @@ void DukeScriptRunner::interpretNextAction()
   if (mProgramCounter >= mCurrentInstructions.size())
   {
     mState = State::FinishedExecution;
-    mTimeSinceLastUserInput = std::nullopt;
+    mTimeSinceLastUserInput = tl::nullopt;
     hideMenuSelectionIndicator();
     return;
   }
@@ -711,7 +711,7 @@ void DukeScriptRunner::showMenuSelectionIndicator(const int y)
 
 void DukeScriptRunner::hideMenuSelectionIndicator()
 {
-  mMenuSelectionIndicatorState = std::nullopt;
+  mMenuSelectionIndicatorState = tl::nullopt;
 }
 
 

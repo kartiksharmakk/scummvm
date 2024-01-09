@@ -466,7 +466,7 @@ GameWorld_Classic::GameWorld_Classic(
   , mSessionId(sessionId)
   , mPlayerModelAtLevelStart(*mpPersistentPlayerState)
   , mHudRenderer(
-      sessionId.mIsDemo ? std::nullopt
+      sessionId.mIsDemo ? tl::nullopt
                         : std::make_optional(sessionId.mLevel + 1),
       mpOptions,
       mpRenderer,

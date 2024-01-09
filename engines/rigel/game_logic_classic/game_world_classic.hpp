@@ -136,7 +136,7 @@ public:
 		const data::GameSessionId &sessionId,
 		GameMode::Context context,
 
-		tl::optional<base::Vec2> playerPositionOverride = std::nullopt,
+		tl::optional<base::Vec2> playerPositionOverride = tl::nullopt,
 		bool showWelcomeMessage = false,
 		const PlayerInput &initialInput = PlayerInput{});
 	~GameWorld_Classic() override;

@@ -141,7 +141,7 @@ std::unique_ptr<GameMode> MenuMode::updateAndRender(
 
     if (mOptionsMenu->isFinished())
     {
-      mOptionsMenu = std::nullopt;
+      mOptionsMenu = tl::nullopt;
     }
     else
     {

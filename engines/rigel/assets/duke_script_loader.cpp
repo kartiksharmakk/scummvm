@@ -244,7 +244,7 @@ parseSingleActionCommand(const string &command, istream &lineTextStream) {
 		}
 	}
 
-	return std::nullopt;
+	return tl::nullopt;
 #endif
 }
 

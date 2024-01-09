@@ -54,7 +54,7 @@ GameSessionMode::GameSessionMode(const data::SavedGame& save, Context context)
       &mPersistentPlayerState,
       save.mSessionId,
       context,
-      std::nullopt,
+      tl::nullopt,
       true /* show welcome message */))
   , mEpisode(save.mSessionId.mEpisode)
   , mCurrentLevelNr(save.mSessionId.mLevel)
@@ -73,7 +73,7 @@ GameSessionMode::GameSessionMode(
       &mPersistentPlayerState,
       sessionId,
       context,
-      std::nullopt,
+      tl::nullopt,
       false /* don't show welcome message */))
   , mEpisode(sessionId.mEpisode)
   , mCurrentLevelNr(sessionId.mLevel)

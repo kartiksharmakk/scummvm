@@ -427,9 +427,8 @@ tl::optional<int> orientationOffsetForActor(const ActorID actorId) {
 		return 6;
 
 	default:
-		//TODO std::nullopt is C++17
 		#if 0
-		return std::nullopt;
+		return tl::nullopt;
 		#endif
 		//temp-fix to return 0
 		return 0;
@@ -935,13 +934,12 @@ SpriteFactory::actorFrameRect(const data::ActorID id, const int frame) const {
 	const auto &frameData = actorFrameData(id, frame);
 	return {frameData.mDrawOffset, frameData.mDimensions};
 }
-//TODO: std::nullopt is C++17
 #if 0
 engine::SpriteFrame
 SpriteFactory::actorFrameData(data::ActorID id, int frame) const {
 	const auto &data = mSpriteDataMap.at(id);
 	const auto realFrame =
-		virtualToRealFrame(frame, data.mDrawData, std::nullopt);
+		virtualToRealFrame(frame, data.mDrawData, tl::nullopt);
 	return data.mDrawData.mFrames[realFrame];
 }
 #endif

@@ -79,7 +79,6 @@
 // | 55 |   SB_1 |  1120 | // 4 seconds
 
 
-//TODO: fix C++17 std::nullopt usage
 #if 0
 namespace Rigel {
 namespace ui {
@@ -108,7 +107,7 @@ IntroMovie::createConfigurations(const assets::ResourceLoader &resources) {
           pServiceProvider->playSound(SoundId::IntroGunShot);
         }
 
-        return std::nullopt;
+        return tl::nullopt;
       }
     },
 
@@ -122,7 +121,7 @@ IntroMovie::createConfigurations(const assets::ResourceLoader &resources) {
           pServiceProvider->playSound(SoundId::IntroGunShotLow);
         }
 
-        return std::nullopt;
+        return tl::nullopt;
       }
     },
 
@@ -132,7 +131,7 @@ IntroMovie::createConfigurations(const assets::ResourceLoader &resources) {
       46,
       1,
       [pServiceProvider = mpServiceProvider](const int frame) {
-        tl::optional<int> newFrameDelay = std::nullopt;
+        tl::optional<int> newFrameDelay = tl::nullopt;
 
         switch (frame) {
           case 0:

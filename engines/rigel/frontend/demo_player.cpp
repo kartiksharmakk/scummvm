@@ -115,7 +115,7 @@ void DemoPlayer::updateAndRender(const engine::TimeDelta dt)
       &mPersistentPlayerState,
       demoSessionId(0),
       mContext,
-      std::nullopt,
+      tl::nullopt,
       true,
       mFrames[0].mInput);
   }
@@ -150,7 +150,7 @@ void DemoPlayer::updateAndRender(const engine::TimeDelta dt)
       &mPersistentPlayerState,
       demoSessionId(mLevelIndex),
       mContext,
-      std::nullopt,
+      tl::nullopt,
       false,
       mFrames[mCurrentFrameIndex].mInput);
     mpWorld->render();

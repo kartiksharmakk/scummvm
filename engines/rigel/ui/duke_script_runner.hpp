@@ -101,7 +101,7 @@ public:
 	#if 0
 	tl::optional<int> currentPageIndex() const {
 		return mPagerState ? std::make_optional(mPagerState->mCurrentPageIndex)
-						   : std::nullopt;
+						   : tl::nullopt;
 	}
 	#endif
 private:

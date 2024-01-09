@@ -46,9 +46,8 @@ public:
 		const data::Movie &movie,
 		int frameDelayInFastTicks,
 
-		//TODO fix C++17 std::nullopt usage 
 		#if 0
-		const tl::optional<int> &repetitions = std::nullopt,
+		const tl::optional<int> &repetitions = tl::nullopt,
 		#endif
 		
 		FrameCallbackFunc frameCallback = nullptr

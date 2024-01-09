@@ -53,11 +53,7 @@ LevelHints::getHint(const int episode, const int level) const {
 		return hint.mEpisode == episode && hint.mLevel == level;
 	});
 
-	//TODO fix std::nullopt usage
-	#if 0
-	return iHint != end(mHints) ? tl::optional<std::string>{iHint->mMessage}: std::nullopt;
-	#endif
-	return iHint != end(mHints) ? tl::optional<std::string>{iHint->mMessage} : "";
+	return iHint != end(mHints) ? tl::optional<std::string>{iHint->mMessage}: tl::nullopt;
 }
 } // namespace data
 } // namespace Rigel
