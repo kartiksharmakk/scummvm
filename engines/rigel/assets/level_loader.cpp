@@ -66,7 +66,6 @@
  * http://archive.shikadi.net/sites/www.geocities.com/dooknookimklassik/dn2specs.txt
  */
 
-#if 0
 namespace Rigel {
 namespace assets {
 using data::ActorID;
@@ -81,7 +80,7 @@ namespace {
 using ActorList = std::vector<LevelData::Actor>;
 
 constexpr char EPISODE_PREFIXES[] = {'L', 'M', 'N', 'O'};
-constexpr auto VALID_LEVEL_WIDTHS = std::array{32, 64, 128, 256, 512, 1024};
+constexpr auto VALID_LEVEL_WIDTHS = std::array<const int,6>{32, 64, 128, 256, 512, 1024};
 
 bool isValidWidth(int width) {
 	using std::begin;
@@ -199,8 +198,7 @@ public:
 				}
 			}
 		}
-
-		return std::nullopt;
+		return tl::nullopt;
 	}
 
 private:
@@ -446,11 +444,14 @@ std::tuple<ActorList, base::Vec2, bool> preProcessActorDescriptions(
 			case ActorID::Dynamic_geometry_6:
 			case ActorID::Dynamic_geometry_7:
 			case ActorID::Dynamic_geometry_8: {
+				warning("STUB: preProcessActorDescriptions()");
+				#if 0
 				auto tileSection = grid.findTileSectionRect(col, row);
 				if (tileSection) {
 					actors.emplace_back(
 						LevelData::Actor{actor.mPosition, actor.mID, tileSection});
 				}
+				#endif
 			} break;
 
 			case ActorID::Duke_LEFT:
@@ -460,8 +461,10 @@ std::tuple<ActorList, base::Vec2, bool> preProcessActorDescriptions(
 				break;
 
 			default:
+				#if 0
 				actors.emplace_back(
-					LevelData::Actor{actor.mPosition, actor.mID, std::nullopt});
+					LevelData::Actor{actor.mPosition, actor.mID, tl::nullopt});
+				#endif
 				break;
 			}
 
@@ -507,11 +510,12 @@ std::string levelFileName(const int episode, const int level) {
 	fileName += ".MNI";
 	return fileName;
 }
-
+#if 0
 LevelData loadLevel(
-	std::string mapName,
+	Common::String mapName,
 	const ResourceLoader &resources,
 	const Difficulty chosenDifficulty) {
+
 	const auto levelData = resources.file(mapName);
 	LeStreamReader levelReader(levelData);
 
@@ -521,11 +525,14 @@ LevelData loadLevel(
 		const auto type = levelReader.readU16();
 		const base::Vec2 position{levelReader.readU16(), levelReader.readU16()};
 		if (isValidActorId(type)) {
+			#if 0
 			actors.emplace_back(
 				LevelData::Actor{position, static_cast<ActorID>(type), std::nullopt});
+			#endif
 		}
 	}
-
+	warning("STUB: loadLevel()");
+	
 	auto tileSet = resources.loadCZone(header.CZone);
 
 	const auto width = static_cast<int>(levelReader.readU16());
@@ -534,7 +541,7 @@ LevelData loadLevel(
 		throw std::runtime_error(
 			"Level file has invalid width: " + std::to_string(width));
 	}
-
+	
 	const auto height = static_cast<int>(GameTraits::mapHeightForWidth(width));
 	data::map::Map map(width, height, std::move(tileSet.mAttributes));
 
@@ -576,7 +583,6 @@ LevelData loadLevel(
 			}
 		}
 	}
-
 	auto scrollMode = BackdropScrollMode::None;
 	if (header.flagBitSet(0x1)) {
 		scrollMode = BackdropScrollMode::ParallaxBoth;
@@ -621,8 +627,8 @@ LevelData loadLevel(
 		backdropSwitchCondition,
 		header.flagBitSet(0x20),
 		header.music};
-}
 
+}
+#endif
 } // namespace assets
 } // namespace Rigel
-#endif
