@@ -43,7 +43,6 @@
 
 namespace Rigel {
 namespace data {
-	//TODO fix optional usage
 	
 tl::optional<std::string>
 LevelHints::getHint(const int episode, const int level) const {

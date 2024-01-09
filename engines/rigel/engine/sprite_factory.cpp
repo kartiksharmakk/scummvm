@@ -427,11 +427,7 @@ tl::optional<int> orientationOffsetForActor(const ActorID actorId) {
 		return 6;
 
 	default:
-		#if 0
 		return tl::nullopt;
-		#endif
-		//temp-fix to return 0
-		return 0;
 	}
 }
 

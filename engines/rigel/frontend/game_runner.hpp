@@ -65,10 +65,7 @@ public:
     data::PersistentPlayerState* pPersistentPlayerState,
     const data::GameSessionId& sessionId,
     GameMode::Context context,
-
-	#if 0
     tl::optional<base::Vec2> playerPositionOverride = tl::nullopt,
-	#endif
     bool showWelcomeMessage = false);
 
   void handleEvent(const SDL_Event& event);
