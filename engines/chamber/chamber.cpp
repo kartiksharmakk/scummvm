@@ -51,6 +51,7 @@ ChamberEngine::ChamberEngine(OSystem *syst, const ADGameDescription *desc)
 	_shouldRestart = false;
 	_prioritycommand_1 = false;
 	_prioritycommand_2 = false;
+	_renderMode = Common::kRenderCGA;
 	_pxiData = NULL;
 
 	_speakerHandle = NULL;
@@ -88,6 +89,23 @@ void ChamberEngine::syncGameStream(Common::Serializer &s) {
 	// Use methods of Serializer to save/load fields
 	int16 dummy = 0;
 	s.syncAsUint16LE(dummy);
+}
+
+void ChamberEngine::initRenderMode() {
+	Common::RenderMode configRenderMode = Common::parseRenderMode(ConfMan.get("render_mode").c_str());
+
+	switch (configRenderMode) {
+	case Common::kRenderCGA:
+		_renderMode = Common::kRenderCGA;
+		break;
+
+	case Common::kRenderHercG:
+		_renderMode = Common::kRenderHercG;
+		break;
+
+	default:
+		break;
+	}
 }
 
 } // End of namespace Chamber

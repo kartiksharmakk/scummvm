@@ -40,7 +40,7 @@ extern byte CGA_SCREENBUFFER[0x4000];
 #define CGA_PREV_LINE(offs) ((CGA_ODD_LINES_OFS ^ (offs)) - (((offs) & CGA_ODD_LINES_OFS) ? CGA_BYTES_PER_LINE : 0))
 
 #define frontbuffer CGA_SCREENBUFFER
-extern byte backbuffer[0x4000];
+extern byte cga_backbuffer[0x4000];
 
 extern byte sprit_load_buffer[1290];
 
@@ -52,6 +52,10 @@ extern byte *char_xlat_table;
 extern byte string_ended;
 extern byte char_draw_max_width;
 extern byte char_draw_max_height;
+
+extern uint16 bytes_per_line;
+extern uint16 pixels_per_byte;
+extern uint16 bits_per_pixel;
 
 void switchToGraphicsMode(void);
 void switchToTextMode(void);

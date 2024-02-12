@@ -236,9 +236,9 @@ void drawBoxAroundSpot(void) {
 	/*TODO: this is CGA-only!*/
 	y = (ofs & CGA_ODD_LINES_OFS) ? 1 : 0;
 	ofs &= ~CGA_ODD_LINES_OFS;
-	x = (ofs % CGA_BYTES_PER_LINE) * CGA_PIXELS_PER_BYTE;
+	x = (ofs % CGA_BYTES_PER_LINE) * pixels_per_byte;
 	y += (ofs / CGA_BYTES_PER_LINE) * 2;
-	w *= CGA_PIXELS_PER_BYTE;   /*TODO: this will overflow on large sprite*/
+	w *= pixels_per_byte;   /*TODO: this will overflow on large sprite*/
 
 	cga_DrawVLine(x, y, h - 1, 0, CGA_SCREENBUFFER);
 	cga_DrawHLine(x, y, w - 1, 0, CGA_SCREENBUFFER);
@@ -321,8 +321,8 @@ volatile byte vblank_ticks;
 void waitVBlankTimer(void) {
 	if (g_vm->getLanguage() == Common::EN_USA) {
 		/*A crude attempt to fix the animation speed...*/
-		while (vblank_ticks < 3) ;
-		vblank_ticks = 0;
+		//while (vblank_ticks < 3) ;
+		//vblank_ticks = 0;
 	}
 	waitVBlank();
 }

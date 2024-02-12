@@ -23,6 +23,7 @@
 #define CHAMBER_H
 #define RUNCOMMAND_RESTART 1337
 
+#include "common/rendermode.h"
 #include "common/random.h"
 #include "common/serializer.h"
 #include "engines/engine.h"
@@ -61,6 +62,7 @@ public:
 	byte readKeyboardChar();
 
 	void initSound();
+	void initRenderMode();
 	void deinitSound();
 
 public:
@@ -69,6 +71,7 @@ public:
 	bool _prioritycommand_1;
 	bool _prioritycommand_2;
 
+	Common::RenderMode _renderMode;
 	byte *_pxiData;
 
 	Audio::PCSpeaker *_speakerStream;
