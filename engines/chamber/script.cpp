@@ -978,7 +978,7 @@ uint16 SCR_19_HidePortraitLiftLeft(void) {
 
 		offs ^= CGA_ODD_LINES_OFS;
 		if ((offs & CGA_ODD_LINES_OFS) == 0)
-			offs += CGA_BYTES_PER_LINE;
+			offs += bytes_per_line;
 	}
 	cga_blitToScreen(ooffs, 1, oh);
 
@@ -1023,7 +1023,7 @@ uint16 SCR_1A_HidePortraitLiftRight(void) {
 
 		offs ^= CGA_ODD_LINES_OFS;
 		if ((offs & CGA_ODD_LINES_OFS) == 0)
-			offs += CGA_BYTES_PER_LINE;
+			offs += bytes_per_line;
 	}
 	cga_blitToScreen(ooffs, 1, oh);
 
@@ -1059,7 +1059,7 @@ uint16 SCR_1B_HidePortraitLiftUp(void) {
 	/*TODO: move this to CGA?*/
 	offs ^= CGA_ODD_LINES_OFS;
 	if ((offs & CGA_ODD_LINES_OFS) != 0)
-		offs -= CGA_BYTES_PER_LINE;
+		offs -= bytes_per_line;
 	memcpy(CGA_SCREENBUFFER + offs, cga_backbuffer + offs, width);
 	cga_blitToScreen(offs, width, 1);
 	return 0;
@@ -1095,7 +1095,7 @@ uint16 SCR_1C_HidePortraitLiftDown(void) {
 	/*TODO: move this to CGA?*/
 	offs ^= CGA_ODD_LINES_OFS;
 	if ((offs & CGA_ODD_LINES_OFS) == 0)
-		offs += CGA_BYTES_PER_LINE;
+		offs += bytes_per_line;
 	memcpy(CGA_SCREENBUFFER + offs, cga_backbuffer + offs, width);
 	cga_blitToScreen(offs, width, 1);
 	return 0;
@@ -2311,7 +2311,7 @@ uint16 SCR_45_DeProfundisRoomEntry(void) {
 
 		ofs ^= CGA_ODD_LINES_OFS;
 		if ((ofs & CGA_ODD_LINES_OFS) == 0)
-			ofs += CGA_BYTES_PER_LINE;
+			ofs += bytes_per_line;
 
 		cga_BlitScratchBackSprite(sprofs, w, h, CGA_SCREENBUFFER, ofs);
 	}
@@ -2372,7 +2372,7 @@ uint16 SCR_47_DeProfundisRiseMonster(void) {
 
 		ofs ^= CGA_ODD_LINES_OFS;
 		if ((ofs & CGA_ODD_LINES_OFS) != 0)
-			ofs -= CGA_BYTES_PER_LINE;
+			ofs -= bytes_per_line;
 
 		h++;
 
@@ -2403,7 +2403,7 @@ uint16 SCR_48_DeProfundisLowerMonster(void) {
 
 		ofs ^= CGA_ODD_LINES_OFS;
 		if ((ofs & CGA_ODD_LINES_OFS) == 0)
-			ofs += CGA_BYTES_PER_LINE;
+			ofs += bytes_per_line;
 
 		h--;
 		cga_BlitScratchBackSprite(sprofs, w, h, CGA_SCREENBUFFER, ofs);
@@ -2475,7 +2475,7 @@ uint16 SCR_65_DeProfundisMovePlatform(void) {
 
 		ofs ^= CGA_ODD_LINES_OFS;
 		if ((ofs & CGA_ODD_LINES_OFS) == 0)
-			ofs += CGA_BYTES_PER_LINE;
+			ofs += bytes_per_line;
 
 		h--;
 
@@ -2699,11 +2699,11 @@ uint16 SCR_56_MorphRoom98(void) {
 
 	ofs = cga_CalcXY(0, 136);
 	for (h = 60; h; h--) {
-		memcpy(frontbuffer + ofs, cga_backbuffer + ofs, CGA_BYTES_PER_LINE);
+		memcpy(frontbuffer + ofs, cga_backbuffer + ofs, bytes_per_line);
 		waitVBlank();
 		ofs ^= CGA_ODD_LINES_OFS;
 		if ((ofs & CGA_ODD_LINES_OFS) != 0)
-			ofs -= CGA_BYTES_PER_LINE;
+			ofs -= bytes_per_line;
 	}
 
 	backupSpotImage(&zone_spots[3], &sprites_list[3], sprites_list[3]);
@@ -2722,41 +2722,41 @@ void ShowMirrored(uint16 h, uint16 ofs) {
 	/*move 1 line up*/
 	ofs2 ^= CGA_ODD_LINES_OFS;
 	if ((ofs2 & CGA_ODD_LINES_OFS) != 0)
-		ofs2 -= CGA_BYTES_PER_LINE;
+		ofs2 -= bytes_per_line;
 
 	while (h--) {
 
-		for (x = 0; x < CGA_BYTES_PER_LINE; x++) {
+		for (x = 0; x < bytes_per_line; x++) {
 			frontbuffer[ofs2 + x] = frontbuffer[ofs + x] = cga_backbuffer[ofs + x];
 			cga_backbuffer[ofs + x] = 0;
 		}
 
 		/*move 1 line down*/
-		ofs += CGA_BYTES_PER_LINE;
+		ofs += bytes_per_line;
 		ofs ^= CGA_ODD_LINES_OFS;
 		if ((ofs & CGA_ODD_LINES_OFS) != 0)
-			ofs -= CGA_BYTES_PER_LINE;
+			ofs -= bytes_per_line;
 
 		/*move 1 line up*/
 		ofs2 ^= CGA_ODD_LINES_OFS;
 		if ((ofs2 & CGA_ODD_LINES_OFS) != 0)
-			ofs2 -= CGA_BYTES_PER_LINE;
+			ofs2 -= bytes_per_line;
 	}
 }
 
 void LiftLines(int16 n, byte *source, uint16 sofs, byte *target, uint16 tofs) {
 	while (n--) {
-		memcpy(target + tofs, source + sofs, CGA_BYTES_PER_LINE);
+		memcpy(target + tofs, source + sofs, bytes_per_line);
 
-		sofs += CGA_BYTES_PER_LINE;
+		sofs += bytes_per_line;
 		sofs ^= CGA_ODD_LINES_OFS;
 		if ((sofs & CGA_ODD_LINES_OFS) != 0)
-			sofs -= CGA_BYTES_PER_LINE;
+			sofs -= bytes_per_line;
 
-		tofs += CGA_BYTES_PER_LINE;
+		tofs += bytes_per_line;
 		tofs ^= CGA_ODD_LINES_OFS;
 		if ((tofs & CGA_ODD_LINES_OFS) != 0)
-			tofs -= CGA_BYTES_PER_LINE;
+			tofs -= bytes_per_line;
 	}
 }
 
@@ -2818,21 +2818,21 @@ static void AnimSaucer(void) {
 			/*previous line*/
 			ofs ^= CGA_ODD_LINES_OFS;
 			if ((ofs & CGA_ODD_LINES_OFS) != 0)
-				ofs -= CGA_BYTES_PER_LINE;
+				ofs -= bytes_per_line;
 
 			for (i = 0; i < 55; i++) {
-				memcpy(cga_backbuffer + ofs, cga_backbuffer + ofs2, CGA_BYTES_PER_LINE);
+				memcpy(cga_backbuffer + ofs, cga_backbuffer + ofs2, bytes_per_line);
 
 				/*next line*/
-				ofs2 += CGA_BYTES_PER_LINE;
+				ofs2 += bytes_per_line;
 				ofs2 ^= CGA_ODD_LINES_OFS;
 				if ((ofs2 & CGA_ODD_LINES_OFS) != 0)
-					ofs2 -= CGA_BYTES_PER_LINE;
+					ofs2 -= bytes_per_line;
 
 				/*previous line line*/
 				ofs ^= CGA_ODD_LINES_OFS;
 				if ((ofs & CGA_ODD_LINES_OFS) != 0)
-					ofs -= CGA_BYTES_PER_LINE;
+					ofs -= bytes_per_line;
 			}
 
 			ofs2 = cga_CalcXY(0, 200 - 1);
@@ -2842,18 +2842,18 @@ static void AnimSaucer(void) {
 
 				ofs2 ^= CGA_ODD_LINES_OFS;
 				if ((ofs2 & CGA_ODD_LINES_OFS) != 0)
-					ofs2 -= CGA_BYTES_PER_LINE;
+					ofs2 -= bytes_per_line;
 
 				waitVBlank();
 				waitVBlank();
 			}
 
 			/*wipe 56 lines*/
-			memset(cga_backbuffer + ofs2, 0, 56 / 2 * CGA_BYTES_PER_LINE);
+			memset(cga_backbuffer + ofs2, 0, 56 / 2 * bytes_per_line);
 			ofs2 ^= CGA_ODD_LINES_OFS;
 			if ((ofs2 & CGA_ODD_LINES_OFS) == 0)
-				ofs2 += CGA_BYTES_PER_LINE;
-			memset(cga_backbuffer + ofs2, 0, 54 / 2 * CGA_BYTES_PER_LINE);
+				ofs2 += bytes_per_line;
+			memset(cga_backbuffer + ofs2, 0, 54 / 2 * bytes_per_line);
 
 			for (i = 0xFFFF; i--;) ; /*TODO: weak delay*/
 
@@ -3420,7 +3420,7 @@ void DrawStickyNet(void) {
 		int16 i;
 		for (i = 0; i < w; i += 16 / 4)
 			drawSprite(sprite, frontbuffer, ofs + i);
-		ofs += CGA_BYTES_PER_LINE * 30 / 2;
+		ofs += bytes_per_line * 30 / 2;
 	}
 }
 
@@ -3550,7 +3550,7 @@ uint16 CMD_E_PsiZoneScan(void) {
 
 		offs ^= CGA_ODD_LINES_OFS;
 		if ((offs & CGA_ODD_LINES_OFS) == 0)
-			offs += CGA_BYTES_PER_LINE;
+			offs += bytes_per_line;
 	}
 
 	restoreScreenOfSpecialRoom();

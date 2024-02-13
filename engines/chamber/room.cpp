@@ -252,7 +252,7 @@ void selectSpotCursor(void) {
 #define kBgH 30
 
 /*blocks draw order (clockwise inward spiral)*/
-static const int16 background_draw_steps[] = {
+static const int16 cga_background_draw_steps[] = {
 	kBgW, kBgW, kBgW, kBgW, kBgW, kBgW, kBgW,
 	kBgH / 2 * CGA_BYTES_PER_LINE, kBgH / 2 * CGA_BYTES_PER_LINE, kBgH / 2 * CGA_BYTES_PER_LINE, kBgH / 2 * CGA_BYTES_PER_LINE, kBgH / 2 * CGA_BYTES_PER_LINE,
 	-kBgW, -kBgW, -kBgW, -kBgW, -kBgW, -kBgW, -kBgW, -kBgW,
@@ -271,17 +271,17 @@ Draw main backgound pattern, in spiral-like order
 */
 void drawBackground(byte *target, byte vblank) {
 	int16 i;
-	uint16 offs = (2 / 2) * CGA_BYTES_PER_LINE + 8;   /*TODO: calcxy?*/
+	uint16 offs = (2 / 2) * bytes_per_line + 8;   /*TODO: calcxy?*/
 	byte *pixels = gauss_data + 0x3C8; /*TODO: better const*/
 	for (i = 0; i < 53; i++) {
 		/*draw a tile, alternating between two variants*/
 		cga_Blit(pixels + (i & 1 ? 0 : kBgW * kBgH), kBgW, kBgW, kBgH, target, offs);
 		if (vblank)
 			waitVBlank();
-		offs += background_draw_steps[i];
+		offs += cga_background_draw_steps[i];
 	}
 
-	offs = (182 / 2) * CGA_BYTES_PER_LINE;  /*TODO: calcxy?*/
+	offs = (182 / 2) * bytes_per_line; /*TODO: calcxy?*/
 	for (i = 0; i < 9; i++) {
 		cga_Blit(pixels, kBgW, kBgW, 9, target, offs);
 		offs += kBgW;
@@ -1408,7 +1408,7 @@ void theWallOpenRightDoor(byte x, byte y, byte width, byte height, byte limit) {
 
 		offs ^= CGA_ODD_LINES_OFS;
 		if ((offs & CGA_ODD_LINES_OFS) == 0)
-			offs += CGA_BYTES_PER_LINE;
+			offs += bytes_per_line;
 	}
 
 	cga_blitToScreen(ooffs, 1, oh);
@@ -1437,7 +1437,7 @@ void theWallOpenLeftDoor(byte x, byte y, byte width, byte height, byte limit) {
 
 		offs ^= CGA_ODD_LINES_OFS;
 		if ((offs & CGA_ODD_LINES_OFS) == 0)
-			offs += CGA_BYTES_PER_LINE;
+			offs += bytes_per_line;
 	}
 	cga_blitToScreen(ooffs, 1, oh);
 }

@@ -236,8 +236,8 @@ void drawBoxAroundSpot(void) {
 	/*TODO: this is CGA-only!*/
 	y = (ofs & CGA_ODD_LINES_OFS) ? 1 : 0;
 	ofs &= ~CGA_ODD_LINES_OFS;
-	x = (ofs % CGA_BYTES_PER_LINE) * pixels_per_byte;
-	y += (ofs / CGA_BYTES_PER_LINE) * 2;
+	x = (ofs % bytes_per_line) * pixels_per_byte;
+	y += (ofs / bytes_per_line) * 2;
 	w *= pixels_per_byte;   /*TODO: this will overflow on large sprite*/
 
 	cga_DrawVLine(x, y, h - 1, 0, CGA_SCREENBUFFER);
