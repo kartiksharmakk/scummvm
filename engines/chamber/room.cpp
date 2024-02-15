@@ -453,14 +453,14 @@ void initRoomDoorInfo(byte index) {
 		info->layer[i].width = w;
 		info->layer[i].height = h;
 		info->layer[i].pixels = sprite + 2;
-		info->layer[i].offs = cga_CalcXY_p(x, y);
+		info->layer[i].offs = CalcXY_p(x, y);
 
 		aptr += 3;
 	}
 
 	info->width = bounds.ex - bounds.sx;
 	info->height = bounds.ey - bounds.sy;
-	info->offs = cga_CalcXY_p(bounds.sx, bounds.sy);
+	info->offs = CalcXY_p(bounds.sx, bounds.sy);
 }
 
 /*
@@ -781,9 +781,9 @@ void drawRoomStaticObject(byte *aptr, byte *rx, byte *ry, byte *rw, byte *rh) {
 	/*TODO: check if this results in any glitches in Who Will Be Saved*/
 
 	if (aptr[1] & 0x80)
-		cga_BlitSpriteFlip(sprite, pitch, w, h, cga_backbuffer, cga_CalcXY_p(x, y));
+		cga_BlitSpriteFlip(sprite, pitch, w, h, cga_backbuffer, CalcXY_p(x, y));
 	else
-		cga_BlitSprite(sprite, pitch, w, h, cga_backbuffer, cga_CalcXY_p(x, y));
+		cga_BlitSprite(sprite, pitch, w, h, cga_backbuffer, CalcXY_p(x, y));
 }
 
 /*
@@ -972,7 +972,7 @@ Copy object hint from cga_backbuffer to screen
 void showObjectHint(byte *target) {
 	if (script_byte_vars.zone_index == 135)
 		return;
-	cga_CopyScreenBlock(cga_backbuffer, room_hint_bar_width + 2, 9, target, cga_CalcXY_p(room_hint_bar_coords_x - 1, room_hint_bar_coords_y - 2));
+	cga_CopyScreenBlock(cga_backbuffer, room_hint_bar_width + 2, 9, target, CalcXY_p(room_hint_bar_coords_x - 1, room_hint_bar_coords_y - 2));
 }
 
 /*
@@ -990,7 +990,7 @@ void drawCommandHint(void) {
 Copy command hint from cga_backbuffer to screen
 */
 void showCommandHint(byte *target) {
-	cga_CopyScreenBlock(cga_backbuffer, cmd_hint_bar_width + 2, 9, target, cga_CalcXY_p(cmd_hint_bar_coords_x - 1, cmd_hint_bar_coords_y - 2));
+	cga_CopyScreenBlock(cga_backbuffer, cmd_hint_bar_width + 2, 9, target, CalcXY_p(cmd_hint_bar_coords_x - 1, cmd_hint_bar_coords_y - 2));
 }
 
 void loadLutinSprite(uint16 lutidx) {
@@ -1040,7 +1040,7 @@ void drawCharacterSprite(byte spridx, byte x, byte y, byte *target) {
 
 	loadLutinSprite(spridx);
 
-	drawSprite(scratch_mem2, target, cga_CalcXY_p(x, y));
+	drawSprite(scratch_mem2, target, CalcXY_p(x, y));
 }
 
 /*
@@ -1063,7 +1063,7 @@ char drawZoneAniSprite(rect_t *rect, uint16 index, byte *target) {
 
 			zsprite_w = scratch_mem2[0];
 			zsprite_h = scratch_mem2[1];
-			zsprite_draw_ofs = cga_CalcXY_p(rect->sx, rect->sy);
+			zsprite_draw_ofs = CalcXY_p(rect->sx, rect->sy);
 
 			drawSprite(scratch_mem2, target, zsprite_draw_ofs);
 
@@ -1281,7 +1281,7 @@ uint16 getPuzzlSprite(byte index, byte x, byte y, uint16 *w, uint16 *h, uint16 *
 	byte *spr = loadPuzzlToScratch(index);
 	*w = spr[0];
 	*h = spr[1];
-	*ofs = cga_CalcXY_p(x, y);
+	*ofs = CalcXY_p(x, y);
 	return 0;   /*sprite offset in scratch buf*/
 }
 
@@ -1390,7 +1390,7 @@ Open The Wall's right gate
 TODO: move this to CGA?
 */
 void theWallOpenRightDoor(byte x, byte y, byte width, byte height, byte limit) {
-	uint16 offs = cga_CalcXY_p(x + width - 2, y);
+	uint16 offs = CalcXY_p(x + width - 2, y);
 
 	while (--width) {
 		cga_HideScreenBlockLiftToRight(1, CGA_SCREENBUFFER, cga_backbuffer, width, height, CGA_SCREENBUFFER, offs);
@@ -1419,7 +1419,7 @@ Open The Wall's left gate
 TODO: move this to CGA?
 */
 void theWallOpenLeftDoor(byte x, byte y, byte width, byte height, byte limit) {
-	uint16 offs = cga_CalcXY_p(x + 1, y);
+	uint16 offs = CalcXY_p(x + 1, y);
 
 	while (--width) {
 		cga_HideScreenBlockLiftToLeft(1, CGA_SCREENBUFFER, cga_backbuffer, width, height, CGA_SCREENBUFFER, offs);
@@ -1487,11 +1487,11 @@ void theWallPhase1_DoorClose1(void) {
 	spr = loadMursmSprite(0);
 	spr += cur_frame_width - 1;
 	cur_image_coords_x = 64 / 4;
-	cga_AnimLiftToRight(10, spr, cur_frame_width, 1, cur_image_size_h, frontbuffer, cga_CalcXY_p(cur_image_coords_x, cur_image_coords_y));
+	cga_AnimLiftToRight(10, spr, cur_frame_width, 1, cur_image_size_h, frontbuffer, CalcXY_p(cur_image_coords_x, cur_image_coords_y));
 
 	spr = loadMursmSprite(1);
 	cur_image_coords_x = 220 / 4;
-	cga_AnimLiftToLeft(10, spr, cur_frame_width, 1, cur_image_size_h, frontbuffer, cga_CalcXY_p(cur_image_coords_x, cur_image_coords_y));
+	cga_AnimLiftToLeft(10, spr, cur_frame_width, 1, cur_image_size_h, frontbuffer, CalcXY_p(cur_image_coords_x, cur_image_coords_y));
 
 	IFGM_StopSample();
 
@@ -1511,11 +1511,11 @@ void theWallPhase2_DoorClose2(void) {
 	spr = loadMursmSprite(0);
 	spr += cur_frame_width - 1;
 	cur_image_coords_x = 64 / 4;
-	cga_AnimLiftToRight(10, spr - 10, cur_frame_width, 1 + 10, cur_image_size_h, frontbuffer, cga_CalcXY_p(cur_image_coords_x, cur_image_coords_y));
+	cga_AnimLiftToRight(10, spr - 10, cur_frame_width, 1 + 10, cur_image_size_h, frontbuffer, CalcXY_p(cur_image_coords_x, cur_image_coords_y));
 
 	spr = loadMursmSprite(1);
 	cur_image_coords_x = 220 / 4;
-	cga_AnimLiftToLeft(10, spr, cur_frame_width, 1 + 10, cur_image_size_h, frontbuffer, cga_CalcXY_p(cur_image_coords_x, cur_image_coords_y) - 10);
+	cga_AnimLiftToLeft(10, spr, cur_frame_width, 1 + 10, cur_image_size_h, frontbuffer, CalcXY_p(cur_image_coords_x, cur_image_coords_y) - 10);
 
 	IFGM_PlaySample(30);
 
@@ -1529,18 +1529,18 @@ void drawTheWallDoors(void) {
 	switch (script_byte_vars.zone_index) {
 	case 9:
 	case 102:
-		cga_Blit(loadMursmSprite(0) + 10, 20, 10, 59, CGA_SCREENBUFFER, cga_CalcXY_p(64 / pixels_per_byte, 32));
+		cga_Blit(loadMursmSprite(0) + 10, 20, 10, 59, CGA_SCREENBUFFER, CalcXY_p(64 / pixels_per_byte, 32));
 		if (g_vm->getLanguage() == Common::EN_USA) {
 			/*This fixes odd black patch on the right gate door*/
-			cga_Blit(loadMursmSprite(1)     , 20, 10, 59, CGA_SCREENBUFFER, cga_CalcXY_p(184 / pixels_per_byte, 32));
+			cga_Blit(loadMursmSprite(1)     , 20, 10, 59, CGA_SCREENBUFFER, CalcXY_p(184 / pixels_per_byte, 32));
 		} else {
-			cga_Blit(loadMursmSprite(1)     , 20, 10, 59, CGA_SCREENBUFFER, cga_CalcXY_p(180 / pixels_per_byte, 32));
+			cga_Blit(loadMursmSprite(1)     , 20, 10, 59, CGA_SCREENBUFFER, CalcXY_p(180 / pixels_per_byte, 32));
 		}
 		break;
 	case 95:
 	case 103:
-		cga_Blit(loadMursmSprite(0), 20, 20, 59, CGA_SCREENBUFFER, cga_CalcXY_p(64 / pixels_per_byte, 32));
-		cga_Blit(loadMursmSprite(1), 20, 20, 59, CGA_SCREENBUFFER, cga_CalcXY_p(144 / pixels_per_byte, 32));
+		cga_Blit(loadMursmSprite(0), 20, 20, 59, CGA_SCREENBUFFER, CalcXY_p(64 / pixels_per_byte, 32));
+		cga_Blit(loadMursmSprite(1), 20, 20, 59, CGA_SCREENBUFFER, CalcXY_p(144 / pixels_per_byte, 32));
 		break;
 	}
 }
@@ -1587,7 +1587,7 @@ Return current and next free buffer ptr
 */
 byte *backupSpotImage(spot_t *spot, byte **spotback, byte *buffer) {
 	*spotback = buffer;
-	buffer = cga_BackupImage(cga_backbuffer, cga_CalcXY_p(spot->sx, spot->sy), spot->ex - spot->sx, spot->ey - spot->sy, buffer);
+	buffer = cga_BackupImage(cga_backbuffer, CalcXY_p(spot->sx, spot->sy), spot->ex - spot->sx, spot->ey - spot->sy, buffer);
 	return buffer;
 }
 

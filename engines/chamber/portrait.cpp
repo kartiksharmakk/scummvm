@@ -275,7 +275,7 @@ int16 drawPortrait(byte **desc, byte *x, byte *y, byte *width, byte *height) {
 	cur_image_size_h = *image++;
 	cur_image_size_w = *image++;
 	cur_image_pixels = image;
-	cur_image_offs = cga_CalcXY_p(cur_image_coords_x, cur_image_coords_y);
+	cur_image_offs = CalcXY_p(cur_image_coords_x, cur_image_coords_y);
 	addDirtyRect(DirtyRectSprite, cur_image_coords_x, cur_image_coords_y, cur_image_size_w, cur_image_size_h, cur_image_offs);
 
 	/*TODO: remove and use only globals?*/

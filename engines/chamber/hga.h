@@ -45,8 +45,8 @@ namespace Chamber {
 // #define hgafrontbuffer HGA_SCREENBUFFER
 // #define hgacga_backbuffer HGA_cga_backbuffer
 
-uint16 HGA_CalcXY(uint16 x, uint16 y);
-uint16 HGA_CalcXY_p(uint16 x, uint16 y);
+uint16 hga_CalcXY(uint16 x, uint16 y);
+uint16 hga_CalcXY_p(uint16 x, uint16 y);
 
 } // End of namespace Chamber
 

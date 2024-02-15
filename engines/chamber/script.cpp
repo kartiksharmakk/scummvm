@@ -677,7 +677,7 @@ uint16 SCR_5_DrawPortraitLiftRight(void) {
 		return 0;
 
 	/*TODO: use local args instead of globals*/
-	cga_AnimLiftToRight(width, cur_image_pixels + width - 1, width, 1, height, CGA_SCREENBUFFER, cga_CalcXY_p(x, y));
+	cga_AnimLiftToRight(width, cur_image_pixels + width - 1, width, 1, height, CGA_SCREENBUFFER, CalcXY_p(x, y));
 	return 0;
 }
 
@@ -693,7 +693,7 @@ uint16 SCR_6_DrawPortraitLiftLeft(void) {
 		return 0;
 
 	/*TODO: use local args instead of globals*/
-	cga_AnimLiftToLeft(width, cur_image_pixels, width, 1, height, CGA_SCREENBUFFER, cga_CalcXY_p(x + width - 1, y));
+	cga_AnimLiftToLeft(width, cur_image_pixels, width, 1, height, CGA_SCREENBUFFER, CalcXY_p(x + width - 1, y));
 	return 0;
 }
 
@@ -797,7 +797,7 @@ uint16 SCR_B_DrawPortraitTwistEffect(void) {
 	if (!drawPortrait(&script_ptr, &x, &y, &width, &height))
 		return 0;
 
-	offs = cga_CalcXY_p(x, y);
+	offs = CalcXY_p(x, y);
 
 	cga_SwapScreenRect(cur_image_pixels, width, height, cga_backbuffer, offs);
 	twistDraw(x, y, width, height, cga_backbuffer, frontbuffer);
@@ -848,7 +848,7 @@ uint16 SCR_C_DrawPortraitArcEffect(void) {
 	if (!drawPortrait(&script_ptr, &x, &y, &width, &height))
 		return 0;
 
-	offs = cga_CalcXY_p(x, y);
+	offs = CalcXY_p(x, y);
 
 	cga_SwapScreenRect(cur_image_pixels, width, height, cga_backbuffer, offs);
 	arcDraw(x, y, width, height, cga_backbuffer, frontbuffer);
@@ -875,7 +875,7 @@ uint16 SCR_D_DrawPortraitDotEffect(void) {
 	int16 count = 0;
 
 	for (offs = 0; offs != cur_image_end;) {
-		target[cga_CalcXY_p(x + offs % cur_image_size_w, y + offs / cur_image_size_w)] = cur_image_pixels[offs];
+		target[CalcXY_p(x + offs % cur_image_size_w, y + offs / cur_image_size_w)] = cur_image_pixels[offs];
 
 		if (count % 5 == 0)
 			cga_blitToScreen(offs, 4, 1);
@@ -960,7 +960,7 @@ uint16 SCR_19_HidePortraitLiftLeft(void) {
 
 	/*TODO: This originally was done by reusing door sliding routine*/
 
-	/*offs = cga_CalcXY_p(x + 1, y);*/
+	/*offs = CalcXY_p(x + 1, y);*/
 	offs++;
 
 	while (--width) {
@@ -1006,7 +1006,7 @@ uint16 SCR_1A_HidePortraitLiftRight(void) {
 
 	/*TODO: This originally was done by reusing door sliding routine*/
 
-	offs = cga_CalcXY_p(x + width - 2, y);
+	offs = CalcXY_p(x + width - 2, y);
 
 	while (--width) {
 		cga_HideScreenBlockLiftToRight(1, CGA_SCREENBUFFER, cga_backbuffer, width, height, CGA_SCREENBUFFER, offs);
@@ -1049,7 +1049,7 @@ uint16 SCR_1B_HidePortraitLiftUp(void) {
 		return 0;
 	}
 
-	offs = cga_CalcXY_p(x, y + 1);
+	offs = CalcXY_p(x, y + 1);
 
 	while (--height) {
 		cga_HideScreenBlockLiftToUp(1, CGA_SCREENBUFFER, cga_backbuffer, width, height, CGA_SCREENBUFFER, offs);
@@ -1085,7 +1085,7 @@ uint16 SCR_1C_HidePortraitLiftDown(void) {
 		return 0;
 	}
 
-	offs = cga_CalcXY_p(x, y + height - 2);
+	offs = CalcXY_p(x, y + height - 2);
 
 	while (--height) {
 		cga_HideScreenBlockLiftToDown(1, CGA_SCREENBUFFER, cga_backbuffer, width, height, CGA_SCREENBUFFER, offs);
@@ -1361,7 +1361,7 @@ void drawStars(star_t *stars, int16 iter, byte *target) {
 			continue;
 		}
 
-		stars->ofs = cga_CalcXY(x, y);
+		stars->ofs = CalcXY(x, y);
 
 		pixel = (stars->z < 0xE00) ? 0xC0 : 0x40;
 		pixel >>= (x % 4) * 2;
@@ -1551,7 +1551,7 @@ Display a static sprite in the room (to screen)
 uint16 SCR_11_DrawRoomObject(void) {
 	byte x, y, w, h;
 	SCR_DrawRoomObjectBack(&x, &y, &w, &h);
-	cga_CopyScreenBlock(cga_backbuffer, w, h, frontbuffer, cga_CalcXY_p(x, y));
+	cga_CopyScreenBlock(cga_backbuffer, w, h, frontbuffer, CalcXY_p(x, y));
 	return 0;
 }
 
@@ -1893,7 +1893,7 @@ uint16 SCR_30_Fight(void) {
 	player_image[1] = x;
 	player_image[2] = y;
 	if (drawPortrait(&image, &x, &y, &width, &height))
-		cga_AnimLiftToLeft(width, cur_image_pixels, width, 1, height, CGA_SCREENBUFFER, cga_CalcXY_p(x + width - 1, y));
+		cga_AnimLiftToLeft(width, cur_image_pixels, width, 1, height, CGA_SCREENBUFFER, CalcXY_p(x + width - 1, y));
 
 	blinkToWhite();
 
@@ -2697,7 +2697,7 @@ uint16 SCR_56_MorphRoom98(void) {
 
 	redrawRoomStatics(98, 0);
 
-	ofs = cga_CalcXY(0, 136);
+	ofs = CalcXY(0, 136);
 	for (h = 60; h; h--) {
 		memcpy(frontbuffer + ofs, cga_backbuffer + ofs, bytes_per_line);
 		waitVBlank();
@@ -2807,7 +2807,7 @@ static void AnimSaucer(void) {
 		/*scale the saucer*/
 		cga_ZoomInplaceXY(cur_image_pixels, width, height, ww, hh, xx, yy, cga_backbuffer);
 
-		baseofs = cga_CalcXY(0, yy);
+		baseofs = CalcXY(0, yy);
 
 		if (!scroll_done) {
 			/*scroll the saucer*/
@@ -2835,7 +2835,7 @@ static void AnimSaucer(void) {
 					ofs -= bytes_per_line;
 			}
 
-			ofs2 = cga_CalcXY(0, 200 - 1);
+			ofs2 = CalcXY(0, 200 - 1);
 
 			for (i = 0; i < 108; i++) {
 				LiftLines(i + 1, cga_backbuffer, ofs, frontbuffer, ofs2);
@@ -3412,7 +3412,7 @@ void DrawStickyNet(void) {
 	w = room_bounds_rect.ex - x;
 	h = room_bounds_rect.ey - y;
 
-	ofs = cga_CalcXY_p(x, y);
+	ofs = CalcXY_p(x, y);
 
 	/*16x30 is the net sprite size*/
 
@@ -3527,7 +3527,7 @@ uint16 CMD_E_PsiZoneScan(void) {
 
 	IFGM_PlaySample(26);
 
-	offs = cga_CalcXY_p(room_bounds_rect.sx, room_bounds_rect.sy);
+	offs = CalcXY_p(room_bounds_rect.sx, room_bounds_rect.sy);
 	w = room_bounds_rect.ex - room_bounds_rect.sx;
 	h = room_bounds_rect.ey - room_bounds_rect.sy;
 

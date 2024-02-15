@@ -71,6 +71,9 @@ void cga_SwapRealBackBuffer(void);
 
 void cga_SwapScreenRect(byte *pixels, uint16 w, uint16 h, byte *screen, uint16 ofs);
 
+uint16 CalcXY(uint16 x, uint16 y);
+uint16 CalcXY_p(uint16 x, uint16 y);
+
 uint16 cga_CalcXY(uint16 x, uint16 y);
 uint16 cga_CalcXY_p(uint16 x, uint16 y);
 

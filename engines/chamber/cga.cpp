@@ -35,7 +35,7 @@ namespace Chamber {
 Out:
   screen offset
 */
-uint16 HGA_CalcXY_p(uint16 x, uint16 y) {
+uint16 hga_CalcXY_p(uint16 x, uint16 y) {
 	 uint16 ofs = HGA_CENTERED_BASE_OFS; /*initial offset for centering*/
 #if 0
 	 ofs += HGA_CALCXY_RAW(x * 4 * 2, y);
@@ -56,8 +56,8 @@ uint16 HGA_CalcXY_p(uint16 x, uint16 y) {
 Out:
   screen offset
 */
-uint16 HGA_CalcXY(uint16 x, uint16 y) {
-	 return HGA_CalcXY_p(x / 4, y);
+uint16 hga_CalcXY(uint16 x, uint16 y) {
+	 return hga_CalcXY_p(x / 4, y);
 }
 
 uint16 bytes_per_line;
@@ -188,7 +188,7 @@ void cga_blitToScreen(int16 dx, int16 dy, int16 w, int16 h) {
 	w = (w + 3) / 4;
 
 	for (int16 y = 0; y < h; y++) {
-		byte *src = CGA_SCREENBUFFER + cga_CalcXY(dx, dy + y);
+		byte *src = CGA_SCREENBUFFER + CalcXY(dx, dy + y);
 		byte *dst = scrbuffer + (y + dy) * 320 + dx;
 
 		for (int16 x = 0; x < w; x++) {
@@ -280,6 +280,38 @@ void cga_SwapScreenRect(byte *pixels, uint16 w, uint16 h, byte *screen, uint16 o
 	if (screen == CGA_SCREENBUFFER)
 		cga_blitToScreen(oofs, w * 4, oh);
 }
+
+uint16 CalcXY(uint16 x, uint16 y) {
+	uint16 result = 0;
+	switch (g_vm->_renderMode) {
+	case Common::kRenderCGA:
+		result = cga_CalcXY(x, y);
+		break;
+	case Common::kRenderHercG:
+		result = hga_CalcXY(x, y);
+		break;
+	default:
+		break;
+	}
+	return result;
+}
+
+uint16 CalcXY_p(uint16 x, uint16 y) {
+	uint16 result = 0;
+	switch (g_vm->_renderMode) {
+	case Common::kRenderCGA:
+		result = cga_CalcXY_p(x, y);
+		break;
+	case Common::kRenderHercG:
+		result = hga_CalcXY_p(x, y);
+		break;
+	default:
+		break;
+	}
+	return result;
+}
+
+
 
 /*
 Calc screen offset from normal pixel coordinates
@@ -429,7 +461,7 @@ void cga_DrawVLine(uint16 x, uint16 y, uint16 l, byte color, byte *target) {
 	mask >>= (x % pixels_per_byte) * bits_per_pixel;
 	pixel >>= (x % pixels_per_byte) * bits_per_pixel;
 
-	ofs = cga_CalcXY_p(x / pixels_per_byte, y);
+	ofs = CalcXY_p(x / pixels_per_byte, y);
 
 	uint16 ol = l;
 	while (l--) {
@@ -456,7 +488,7 @@ void cga_DrawHLine(uint16 x, uint16 y, uint16 l, byte color, byte *target) {
 	mask >>= (x % pixels_per_byte) * bits_per_pixel;
 	pixel >>= (x % pixels_per_byte) * bits_per_pixel;
 
-	ofs = cga_CalcXY_p(x / pixels_per_byte, y);
+	ofs = CalcXY_p(x / pixels_per_byte, y);
 	uint16 ol = l;
 	while (l--) {
 		target[ofs] = (target[ofs] & mask) | pixel;
@@ -498,7 +530,7 @@ Print a character at current cursor pos, then advance
 void cga_PrintChar(byte c, byte *target) {
 	uint16 i;
 	byte *font = carpc_data + c * CGA_FONT_HEIGHT;
-	uint16 ofs = cga_CalcXY_p(char_draw_coords_x++, char_draw_coords_y);
+	uint16 ofs = CalcXY_p(char_draw_coords_x++, char_draw_coords_y);
 	for (i = 0; i < CGA_FONT_HEIGHT; i++) {
 		c = *font++;
 		c = char_xlat_table[c];
@@ -740,7 +772,7 @@ void drawSpriteN(byte index, uint16 x, uint16 y, byte *target) {
 	uint16 ofs;
 	byte *sprite;
 	sprite = loadSprit(index);
-	ofs = cga_CalcXY_p(x, y);
+	ofs = CalcXY_p(x, y);
 	drawSprite(sprite, target, ofs);
 }
 
@@ -748,7 +780,7 @@ void drawSpriteNFlip(byte index, uint16 x, uint16 y, byte *target) {
 	uint16 ofs;
 	byte *sprite;
 	sprite = loadSprit(index);
-	ofs = cga_CalcXY_p(x, y);
+	ofs = CalcXY_p(x, y);
 	drawSpriteFlip(sprite, target, ofs);
 }
 
@@ -756,7 +788,7 @@ void backupAndShowSprite(byte index, byte x, byte y) {
 	byte w, h;
 	uint16 ofs;
 	byte *sprite = loadSprit(index);
-	ofs = cga_CalcXY_p(x, y);
+	ofs = CalcXY_p(x, y);
 	w = sprite[0];
 	h = sprite[1];
 	cga_BackupImageReal(ofs, w, h);
@@ -813,7 +845,7 @@ NB! x:y specifies left-bottom coords
 void cga_AnimLiftToUp(byte *pixels, uint16 pw, uint16 w, uint16 h, byte *screen, uint16 x, uint16 y) {
 	uint16 i;
 	for (i = 1; i <= h; i++) {
-		cga_BlitAndWait(pixels, pw, w, i, screen, cga_CalcXY_p(x, y));
+		cga_BlitAndWait(pixels, pw, w, i, screen, CalcXY_p(x, y));
 		y -= 1;
 	}
 }
@@ -1155,7 +1187,7 @@ void cga_TraceLine(uint16 sx, uint16 ex, uint16 sy, uint16 ey, byte *source, byt
 	}
 	dy = h * 2;
 
-	ofs = cga_CalcXY_p(sx / 4, sy);
+	ofs = CalcXY_p(sx / 4, sy);
 	mask = 0xC0 >> ((sx % 4) * 2);
 
 	val = dy + dx;
@@ -1563,7 +1595,7 @@ void cga_ZoomInplaceXY(byte *pixels, byte w, byte h, byte nw, byte nh, uint16 x,
 	zoom.eh = h - 1;
 	zoom.xbase = x % 4;
 
-	cga_ZoomInplace(&zoom, nw, nh, target, target, cga_CalcXY(x, y));
+	cga_ZoomInplace(&zoom, nw, nh, target, target, CalcXY(x, y));
 }
 
 } // End of namespace Chamber
