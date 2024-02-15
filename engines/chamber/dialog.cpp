@@ -124,25 +124,25 @@ void drawPersonBubble(byte x, byte y, byte flags, byte *msg) {
 
 	/*upper border*/
 	ofs = CalcXY_p(x, y);
-	ofs = cga_DrawHLineWithEnds(0xF00F,      0,    0, char_draw_max_width, CGA_SCREENBUFFER, ofs);
-	ofs = cga_DrawHLineWithEnds(0xC003, 0x0FF0, 0xFF, char_draw_max_width, CGA_SCREENBUFFER, ofs);
-	ofs = cga_DrawHLineWithEnds(0, 0x3FFC, 0xFF, char_draw_max_width, CGA_SCREENBUFFER, ofs);
-	ofs = cga_DrawHLineWithEnds(0, 0x3FFC, 0xFF, char_draw_max_width, CGA_SCREENBUFFER, ofs);
+	ofs = cga_DrawHLineWithEnds(0xF00F,      0,    0, char_draw_max_width, SCREENBUFFER, ofs);
+	ofs = cga_DrawHLineWithEnds(0xC003, 0x0FF0, 0xFF, char_draw_max_width, SCREENBUFFER, ofs);
+	ofs = cga_DrawHLineWithEnds(0, 0x3FFC, 0xFF, char_draw_max_width, SCREENBUFFER, ofs);
+	ofs = cga_DrawHLineWithEnds(0, 0x3FFC, 0xFF, char_draw_max_width, SCREENBUFFER, ofs);
 
 	/*body*/
 	char_draw_coords_x = x;
 	char_draw_coords_y = y + 4;
 
 	for (string_ended = 0; !string_ended; char_draw_coords_y += 6) {
-		cga_PrintChar(0x3B, CGA_SCREENBUFFER);
-		msg = printStringPadded(msg, CGA_SCREENBUFFER);
-		cga_PrintChar(0x3C, CGA_SCREENBUFFER);
+		cga_PrintChar(0x3B, SCREENBUFFER);
+		msg = printStringPadded(msg, SCREENBUFFER);
+		cga_PrintChar(0x3C, SCREENBUFFER);
 		char_draw_coords_x = x;
 	}
 
 	ofs = CalcXY_p(x, char_draw_coords_y);
-	ofs = cga_DrawHLineWithEnds(0xC003, 0x0FF0, 0xFF, char_draw_max_width, CGA_SCREENBUFFER, ofs);
-	ofs = cga_DrawHLineWithEnds(0xF00F,      0,    0, char_draw_max_width, CGA_SCREENBUFFER, ofs);
+	ofs = cga_DrawHLineWithEnds(0xC003, 0x0FF0, 0xFF, char_draw_max_width, SCREENBUFFER, ofs);
+	ofs = cga_DrawHLineWithEnds(0xF00F,      0,    0, char_draw_max_width, SCREENBUFFER, ofs);
 
 	w = char_draw_max_width + 2;
 	h = char_draw_coords_y - y + 2;
@@ -151,27 +151,27 @@ void drawPersonBubble(byte x, byte y, byte flags, byte *msg) {
 	switch (flags & SPIKE_MASK) {
 	case SPIKE_UPLEFT:  /*upper-left spike*/
 		ofs = CalcXY_p(x + 1, y - 7);
-		drawSpriteN(18, x + 1, y - 7, CGA_SCREENBUFFER);
+		drawSpriteN(18, x + 1, y - 7, SCREENBUFFER);
 		break;
 	case SPIKE_UPRIGHT: /*upper-right spike*/
 		ofs = CalcXY_p(x + char_draw_max_width, y - 7) - 1;
-		drawSpriteNFlip(18, x + char_draw_max_width, y - 7, CGA_SCREENBUFFER);
+		drawSpriteNFlip(18, x + char_draw_max_width, y - 7, SCREENBUFFER);
 		break;
 	case SPIKE_DNRIGHT: /*lower-right spike*/
 		ofs = CalcXY_p(x + char_draw_max_width, char_draw_coords_y + 1) - 1;
-		drawSpriteNFlip(21, x + char_draw_max_width, char_draw_coords_y + 1, CGA_SCREENBUFFER);
+		drawSpriteNFlip(21, x + char_draw_max_width, char_draw_coords_y + 1, SCREENBUFFER);
 		break;
 	case SPIKE_DNLEFT:  /*lower-left spike*/
 		ofs = CalcXY_p(x + 1, char_draw_coords_y + 1);
-		drawSpriteN(21, x + 1, char_draw_coords_y + 1, CGA_SCREENBUFFER);
+		drawSpriteN(21, x + 1, char_draw_coords_y + 1, SCREENBUFFER);
 		break;
 	case SPIKE_BUBRIGHT:    /*lower-right bubbles*/
 		ofs = CalcXY_p(x + char_draw_max_width, char_draw_coords_y + 4);
-		drawSpriteN(20, x + char_draw_max_width, char_draw_coords_y + 4, CGA_SCREENBUFFER);
+		drawSpriteN(20, x + char_draw_max_width, char_draw_coords_y + 4, SCREENBUFFER);
 		break;
 	case SPIKE_BUBLEFT: /*lower-left bubbles*/
 		ofs = CalcXY_p(x + 1, char_draw_coords_y + 4);
-		drawSpriteN(19, x + 1, char_draw_coords_y + 4, CGA_SCREENBUFFER);
+		drawSpriteN(19, x + 1, char_draw_coords_y + 4, SCREENBUFFER);
 		break;
 	}
 

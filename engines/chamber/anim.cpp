@@ -175,7 +175,7 @@ void animDrawSprite(byte x, byte y, byte sprw, byte sprh, byte *pixels, uint16 p
 }
 
 void animUndrawSprite(void) {
-	cga_CopyScreenBlock(cga_backbuffer, last_anim_width, last_anim_height, CGA_SCREENBUFFER, CalcXY_p(last_anim_x, last_anim_y));
+	cga_CopyScreenBlock(cga_backbuffer, last_anim_width, last_anim_height, SCREENBUFFER, CalcXY_p(last_anim_x, last_anim_y));
 	last_anim_height = 0;
 }
 

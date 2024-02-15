@@ -79,13 +79,13 @@ void drawInventoryBox(uint16 filtermask, uint16 filtervalue) {
 			continue;
 		if (count == 0) {
 			/*once first valid item found, draw the box*/
-			cga_FillAndWait(inv_bgcolor, 64 / 4, 64, CGA_SCREENBUFFER, CalcXY_p(232 / 4, 56));
+			cga_FillAndWait(inv_bgcolor, 64 / 4, 64, SCREENBUFFER, CalcXY_p(232 / 4, 56));
 			playSound(20);
 		}
 		inventory_spots[count].name = inventory_items[i].name;
 		inventory_spots[count].command = inventory_items[i].command;
 		inventory_spots[count].itemidx = i + 1;
-		drawSpriteN(inventory_items[i].sprite, inventory_spots[count].sx, inventory_spots[count].sy, CGA_SCREENBUFFER);
+		drawSpriteN(inventory_items[i].sprite, inventory_spots[count].sx, inventory_spots[count].sy, SCREENBUFFER);
 		count++;
 	}
 	inv_count = count;

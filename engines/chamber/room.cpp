@@ -884,7 +884,7 @@ void drawRoomItemsIndicator(void) {
 			break;
 		}
 	}
-	drawSpriteN(spridx, 296 / pixels_per_byte, 14, CGA_SCREENBUFFER);
+	drawSpriteN(spridx, 296 / pixels_per_byte, 14, SCREENBUFFER);
 	drawSpriteN(spridx, 296 / pixels_per_byte, 14, cga_backbuffer);
 
 	/*recalculate the number of zapstiks we have*/
@@ -926,7 +926,7 @@ void refreshZone(void) {
 	popDirtyRects(DirtyRectText);
 
 	if (!skip_zone_transition && !right_button)
-		drawBackground(CGA_SCREENBUFFER, 1);
+		drawBackground(SCREENBUFFER, 1);
 
 	cga_BackBufferToRealFull();
 
@@ -1393,7 +1393,7 @@ void theWallOpenRightDoor(byte x, byte y, byte width, byte height, byte limit) {
 	uint16 offs = CalcXY_p(x + width - 2, y);
 
 	while (--width) {
-		cga_HideScreenBlockLiftToRight(1, CGA_SCREENBUFFER, cga_backbuffer, width, height, CGA_SCREENBUFFER, offs);
+		cga_HideScreenBlockLiftToRight(1, SCREENBUFFER, cga_backbuffer, width, height, SCREENBUFFER, offs);
 		if (width == limit)
 			return;
 	}
@@ -1422,7 +1422,7 @@ void theWallOpenLeftDoor(byte x, byte y, byte width, byte height, byte limit) {
 	uint16 offs = CalcXY_p(x + 1, y);
 
 	while (--width) {
-		cga_HideScreenBlockLiftToLeft(1, CGA_SCREENBUFFER, cga_backbuffer, width, height, CGA_SCREENBUFFER, offs);
+		cga_HideScreenBlockLiftToLeft(1, SCREENBUFFER, cga_backbuffer, width, height, SCREENBUFFER, offs);
 		if (width == limit)
 			return;
 	}
@@ -1529,18 +1529,18 @@ void drawTheWallDoors(void) {
 	switch (script_byte_vars.zone_index) {
 	case 9:
 	case 102:
-		cga_Blit(loadMursmSprite(0) + 10, 20, 10, 59, CGA_SCREENBUFFER, CalcXY_p(64 / pixels_per_byte, 32));
+		cga_Blit(loadMursmSprite(0) + 10, 20, 10, 59, SCREENBUFFER, CalcXY_p(64 / pixels_per_byte, 32));
 		if (g_vm->getLanguage() == Common::EN_USA) {
 			/*This fixes odd black patch on the right gate door*/
-			cga_Blit(loadMursmSprite(1)     , 20, 10, 59, CGA_SCREENBUFFER, CalcXY_p(184 / pixels_per_byte, 32));
+			cga_Blit(loadMursmSprite(1)     , 20, 10, 59, SCREENBUFFER, CalcXY_p(184 / pixels_per_byte, 32));
 		} else {
-			cga_Blit(loadMursmSprite(1)     , 20, 10, 59, CGA_SCREENBUFFER, CalcXY_p(180 / pixels_per_byte, 32));
+			cga_Blit(loadMursmSprite(1)     , 20, 10, 59, SCREENBUFFER, CalcXY_p(180 / pixels_per_byte, 32));
 		}
 		break;
 	case 95:
 	case 103:
-		cga_Blit(loadMursmSprite(0), 20, 20, 59, CGA_SCREENBUFFER, CalcXY_p(64 / pixels_per_byte, 32));
-		cga_Blit(loadMursmSprite(1), 20, 20, 59, CGA_SCREENBUFFER, CalcXY_p(144 / pixels_per_byte, 32));
+		cga_Blit(loadMursmSprite(0), 20, 20, 59, SCREENBUFFER, CalcXY_p(64 / pixels_per_byte, 32));
+		cga_Blit(loadMursmSprite(1), 20, 20, 59, SCREENBUFFER, CalcXY_p(144 / pixels_per_byte, 32));
 		break;
 	}
 }

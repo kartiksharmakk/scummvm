@@ -66,6 +66,9 @@ uint16 bits_per_pixel;
 
 extern byte cga_backbuffer[0x4000];
 byte CGA_SCREENBUFFER[0x4000];
+byte *SCREENBUFFER;
+extern byte hga_backbuffer[0x8000];
+byte HGA_SCREENBUFFER[0x8000];
 byte scrbuffer[320*200];
 
 extern byte *scratch_mem2;
@@ -136,11 +139,13 @@ void init() {
 		bits_per_pixel = CGA_BITS_PER_PIXEL;
 		bytes_per_line = CGA_BYTES_PER_LINE;
 		pixels_per_byte = CGA_PIXELS_PER_BYTE;
+		SCREENBUFFER = CGA_SCREENBUFFER;
 		break;
 	case Common::kRenderHercG:
 		bits_per_pixel = HGA_BITS_PER_PIXEL;
 		bytes_per_line = HGA_BYTES_PER_LINE;
 		pixels_per_byte = HGA_PIXELS_PER_BYTE;
+		SCREENBUFFER = HGA_SCREENBUFFER;
 		break;
 	default:
 		break;
@@ -188,7 +193,7 @@ void cga_blitToScreen(int16 dx, int16 dy, int16 w, int16 h) {
 	w = (w + 3) / 4;
 
 	for (int16 y = 0; y < h; y++) {
-		byte *src = CGA_SCREENBUFFER + CalcXY(dx, dy + y);
+		byte *src = SCREENBUFFER + CalcXY(dx, dy + y);
 		byte *dst = scrbuffer + (y + dy) * 320 + dx;
 
 		for (int16 x = 0; x < w; x++) {
@@ -215,13 +220,13 @@ void cga_blitToScreen(int16 ofs, int16 w, int16 h) {
 }
 
 void cga_BackBufferToRealFull(void) {
-	memcpy(CGA_SCREENBUFFER, cga_backbuffer, sizeof(cga_backbuffer));
+	memcpy(SCREENBUFFER, cga_backbuffer, sizeof(cga_backbuffer));
 
 	cga_blitToScreen(0, 0, 320, 200);
 }
 
 void cga_RealBufferToBackFull(void) {
-	memcpy(cga_backbuffer, CGA_SCREENBUFFER, sizeof(cga_backbuffer));
+	memcpy(cga_backbuffer, SCREENBUFFER, sizeof(cga_backbuffer));
 }
 
 /*Copy interlaced screen data to another screen*/
@@ -236,7 +241,7 @@ void cga_CopyScreenBlock(byte *source, uint16 w, uint16 h, byte *target, uint16 
 			ofs += bytes_per_line;
 	}
 
-	if (target == CGA_SCREENBUFFER)
+	if (target == SCREENBUFFER)
 		cga_blitToScreen(oofs, w * 4, oh);
 }
 
@@ -247,7 +252,7 @@ void cga_SwapRealBackBuffer(void) {
 	uint16 i;
 	uint16 *s, *d;
 	waitVBlank();
-	s = (uint16 *)CGA_SCREENBUFFER;
+	s = (uint16 *)SCREENBUFFER;
 	d = (uint16 *)cga_backbuffer;
 	for (i = 0; i < sizeof(cga_backbuffer) / 2; i++) {
 		uint16 t = *s;
@@ -277,7 +282,7 @@ void cga_SwapScreenRect(byte *pixels, uint16 w, uint16 h, byte *screen, uint16 o
 			ofs += bytes_per_line;
 	}
 
-	if (screen == CGA_SCREENBUFFER)
+	if (screen == SCREENBUFFER)
 		cga_blitToScreen(oofs, w * 4, oh);
 }
 
@@ -357,7 +362,7 @@ byte *cga_BackupImage(byte *screen, uint16 ofs, uint16 w, uint16 h, byte *buffer
 }
 
 byte *cga_BackupImageReal(uint16 ofs, uint16 w, uint16 h) {
-	return cga_BackupImage(CGA_SCREENBUFFER, ofs, w, h, scratch_mem2);
+	return cga_BackupImage(SCREENBUFFER, ofs, w, h, scratch_mem2);
 }
 
 /*
@@ -375,7 +380,7 @@ void cga_Blit(byte *pixels, uint16 pw, uint16 w, uint16 h, byte *screen, uint16 
 			ofs += bytes_per_line;
 	}
 
-	if (screen == CGA_SCREENBUFFER)
+	if (screen == SCREENBUFFER)
 		cga_blitToScreen(oofs, w * 4, h);
 }
 
@@ -397,7 +402,7 @@ void cga_Fill(byte pixel, uint16 w, uint16 h, byte *screen, uint16 ofs) {
 			ofs += bytes_per_line;
 	}
 
-	if (screen == CGA_SCREENBUFFER)
+	if (screen == SCREENBUFFER)
 		cga_blitToScreen(oofs, w * 4, h);
 }
 
@@ -445,7 +450,7 @@ void cga_RefreshImageData(byte *buffer) {
 	w = *(byte *)(buffer + 1);
 	ofs = *(uint16 *)(buffer + 2);
 
-	cga_CopyScreenBlock(CGA_SCREENBUFFER, w, h, cga_backbuffer, ofs);
+	cga_CopyScreenBlock(SCREENBUFFER, w, h, cga_backbuffer, ofs);
 }
 
 /*
@@ -471,7 +476,7 @@ void cga_DrawVLine(uint16 x, uint16 y, uint16 l, byte color, byte *target) {
 			ofs += bytes_per_line;
 	}
 
-	if (target == CGA_SCREENBUFFER)
+	if (target == SCREENBUFFER)
 		cga_blitToScreen(x, y, 1, ol);
 }
 
@@ -500,7 +505,7 @@ void cga_DrawHLine(uint16 x, uint16 y, uint16 l, byte color, byte *target) {
 			pixel = color << ((pixels_per_byte - 1) * bits_per_pixel);
 		}
 	}
-	if (target == CGA_SCREENBUFFER)
+	if (target == SCREENBUFFER)
 		cga_blitToScreen(x, y, ol, 1);
 }
 
@@ -518,7 +523,7 @@ uint16 cga_DrawHLineWithEnds(uint16 bmask, uint16 bpix, byte color, uint16 l, by
 	if ((ofs & CGA_ODD_LINES_OFS) == 0)
 		ofs += bytes_per_line;
 
-	if (target == CGA_SCREENBUFFER)
+	if (target == SCREENBUFFER)
 		cga_blitToScreen(oofs, l * 4 + 2, 1);
 
 	return ofs;
@@ -540,7 +545,7 @@ void cga_PrintChar(byte c, byte *target) {
 			ofs += bytes_per_line;
 	}
 
-	if (target == CGA_SCREENBUFFER)
+	if (target == SCREENBUFFER)
 		cga_blitToScreen((char_draw_coords_x - 1) * 4, char_draw_coords_y, 4, CGA_FONT_HEIGHT);
 }
 
@@ -564,7 +569,7 @@ void cga_BlitScratchBackSprite(uint16 sprofs, uint16 w, uint16 h, byte *screen, 
 			ofs += bytes_per_line;
 	}
 
-	if (screen == CGA_SCREENBUFFER)
+	if (screen == SCREENBUFFER)
 		cga_blitToScreen(oofs, w * 4, oh);
 }
 
@@ -589,7 +594,7 @@ void cga_BlitSprite(byte *pixels, int16 pw, uint16 w, uint16 h, byte *screen, ui
 			ofs += bytes_per_line;
 	}
 
-	if (screen == CGA_SCREENBUFFER)
+	if (screen == SCREENBUFFER)
 		cga_blitToScreen(oofs, w * 4, oh);
 }
 
@@ -610,7 +615,7 @@ void cga_BlitSpriteFlip(byte *pixels, int16 pw, uint16 w, uint16 h, byte *screen
 			ofs += bytes_per_line;
 	}
 
-	if (screen == CGA_SCREENBUFFER)
+	if (screen == SCREENBUFFER)
 		cga_blitToScreen(oofs, w * 4, oh);
 }
 
@@ -637,7 +642,7 @@ void cga_BlitSpriteBak(byte *pixels, int16 pw, uint16 w, uint16 h, byte *screen,
 			ofs += bytes_per_line;
 	}
 
-	if (screen == CGA_SCREENBUFFER)
+	if (screen == SCREENBUFFER)
 		cga_blitToScreen(oofs, w * 4, oh);
 }
 
@@ -792,7 +797,7 @@ void backupAndShowSprite(byte index, byte x, byte y) {
 	w = sprite[0];
 	h = sprite[1];
 	cga_BackupImageReal(ofs, w, h);
-	drawSprite(sprite, CGA_SCREENBUFFER, ofs);  /*DrawSpriteN(index, x, y, CGA_SCREENBUFFER);*/
+	drawSprite(sprite, SCREENBUFFER, ofs);  /*DrawSpriteN(index, x, y, SCREENBUFFER);*/
 }
 
 /*
@@ -883,7 +888,7 @@ void cga_HideScreenBlockLiftToDown(uint16 n, byte *screen, byte *source, uint16 
 		/*fill just freed line with new pixels*/
 		memcpy(target + tofs, source + tofs, w);
 
-		if (screen == CGA_SCREENBUFFER) {
+		if (screen == SCREENBUFFER) {
 			cga_blitToScreen(0, 0, 320, 200);
 		}
 
@@ -928,7 +933,7 @@ void cga_HideScreenBlockLiftToUp(uint16 n, byte *screen, byte *source, uint16 w,
 		/*fill just freed line with new pixels*/
 		memcpy(target + tofs, source + tofs, w);
 
-		if (screen == CGA_SCREENBUFFER) {
+		if (screen == SCREENBUFFER) {
 			cga_blitToScreen(0, 0, 320, 200);
 		}
 
@@ -967,7 +972,7 @@ void cga_HideScreenBlockLiftToLeft(uint16 n, byte *screen, byte *source, uint16 
 				sofs += bytes_per_line;
 		}
 
-		if (screen == CGA_SCREENBUFFER) {
+		if (screen == SCREENBUFFER) {
 			cga_blitToScreen(0, 0, 320, 200);
 		}
 
@@ -1004,7 +1009,7 @@ void cga_HideScreenBlockLiftToRight(uint16 n, byte *screen, byte *source, uint16
 				sofs += bytes_per_line;
 		}
 
-		if (screen == CGA_SCREENBUFFER) {
+		if (screen == SCREENBUFFER) {
 			cga_blitToScreen(0, 0, 320, 200);
 		}
 
@@ -1147,7 +1152,7 @@ static void fallPieces(scrpiece_t *pieces, byte *source, byte *target) {
 			again = 1;
 		}
 
-		if (target == CGA_SCREENBUFFER) {
+		if (target == SCREENBUFFER) {
 			cga_blitToScreen(0, 0, 320, 200);
 		}
 
@@ -1229,7 +1234,7 @@ void cga_TraceLine(uint16 sx, uint16 ex, uint16 sy, uint16 ey, byte *source, byt
 		target[ofs] = (target[ofs] & ~mask) | (source[ofs] & mask);
 	}
 
-	if (target == CGA_SCREENBUFFER)
+	if (target == SCREENBUFFER)
 		cga_blitToScreen(0, 0, 320, 200);
 }
 

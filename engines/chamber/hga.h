@@ -41,6 +41,9 @@ namespace Chamber {
 // #define HGA_SCREENBUFFER HGA_BASE_SEG
 // #define HGA_cga_backbuffer HGA_PAGE2_SEG
 // #endif
+extern byte HGA_SCREENBUFFER[0x8000];
+extern byte hga_backbuffer[0x8000];
+
 #define HGA_FONT_HEIGHT 6
 // #define hgafrontbuffer HGA_SCREENBUFFER
 // #define hgacga_backbuffer HGA_cga_backbuffer

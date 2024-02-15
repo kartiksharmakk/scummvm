@@ -240,10 +240,10 @@ void drawBoxAroundSpot(void) {
 	y += (ofs / bytes_per_line) * 2;
 	w *= pixels_per_byte;   /*TODO: this will overflow on large sprite*/
 
-	cga_DrawVLine(x, y, h - 1, 0, CGA_SCREENBUFFER);
-	cga_DrawHLine(x, y, w - 1, 0, CGA_SCREENBUFFER);
-	cga_DrawVLine(x + w - 1, y, h - 1, 0, CGA_SCREENBUFFER);
-	cga_DrawHLine(x, y + h - 1, w - 1, 0, CGA_SCREENBUFFER);
+	cga_DrawVLine(x, y, h - 1, 0, SCREENBUFFER);
+	cga_DrawHLine(x, y, w - 1, 0, SCREENBUFFER);
+	cga_DrawVLine(x + w - 1, y, h - 1, 0, SCREENBUFFER);
+	cga_DrawHLine(x, y + h - 1, w - 1, 0, SCREENBUFFER);
 
 	cga_RefreshImageData(*spot_sprite);
 }
@@ -285,7 +285,7 @@ int16 drawPortrait(byte **desc, byte *x, byte *y, byte *width, byte *height) {
 	*height = cur_image_size_h;
 
 	if (right_button) {
-		cga_BlitAndWait(cur_image_pixels, cur_image_size_w, cur_image_size_w, cur_image_size_h, CGA_SCREENBUFFER, cur_image_offs);
+		cga_BlitAndWait(cur_image_pixels, cur_image_size_w, cur_image_size_w, cur_image_size_h, SCREENBUFFER, cur_image_offs);
 		return 0;
 	}
 
@@ -357,7 +357,7 @@ void animPortrait(byte layer, byte index, byte delay) {
 		}
 		getDirtyRectAndSetSprite(layer, &kind, &x, &y, &width, &height, &offs);
 		waitVBlank();
-		cga_BlitAndWait(cur_image_pixels, width, width, height, CGA_SCREENBUFFER, offs);
+		cga_BlitAndWait(cur_image_pixels, width, width, height, SCREENBUFFER, offs);
 		waitVBlankTimer();
 		if (delay) {
 			if (ani[-1] == 37) { /*TODO: what is it?*/
