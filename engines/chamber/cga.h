@@ -54,6 +54,7 @@ extern byte char_draw_max_width;
 extern byte char_draw_max_height;
 
 extern byte* SCREENBUFFER;
+extern byte* backbuffer;
 extern uint16 bytes_per_line;
 extern uint16 pixels_per_byte;
 extern uint16 bits_per_pixel;

@@ -28,6 +28,7 @@
 #include "chamber/enums.h"
 #include "chamber/resdata.h"
 #include "chamber/cga.h"
+#include "chamber/hga.h"
 #include "chamber/cursor.h"
 #include "chamber/portrait.h"
 #include "chamber/input.h"
@@ -799,9 +800,9 @@ uint16 SCR_B_DrawPortraitTwistEffect(void) {
 
 	offs = CalcXY_p(x, y);
 
-	cga_SwapScreenRect(cur_image_pixels, width, height, cga_backbuffer, offs);
-	twistDraw(x, y, width, height, cga_backbuffer, frontbuffer);
-	cga_BlitAndWait(scratch_mem2, width, width, height, cga_backbuffer, offs);
+	cga_SwapScreenRect(cur_image_pixels, width, height, backbuffer, offs);
+	twistDraw(x, y, width, height, backbuffer, frontbuffer);
+	cga_BlitAndWait(scratch_mem2, width, width, height, backbuffer, offs);
 
 	return 0;
 }
@@ -850,9 +851,9 @@ uint16 SCR_C_DrawPortraitArcEffect(void) {
 
 	offs = CalcXY_p(x, y);
 
-	cga_SwapScreenRect(cur_image_pixels, width, height, cga_backbuffer, offs);
-	arcDraw(x, y, width, height, cga_backbuffer, frontbuffer);
-	cga_BlitAndWait(scratch_mem2, width, width, height, cga_backbuffer, offs);
+	cga_SwapScreenRect(cur_image_pixels, width, height, backbuffer, offs);
+	arcDraw(x, y, width, height, backbuffer, frontbuffer);
+	cga_BlitAndWait(scratch_mem2, width, width, height, backbuffer, offs);
 
 	return 0;
 }
@@ -954,7 +955,7 @@ uint16 SCR_19_HidePortraitLiftLeft(void) {
 
 	getDirtyRectAndFree(index, &kind, &x, &y, &width, &height, &offs);
 	if (right_button) {
-		cga_CopyScreenBlock(cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_CopyScreenBlock(backbuffer, width, height, SCREENBUFFER, offs);
 		return 0;
 	}
 
@@ -964,7 +965,7 @@ uint16 SCR_19_HidePortraitLiftLeft(void) {
 	offs++;
 
 	while (--width) {
-		cga_HideScreenBlockLiftToLeft(1, SCREENBUFFER, cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_HideScreenBlockLiftToLeft(1, SCREENBUFFER, backbuffer, width, height, SCREENBUFFER, offs);
 	}
 
 	offs--;
@@ -974,7 +975,7 @@ uint16 SCR_19_HidePortraitLiftLeft(void) {
 	uint16 ooffs = offs;
 	byte oh = height;
 	while (height--) {
-		memcpy(frontbuffer + offs, cga_backbuffer + offs, 1);
+		memcpy(frontbuffer + offs, backbuffer + offs, 1);
 
 		offs ^= CGA_ODD_LINES_OFS;
 		if ((offs & CGA_ODD_LINES_OFS) == 0)
@@ -1000,7 +1001,7 @@ uint16 SCR_1A_HidePortraitLiftRight(void) {
 
 	getDirtyRectAndFree(index, &kind, &x, &y, &width, &height, &offs);
 	if (right_button) {
-		cga_CopyScreenBlock(cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_CopyScreenBlock(backbuffer, width, height, SCREENBUFFER, offs);
 		return 0;
 	}
 
@@ -1009,7 +1010,7 @@ uint16 SCR_1A_HidePortraitLiftRight(void) {
 	offs = CalcXY_p(x + width - 2, y);
 
 	while (--width) {
-		cga_HideScreenBlockLiftToRight(1, SCREENBUFFER, cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_HideScreenBlockLiftToRight(1, SCREENBUFFER, backbuffer, width, height, SCREENBUFFER, offs);
 	}
 
 	offs++;
@@ -1019,7 +1020,7 @@ uint16 SCR_1A_HidePortraitLiftRight(void) {
 	uint16 ooffs = offs;
 	byte oh = height;
 	while (height--) {
-		memcpy(frontbuffer + offs, cga_backbuffer + offs, 1);
+		memcpy(frontbuffer + offs, backbuffer + offs, 1);
 
 		offs ^= CGA_ODD_LINES_OFS;
 		if ((offs & CGA_ODD_LINES_OFS) == 0)
@@ -1045,14 +1046,14 @@ uint16 SCR_1B_HidePortraitLiftUp(void) {
 
 	getDirtyRectAndFree(index, &kind, &x, &y, &width, &height, &offs);
 	if (right_button) {
-		cga_CopyScreenBlock(cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_CopyScreenBlock(backbuffer, width, height, SCREENBUFFER, offs);
 		return 0;
 	}
 
 	offs = CalcXY_p(x, y + 1);
 
 	while (--height) {
-		cga_HideScreenBlockLiftToUp(1, SCREENBUFFER, cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_HideScreenBlockLiftToUp(1, SCREENBUFFER, backbuffer, width, height, SCREENBUFFER, offs);
 	}
 
 	/*hide topmost line*/
@@ -1060,7 +1061,7 @@ uint16 SCR_1B_HidePortraitLiftUp(void) {
 	offs ^= CGA_ODD_LINES_OFS;
 	if ((offs & CGA_ODD_LINES_OFS) != 0)
 		offs -= bytes_per_line;
-	memcpy(SCREENBUFFER + offs, cga_backbuffer + offs, width);
+	memcpy(SCREENBUFFER + offs, backbuffer + offs, width);
 	cga_blitToScreen(offs, width, 1);
 	return 0;
 }
@@ -1081,14 +1082,14 @@ uint16 SCR_1C_HidePortraitLiftDown(void) {
 
 	getDirtyRectAndFree(index, &kind, &x, &y, &width, &height, &offs);
 	if (right_button) {
-		cga_CopyScreenBlock(cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_CopyScreenBlock(backbuffer, width, height, SCREENBUFFER, offs);
 		return 0;
 	}
 
 	offs = CalcXY_p(x, y + height - 2);
 
 	while (--height) {
-		cga_HideScreenBlockLiftToDown(1, SCREENBUFFER, cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_HideScreenBlockLiftToDown(1, SCREENBUFFER, backbuffer, width, height, SCREENBUFFER, offs);
 	}
 
 	/*hide bottommost line*/
@@ -1096,7 +1097,7 @@ uint16 SCR_1C_HidePortraitLiftDown(void) {
 	offs ^= CGA_ODD_LINES_OFS;
 	if ((offs & CGA_ODD_LINES_OFS) == 0)
 		offs += bytes_per_line;
-	memcpy(SCREENBUFFER + offs, cga_backbuffer + offs, width);
+	memcpy(SCREENBUFFER + offs, backbuffer + offs, width);
 	cga_blitToScreen(offs, width, 1);
 	return 0;
 }
@@ -1117,11 +1118,11 @@ uint16 SCR_1E_HidePortraitTwist(void) {
 
 	getDirtyRectAndFree(index, &kind, &x, &y, &width, &height, &offs);
 	if (right_button) {
-		cga_CopyScreenBlock(cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_CopyScreenBlock(backbuffer, width, height, SCREENBUFFER, offs);
 		return 0;
 	}
 
-	twistDraw(x, y, width, height, cga_backbuffer, frontbuffer);
+	twistDraw(x, y, width, height, backbuffer, frontbuffer);
 
 	return 0;
 }
@@ -1141,11 +1142,11 @@ uint16 SCR_1F_HidePortraitArc(void) {
 
 	getDirtyRectAndFree(index, &kind, &x, &y, &width, &height, &offs);
 	if (right_button) {
-		cga_CopyScreenBlock(cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_CopyScreenBlock(backbuffer, width, height, SCREENBUFFER, offs);
 		return 0;
 	}
 
-	arcDraw(x, y, width, height, cga_backbuffer, frontbuffer);
+	arcDraw(x, y, width, height, backbuffer, frontbuffer);
 
 	return 0;
 }
@@ -1165,13 +1166,13 @@ uint16 SCR_20_HidePortraitDots(void) {
 
 	getDirtyRectAndFree(index, &kind, &x, &y, &width, &height, &offs);
 	if (right_button) {
-		cga_CopyScreenBlock(cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_CopyScreenBlock(backbuffer, width, height, SCREENBUFFER, offs);
 		return 0;
 	}
 
 	dot_effect_step = 17;
 	dot_effect_delay = 100;
-	copyScreenBlockWithDotEffect(cga_backbuffer, x, y, width, height, frontbuffer);
+	copyScreenBlockWithDotEffect(backbuffer, x, y, width, height, frontbuffer);
 
 	return 0;
 }
@@ -1391,8 +1392,15 @@ uint16 SCR_26_GameOver(void) {
 	IFGM_PlaySample(160);
 	in_de_profundis = 0;
 	script_byte_vars.game_paused = 1;
-	memset(cga_backbuffer, 0, sizeof(cga_backbuffer) - 2);  /*TODO: original bug?*/
-	jaggedZoom(cga_backbuffer, frontbuffer);
+	switch (g_vm->_renderMode) {
+	case Common::kRenderCGA:
+		memset(cga_backbuffer, 0, sizeof(cga_backbuffer) - 2); /*TODO: original bug?*/
+		break;
+	case Common::kRenderHercG:
+		memset(hga_backbuffer, 0, sizeof(hga_backbuffer) - 2); /*TODO: original bug?*/
+		break;
+	}
+	jaggedZoom(backbuffer, frontbuffer);
 	cga_BackBufferToRealFull();
 	cga_ColorSelect(0x30);
 	animStarfield(initStarfield(), frontbuffer);
@@ -1403,7 +1411,7 @@ uint16 SCR_26_GameOver(void) {
 	while (!loadFond())
 		askDisk2();
 
-	jaggedZoom(cga_backbuffer, frontbuffer);
+	jaggedZoom(backbuffer, frontbuffer);
 
 	cga_BackBufferToRealFull();
 	restartGame();
@@ -1537,7 +1545,7 @@ void SCR_DrawRoomObjectBack(byte *x, byte *y, byte *w, byte *h) {
 }
 
 /*
-Draw a static sprite in the room (to cga_backbuffer)
+Draw a static sprite in the room (to backbuffer)
 */
 uint16 SCR_5F_DrawRoomObjectBack(void) {
 	byte x, y, w, h;
@@ -1551,7 +1559,7 @@ Display a static sprite in the room (to screen)
 uint16 SCR_11_DrawRoomObject(void) {
 	byte x, y, w, h;
 	SCR_DrawRoomObjectBack(&x, &y, &w, &h);
-	cga_CopyScreenBlock(cga_backbuffer, w, h, frontbuffer, CalcXY_p(x, y));
+	cga_CopyScreenBlock(backbuffer, w, h, frontbuffer, CalcXY_p(x, y));
 	return 0;
 }
 
@@ -1734,8 +1742,8 @@ uint16 SCR_2A_PopDialogRect(void) {
 	index = *script_ptr++;
 
 	getDirtyRectAndFree(index, &kind, &x, &y, &width, &height, &offs);
-	cga_CopyScreenBlock(cga_backbuffer, width, height, SCREENBUFFER, offs); /*TODO: implicit target*/
-	cga_CopyScreenBlock(cga_backbuffer, 2, 21, SCREENBUFFER, offs = (x << 8) | y);  /*TODO: implicit target*/
+	cga_CopyScreenBlock(backbuffer, width, height, SCREENBUFFER, offs); /*TODO: implicit target*/
+	cga_CopyScreenBlock(backbuffer, 2, 21, SCREENBUFFER, offs = (x << 8) | y);  /*TODO: implicit target*/
 
 	cur_dlg_index = 0;
 
@@ -1766,11 +1774,11 @@ uint16 SCR_22_HidePortraitShatter(void) {
 
 	getDirtyRectAndFree(index, &kind, &x, &y, &width, &height, &offs);
 	if (right_button) {
-		cga_CopyScreenBlock(cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_CopyScreenBlock(backbuffer, width, height, SCREENBUFFER, offs);
 		return 0;
 	}
 
-	cga_HideShatterFall(SCREENBUFFER, cga_backbuffer, width, height, SCREENBUFFER, offs);
+	cga_HideShatterFall(SCREENBUFFER, backbuffer, width, height, SCREENBUFFER, offs);
 
 	return 0;
 }
@@ -1790,11 +1798,11 @@ uint16 SCR_23_HidePortrait(void) {
 
 	getDirtyRectAndFree(index, &kind, &x, &y, &width, &height, &offs);
 	if (right_button) {
-		cga_CopyScreenBlock(cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_CopyScreenBlock(backbuffer, width, height, SCREENBUFFER, offs);
 		return 0;
 	}
 
-	cga_CopyScreenBlock(cga_backbuffer, width, height, SCREENBUFFER, offs);
+	cga_CopyScreenBlock(backbuffer, width, height, SCREENBUFFER, offs);
 
 	return 0;
 }
@@ -1899,7 +1907,7 @@ uint16 SCR_30_Fight(void) {
 
 	if (pers->name != 44 && pers->name != 56 && pers->name != 51) {	/*VORT, MONKEY, TURKEY*/
 		getDirtyRectAndFree(1, &kind, &x, &y, &width, &height, &offs);
-		cga_CopyScreenBlock(cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_CopyScreenBlock(backbuffer, width, height, SCREENBUFFER, offs);
 	}
 
 	/*check fight outcome*/
@@ -2148,7 +2156,7 @@ void FightWin(void) {
 
 	if (script_byte_vars.bvar_43 != 18 && *spot_sprite != 0) {
 		cga_RestoreImage(*spot_sprite, frontbuffer);
-		cga_RestoreImage(*spot_sprite, cga_backbuffer);
+		cga_RestoreImage(*spot_sprite, backbuffer);
 
 		if (script_byte_vars.extreme_violence == 0
 		        && script_byte_vars.bvar_60 == 0
@@ -2179,7 +2187,7 @@ void DrawDeathAnim(void) {
 	/*remove existing cadaver if any*/
 	if (selectPerson(PersonOffset(kPersCadaver))) {
 		found_spot->flags &= ~SPOTFLG_80;
-		cga_RestoreImage(*spot_sprite, cga_backbuffer);
+		cga_RestoreImage(*spot_sprite, backbuffer);
 	}
 
 	for (i = 0; i < 23; i++) {
@@ -2247,7 +2255,7 @@ uint16 SCR_58_DrawCharacterSprite(void) {
 	x = *script_ptr++;
 	y = *script_ptr++;
 
-	drawCharacterSprite(index, x, y, cga_backbuffer);
+	drawCharacterSprite(index, x, y, backbuffer);
 
 	return 0;
 }
@@ -2500,11 +2508,11 @@ uint16 SCR_66_DeProfundisRideToExit(void) {
 	/*draw Granite Monster*/
 	sprofs = getPuzzlSprite(119, 128 / 4, 139, &w, &h, &ofs);
 
-	cga_BlitScratchBackSprite(sprofs, w, 20, cga_backbuffer, ofs);
+	cga_BlitScratchBackSprite(sprofs, w, 20, backbuffer, ofs);
 
 	dot_effect_delay = 1;
 	dot_effect_step = 17;
-	copyScreenBlockWithDotEffect(cga_backbuffer, 112 / 4, 139, 72 / 4, 40, frontbuffer);
+	copyScreenBlockWithDotEffect(backbuffer, 112 / 4, 139, 72 / 4, 40, frontbuffer);
 
 	return 0;
 }
@@ -2667,14 +2675,14 @@ uint16 SCR_53_FindInvItem(void) {
 }
 
 /*
-Restore whole room from cga_backbuffer, with dot effect
+Restore whole room from backbuffer, with dot effect
 */
 uint16 SCR_54_DotFadeRoom(void) {
 	script_ptr++;
 
 	dot_effect_delay = 1;
 	dot_effect_step = 17;
-	copyScreenBlockWithDotEffect(cga_backbuffer, room_bounds_rect.sx, room_bounds_rect.sy, room_bounds_rect.ex - room_bounds_rect.sx, room_bounds_rect.ey - room_bounds_rect.sy, frontbuffer);
+	copyScreenBlockWithDotEffect(backbuffer, room_bounds_rect.sx, room_bounds_rect.sy, room_bounds_rect.ex - room_bounds_rect.sx, room_bounds_rect.ey - room_bounds_rect.sy, frontbuffer);
 
 	return 0;
 }
@@ -2699,7 +2707,7 @@ uint16 SCR_56_MorphRoom98(void) {
 
 	ofs = CalcXY(0, 136);
 	for (h = 60; h; h--) {
-		memcpy(frontbuffer + ofs, cga_backbuffer + ofs, bytes_per_line);
+		memcpy(frontbuffer + ofs, backbuffer + ofs, bytes_per_line);
 		waitVBlank();
 		ofs ^= CGA_ODD_LINES_OFS;
 		if ((ofs & CGA_ODD_LINES_OFS) != 0)
@@ -2714,7 +2722,7 @@ uint16 SCR_56_MorphRoom98(void) {
 }
 
 /*
-Copy cga_backbuffer to screen, with added vertical mirror
+Copy backbuffer to screen, with added vertical mirror
 */
 void ShowMirrored(uint16 h, uint16 ofs) {
 	uint16 x, ofs2 = ofs;
@@ -2727,8 +2735,8 @@ void ShowMirrored(uint16 h, uint16 ofs) {
 	while (h--) {
 
 		for (x = 0; x < bytes_per_line; x++) {
-			frontbuffer[ofs2 + x] = frontbuffer[ofs + x] = cga_backbuffer[ofs + x];
-			cga_backbuffer[ofs + x] = 0;
+			frontbuffer[ofs2 + x] = frontbuffer[ofs + x] = backbuffer[ofs + x];
+			backbuffer[ofs + x] = 0;
 		}
 
 		/*move 1 line down*/
@@ -2771,8 +2779,14 @@ static void AnimSaucer(void) {
 	byte height_new, height_prev;
 	uint16 delay;
 	byte scroll_done = 0;
-
-	memset(cga_backbuffer, 0, sizeof(cga_backbuffer) - 2);  /*TODO: original bug?*/
+	switch (g_vm->_renderMode) {
+		case Common::kRenderCGA:
+			memset(cga_backbuffer, 0, sizeof(cga_backbuffer) - 2);  /*TODO: original bug?*/
+			break;
+		case Common::kRenderHercG:
+			memset(hga_backbuffer, 0, sizeof(hga_backbuffer) - 2);  /*TODO: original bug?*/
+			break;
+	}
 	cga_BackBufferToRealFull();
 	cga_ColorSelect(0x30);
 
@@ -2805,7 +2819,7 @@ static void AnimSaucer(void) {
 		height_prev -= (yy - 1);
 
 		/*scale the saucer*/
-		cga_ZoomInplaceXY(cur_image_pixels, width, height, ww, hh, xx, yy, cga_backbuffer);
+		cga_ZoomInplaceXY(cur_image_pixels, width, height, ww, hh, xx, yy, backbuffer);
 
 		baseofs = CalcXY(0, yy);
 
@@ -2821,8 +2835,16 @@ static void AnimSaucer(void) {
 				ofs -= bytes_per_line;
 
 			for (i = 0; i < 55; i++) {
-				memcpy(cga_backbuffer + ofs, cga_backbuffer + ofs2, bytes_per_line);
-
+				switch (g_vm->_renderMode) {
+					case Common::kRenderCGA:
+					memcpy(cga_backbuffer + ofs, cga_backbuffer + ofs2, bytes_per_line);
+					break;
+					case Common::kRenderHercG:
+					memcpy(hga_backbuffer + ofs, hga_backbuffer + ofs2, bytes_per_line);
+					break;
+					default:
+					break;
+				}
 				/*next line*/
 				ofs2 += bytes_per_line;
 				ofs2 ^= CGA_ODD_LINES_OFS;
@@ -2838,7 +2860,7 @@ static void AnimSaucer(void) {
 			ofs2 = CalcXY(0, 200 - 1);
 
 			for (i = 0; i < 108; i++) {
-				LiftLines(i + 1, cga_backbuffer, ofs, frontbuffer, ofs2);
+				LiftLines(i + 1, backbuffer, ofs, frontbuffer, ofs2);
 
 				ofs2 ^= CGA_ODD_LINES_OFS;
 				if ((ofs2 & CGA_ODD_LINES_OFS) != 0)
@@ -2849,11 +2871,29 @@ static void AnimSaucer(void) {
 			}
 
 			/*wipe 56 lines*/
-			memset(cga_backbuffer + ofs2, 0, 56 / 2 * bytes_per_line);
+			switch (g_vm->_renderMode) {
+				case Common::kRenderCGA:
+					memset(cga_backbuffer + ofs2, 0, 56 / 2 * bytes_per_line);
+					break;
+				case Common::kRenderHercG:
+					memset(hga_backbuffer + ofs2, 0, 56 / 2 * bytes_per_line);
+					break;
+				default:
+					break;
+			}
 			ofs2 ^= CGA_ODD_LINES_OFS;
 			if ((ofs2 & CGA_ODD_LINES_OFS) == 0)
 				ofs2 += bytes_per_line;
-			memset(cga_backbuffer + ofs2, 0, 54 / 2 * bytes_per_line);
+			switch (g_vm->_renderMode) {
+				case Common::kRenderCGA:
+					memset(cga_backbuffer + ofs2, 0, 54 / 2 * bytes_per_line);
+					break;
+				case Common::kRenderHercG:
+					memset(hga_backbuffer + ofs2, 0, 54 / 2 * bytes_per_line);
+					break;
+				default:
+					break;
+			}
 
 			for (i = 0xFFFF; i--;) ; /*TODO: weak delay*/
 
@@ -2893,7 +2933,7 @@ void theEnd(void) {
 
 		while (!loadFond())
 			askDisk2();
-		jaggedZoom(cga_backbuffer, frontbuffer);
+		jaggedZoom(backbuffer, frontbuffer);
 		cga_BackBufferToRealFull();
 	} else {
 		while (!loadSplash("PRES.BIN"))

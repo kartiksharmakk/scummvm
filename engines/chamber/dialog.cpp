@@ -91,10 +91,10 @@ void popDirtyRects(byte kind) {
 	byte width, height;
 	uint16 offs;
 	while (findDirtyRectAndFree(kind, &x, &y, &width, &height, &offs)) {
-		cga_CopyScreenBlock(cga_backbuffer, width, height, frontbuffer, offs);
+		cga_CopyScreenBlock(backbuffer, width, height, frontbuffer, offs);
 		if (kind == DirtyRectBubble) {
 			/*pop bubble's spike*/
-			cga_CopyScreenBlock(cga_backbuffer, 2, 21, frontbuffer, offs = (x << 8) | y);
+			cga_CopyScreenBlock(backbuffer, 2, 21, frontbuffer, offs = (x << 8) | y);
 		}
 	}
 }

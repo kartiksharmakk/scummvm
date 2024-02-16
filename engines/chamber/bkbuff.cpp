@@ -25,6 +25,9 @@ namespace Chamber {
 
 
 byte cga_backbuffer[0x4000];
+byte hga_backbuffer[0x8000];
+byte* backbuffer;
+
 
 } // End of namespace Chamber
 

@@ -156,7 +156,7 @@ void actionsMenu(byte **pinfo) {
 		}
 
 		if (command_hint != last_command_hint)
-			drawCommandHint();  /*to cga_backbuffer*/
+			drawCommandHint();  /*to backbuffer*/
 		drawHintsAndCursor(SCREENBUFFER);
 	} while (buttons == 0);
 	undrawCursor(SCREENBUFFER);

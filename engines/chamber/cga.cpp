@@ -67,6 +67,7 @@ uint16 bits_per_pixel;
 extern byte cga_backbuffer[0x4000];
 byte CGA_SCREENBUFFER[0x4000];
 byte *SCREENBUFFER;
+extern byte *backbuffer;
 extern byte hga_backbuffer[0x8000];
 byte HGA_SCREENBUFFER[0x8000];
 byte scrbuffer[320*200];
@@ -140,12 +141,14 @@ void init() {
 		bytes_per_line = CGA_BYTES_PER_LINE;
 		pixels_per_byte = CGA_PIXELS_PER_BYTE;
 		SCREENBUFFER = CGA_SCREENBUFFER;
+		backbuffer = cga_backbuffer;
 		break;
 	case Common::kRenderHercG:
 		bits_per_pixel = HGA_BITS_PER_PIXEL;
 		bytes_per_line = HGA_BYTES_PER_LINE;
 		pixels_per_byte = HGA_PIXELS_PER_BYTE;
 		SCREENBUFFER = HGA_SCREENBUFFER;
+		backbuffer = hga_backbuffer;
 		break;
 	default:
 		break;
@@ -220,13 +223,30 @@ void cga_blitToScreen(int16 ofs, int16 w, int16 h) {
 }
 
 void cga_BackBufferToRealFull(void) {
-	memcpy(SCREENBUFFER, cga_backbuffer, sizeof(cga_backbuffer));
-
+	switch (g_vm->_renderMode) {
+		case Common::kRenderCGA:
+			memcpy(SCREENBUFFER, cga_backbuffer, sizeof(cga_backbuffer));
+			break;
+		case Common::kRenderHercG:
+			memcpy(SCREENBUFFER, hga_backbuffer, sizeof(hga_backbuffer));
+			break;
+		default:
+			break;
+	}
 	cga_blitToScreen(0, 0, 320, 200);
 }
 
 void cga_RealBufferToBackFull(void) {
-	memcpy(cga_backbuffer, SCREENBUFFER, sizeof(cga_backbuffer));
+	switch (g_vm->_renderMode) {
+		case Common::kRenderCGA:
+			memcpy(cga_backbuffer, SCREENBUFFER, sizeof(cga_backbuffer));
+			break;
+		case Common::kRenderHercG:
+			memcpy(hga_backbuffer, SCREENBUFFER, sizeof(hga_backbuffer));
+			break;
+		default:
+			break;
+	}
 }
 
 /*Copy interlaced screen data to another screen*/
@@ -253,8 +273,8 @@ void cga_SwapRealBackBuffer(void) {
 	uint16 *s, *d;
 	waitVBlank();
 	s = (uint16 *)SCREENBUFFER;
-	d = (uint16 *)cga_backbuffer;
-	for (i = 0; i < sizeof(cga_backbuffer) / 2; i++) {
+	d = (uint16 *)backbuffer;
+	for (i = 0; i < sizeof(backbuffer) / 2; i++) {
 		uint16 t = *s;
 		*s++ = *d;
 		*d++ = t;
@@ -437,7 +457,7 @@ void cga_RestoreBackupImage(byte *target) {
 }
 
 /*
-Copy image's real screen data to cga_backbuffer
+Copy image's real screen data to backbuffer
 */
 void cga_RefreshImageData(byte *buffer) {
 	uint16 w, h;
@@ -450,7 +470,7 @@ void cga_RefreshImageData(byte *buffer) {
 	w = *(byte *)(buffer + 1);
 	ofs = *(uint16 *)(buffer + 2);
 
-	cga_CopyScreenBlock(SCREENBUFFER, w, h, cga_backbuffer, ofs);
+	cga_CopyScreenBlock(SCREENBUFFER, w, h, backbuffer, ofs);
 }
 
 /*
@@ -551,7 +571,7 @@ void cga_PrintChar(byte c, byte *target) {
 
 
 /*
-Blit progressive sprite (mask+pixel) from scratch buffer to interlaced screen buffer, using cga_backbuffer pixels for transparency
+Blit progressive sprite (mask+pixel) from scratch buffer to interlaced screen buffer, using backbuffer pixels for transparency
 NB! width specify a number of bytes, not count of pixels
 TODO: generalize/merge me with BlitSprite
 */
@@ -562,7 +582,7 @@ void cga_BlitScratchBackSprite(uint16 sprofs, uint16 w, uint16 h, byte *screen, 
 	uint16 oofs = ofs;
 	while (h--) {
 		for (x = 0; x < w; x++)
-			screen[ofs + x] = (cga_backbuffer[ofs + x] & pixels[x * 2]) | pixels[x * 2 + 1];
+			screen[ofs + x] = (backbuffer[ofs + x] & pixels[x * 2]) | pixels[x * 2 + 1];
 		pixels += w * 2;
 		ofs ^= CGA_ODD_LINES_OFS;
 		if ((ofs & CGA_ODD_LINES_OFS) == 0)
@@ -574,7 +594,7 @@ void cga_BlitScratchBackSprite(uint16 sprofs, uint16 w, uint16 h, byte *screen, 
 }
 
 void cga_BlitFromBackBuffer(byte w, byte h, byte *screen, uint16 ofs) {
-	cga_CopyScreenBlock(cga_backbuffer, w, h, screen, ofs);
+	cga_CopyScreenBlock(backbuffer, w, h, screen, ofs);
 }
 
 /*
@@ -1418,7 +1438,7 @@ static void cga_ZoomOpt(zoom_t *params, byte tw, byte th, byte *source, byte *ta
 
 /*
 Draw image zoomed from w:h to nw:nx to target at specified ofs
-Use cga_backbuffer pixels to fill sides
+Use backbuffer pixels to fill sides
 NB! w/nw are the number of bytes, not pixels
 */
 void cga_ZoomImage(byte *pixels, byte w, byte h, byte nw, byte nh, byte *target, uint16 ofs) {
@@ -1437,15 +1457,15 @@ void cga_ZoomImage(byte *pixels, byte w, byte h, byte nw, byte nh, byte *target,
 
 	/*TODO: why this nw/nh order? maybe bug*/
 #if 0
-	cga_Zoom(&zoom, nh - 2, nw * 4 - 2, cga_backbuffer, target, ofs);
+	cga_Zoom(&zoom, nh - 2, nw * 4 - 2, backbuffer, target, ofs);
 #else
-	cga_ZoomOpt(&zoom, nh - 2, nw * 4 - 2, cga_backbuffer, target, ofs);
+	cga_ZoomOpt(&zoom, nh - 2, nw * 4 - 2, backbuffer, target, ofs);
 #endif
 }
 
 /*
 Animate image zooming-in from origin ofs to final size w:h in specified number of steps
-Use cga_backbuffer pixels to fill sides
+Use backbuffer pixels to fill sides
 Ofs specifies zoom origin
 NB! w is the number of bytes, not pixels
 */
@@ -1459,7 +1479,7 @@ void cga_AnimZoomOpt(zoom_t *zoom, uint16 w, uint16 h, byte steps, byte *target,
 	for (steps = steps / 2 - 2; steps; steps--) {
 		uint16 prev;
 
-		cga_ZoomOpt(zoom, xval >> 8, yval >> 8, cga_backbuffer, target, ofs);
+		cga_ZoomOpt(zoom, xval >> 8, yval >> 8, backbuffer, target, ofs);
 
 		prev = yval;
 		yval += ystep;

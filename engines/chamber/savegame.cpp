@@ -323,12 +323,12 @@ int16 readSaveData(int16 f, int16 clean) {
 
 	if (clean == 0) {
 		/* screen data */
-		BYTES(cga_backbuffer, 0x3FFF);
+		BYTES(backbuffer, 0x3FFF);
 
 		CGA_BackBufferToRealFull();
 		SelectPalette();
 
-		BYTES(cga_backbuffer, 0x3FFF);
+		BYTES(backbuffer, 0x3FFF);
 	}
 
 #undef BYTES
@@ -570,7 +570,7 @@ int16 writeSaveData(int16 f, int16 clean) {
 	if (clean == 0) {
 		/* screen data */
 		BYTES(frontbuffer, 0x3FFF);
-		BYTES(cga_backbuffer, 0x3FFF);
+		BYTES(backbuffer, 0x3FFF);
 	}
 
 #undef BYTES
@@ -605,7 +605,7 @@ int16 loadScena(void) {
 	Save format:
 	  vars memory (751E-9D5D)
 	  frontbuffer (0x3FFF bytes)
-	  cga_backbuffer  (0x3FFF bytes)
+	  backbuffer  (0x3FFF bytes)
 	*/
 
 	res = ReadSaveData(f, 0);

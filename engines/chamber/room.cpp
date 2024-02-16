@@ -152,18 +152,18 @@ void selectPalette(void) {
 }
 
 /*
-Blit sprites to cga_backbuffer
+Blit sprites to backbuffer
 */
 void blitSpritesToBackBuffer(void) {
 	int16 i;
 	for (i = 0; i < MAX_SPRITES; i++) {
 		byte *sprite = sprites_list[i];
-		cga_RestoreImage(sprite, cga_backbuffer);
+		cga_RestoreImage(sprite, backbuffer);
 	}
 }
 
 /*
-Copy data at sprite's rect from screen to cga_backbuffer
+Copy data at sprite's rect from screen to backbuffer
 */
 void refreshSpritesData(void) {
 	int16 i;
@@ -476,13 +476,13 @@ void drawRoomDoor(void) {
 		uint16 offs = info->layer[i].offs;
 
 		if (!info->flipped)
-			cga_BlitSprite(pixels, w * 2, w, h, cga_backbuffer, offs);
+			cga_BlitSprite(pixels, w * 2, w, h, backbuffer, offs);
 		else
-			cga_BlitSpriteFlip(pixels, w * 2, w, h, cga_backbuffer, offs);
+			cga_BlitSpriteFlip(pixels, w * 2, w, h, backbuffer, offs);
 	}
 	waitVBlank();
 	waitVBlank();
-	cga_CopyScreenBlock(cga_backbuffer, info->width, info->height, frontbuffer, info->offs);
+	cga_CopyScreenBlock(backbuffer, info->width, info->height, frontbuffer, info->offs);
 }
 
 /*
@@ -599,7 +599,7 @@ Play animation at the selected spot or specified coordinates
 */
 void animateSpot(const animdesc_t *info) {
 	byte *sprite = *spot_sprite;
-	cga_RestoreImage(sprite, cga_backbuffer);
+	cga_RestoreImage(sprite, backbuffer);
 	if (info->index & ANIMFLG_USESPOT) {
 		/*at selected spot*/
 		cursor_x = found_spot->sx * 4;
@@ -731,7 +731,7 @@ void drawPersons(void) {
 				spot->hint = pers_list[i].name;
 				pers_list[i].flags |= index;
 				if (spot->flags & SPOTFLG_40)
-					drawZoneAniSprite((rect_t *)spot, index, cga_backbuffer);
+					drawZoneAniSprite((rect_t *)spot, index, backbuffer);
 				break;
 			}
 		}
@@ -739,7 +739,7 @@ void drawPersons(void) {
 }
 
 /*
-Draw room's static object to cga_backbuffer
+Draw room's static object to backbuffer
 */
 void drawRoomStaticObject(byte *aptr, byte *rx, byte *ry, byte *rw, byte *rh) {
 	byte x, y, w, h;
@@ -781,13 +781,13 @@ void drawRoomStaticObject(byte *aptr, byte *rx, byte *ry, byte *rw, byte *rh) {
 	/*TODO: check if this results in any glitches in Who Will Be Saved*/
 
 	if (aptr[1] & 0x80)
-		cga_BlitSpriteFlip(sprite, pitch, w, h, cga_backbuffer, CalcXY_p(x, y));
+		cga_BlitSpriteFlip(sprite, pitch, w, h, backbuffer, CalcXY_p(x, y));
 	else
-		cga_BlitSprite(sprite, pitch, w, h, cga_backbuffer, CalcXY_p(x, y));
+		cga_BlitSprite(sprite, pitch, w, h, backbuffer, CalcXY_p(x, y));
 }
 
 /*
-Draw all room's static objects (decorations) to cga_backbuffer
+Draw all room's static objects (decorations) to backbuffer
 Initialize room bounds rect to room's dimensions
 Draw room's name box and text
 */
@@ -797,7 +797,7 @@ void drawRoomStatics(void) {
 	byte x, y, w, h;
 	uint16 xx, ww;
 
-	drawBackground(cga_backbuffer, 0);
+	drawBackground(backbuffer, 0);
 	arpla_y_step = script_byte_vars.hands;
 
 	aptr = seekToEntry(arpla_data, script_byte_vars.zone_room - 1, &aend);
@@ -840,24 +840,24 @@ void drawRoomStatics(void) {
 	char_xlat_table = chars_color_wonb;
 
 	/*print room name*/
-	cga_PrintChar(0x3B, cga_backbuffer);
+	cga_PrintChar(0x3B, backbuffer);
 	drawObjectHint();                       /* area name */
-	cga_PrintChar(0x3C, cga_backbuffer);
+	cga_PrintChar(0x3C, backbuffer);
 
 	/*draw border around hint text*/
 	xx = (room_hint_bar_coords_x - 1) * 4;
 	y = room_hint_bar_coords_y;
 	ww = (room_hint_bar_width + 2) * 4;
 
-	cga_DrawHLine(xx, y - 2, ww, 2, cga_backbuffer);
-	cga_DrawHLine(xx, y - 1, ww, 0, cga_backbuffer);
-	cga_DrawHLine(xx, y + 6, ww, 2, cga_backbuffer);
-	cga_DrawVLine(xx, y - 2, 9, 2, cga_backbuffer);
-	cga_DrawVLine(xx + ww - 1, y - 2, 9, 2, cga_backbuffer);
+	cga_DrawHLine(xx, y - 2, ww, 2, backbuffer);
+	cga_DrawHLine(xx, y - 1, ww, 0, backbuffer);
+	cga_DrawHLine(xx, y + 6, ww, 2, backbuffer);
+	cga_DrawVLine(xx, y - 2, 9, 2, backbuffer);
+	cga_DrawVLine(xx + ww - 1, y - 2, 9, 2, backbuffer);
 }
 
 /*
-Redraw all room's static objects (decorations) to cga_backbuffer
+Redraw all room's static objects (decorations) to backbuffer
 */
 void redrawRoomStatics(byte index, byte y_step) {
 	byte *aptr, *aend;
@@ -885,7 +885,7 @@ void drawRoomItemsIndicator(void) {
 		}
 	}
 	drawSpriteN(spridx, 296 / pixels_per_byte, 14, SCREENBUFFER);
-	drawSpriteN(spridx, 296 / pixels_per_byte, 14, cga_backbuffer);
+	drawSpriteN(spridx, 296 / pixels_per_byte, 14, backbuffer);
 
 	/*recalculate the number of zapstiks we have*/
 	script_byte_vars.zapstiks_owned = 0;
@@ -947,7 +947,7 @@ void refreshZone(void) {
 }
 
 /*
-Draw object hint or zone name text to cga_backbuffer
+Draw object hint or zone name text to backbuffer
 */
 void drawObjectHint(void) {
 	if (script_byte_vars.zone_index == 135)
@@ -956,41 +956,41 @@ void drawObjectHint(void) {
 	char_draw_coords_x = room_hint_bar_coords_x;
 	char_draw_coords_y = room_hint_bar_coords_y;
 	char_xlat_table = chars_color_wonb;
-	printStringCentered(seekToString(motsi_data, object_hint), cga_backbuffer);
+	printStringCentered(seekToString(motsi_data, object_hint), backbuffer);
 
 #ifdef DEBUG_ZONE
-	cga_PrintChar(0x20, cga_backbuffer);
-	cga_PrintChar(0x10 + script_byte_vars.zone_index / 100, cga_backbuffer);
-	cga_PrintChar(0x10 + (script_byte_vars.zone_index / 10) % 10, cga_backbuffer);
-	cga_PrintChar(0x10 + script_byte_vars.zone_index % 10, cga_backbuffer);
+	cga_PrintChar(0x20, backbuffer);
+	cga_PrintChar(0x10 + script_byte_vars.zone_index / 100, backbuffer);
+	cga_PrintChar(0x10 + (script_byte_vars.zone_index / 10) % 10, backbuffer);
+	cga_PrintChar(0x10 + script_byte_vars.zone_index % 10, backbuffer);
 #endif
 }
 
 /*
-Copy object hint from cga_backbuffer to screen
+Copy object hint from backbuffer to screen
 */
 void showObjectHint(byte *target) {
 	if (script_byte_vars.zone_index == 135)
 		return;
-	cga_CopyScreenBlock(cga_backbuffer, room_hint_bar_width + 2, 9, target, CalcXY_p(room_hint_bar_coords_x - 1, room_hint_bar_coords_y - 2));
+	cga_CopyScreenBlock(backbuffer, room_hint_bar_width + 2, 9, target, CalcXY_p(room_hint_bar_coords_x - 1, room_hint_bar_coords_y - 2));
 }
 
 /*
-Draw command hint text to cga_backbuffer
+Draw command hint text to backbuffer
 */
 void drawCommandHint(void) {
 	char_draw_max_width = cmd_hint_bar_width;
 	char_draw_coords_x = cmd_hint_bar_coords_x;
 	char_draw_coords_y = cmd_hint_bar_coords_y;
 	char_xlat_table = chars_color_wonb;
-	printStringCentered(seekToString(vepci_data, command_hint), cga_backbuffer);
+	printStringCentered(seekToString(vepci_data, command_hint), backbuffer);
 }
 
 /*
-Copy command hint from cga_backbuffer to screen
+Copy command hint from backbuffer to screen
 */
 void showCommandHint(byte *target) {
-	cga_CopyScreenBlock(cga_backbuffer, cmd_hint_bar_width + 2, 9, target, CalcXY_p(cmd_hint_bar_coords_x - 1, cmd_hint_bar_coords_y - 2));
+	cga_CopyScreenBlock(backbuffer, cmd_hint_bar_width + 2, 9, target, CalcXY_p(cmd_hint_bar_coords_x - 1, cmd_hint_bar_coords_y - 2));
 }
 
 void loadLutinSprite(uint16 lutidx) {
@@ -1286,7 +1286,7 @@ uint16 getPuzzlSprite(byte index, byte x, byte y, uint16 *w, uint16 *h, uint16 *
 }
 
 /*
-Save specific fully drawn rooms to cga_backbuffer
+Save specific fully drawn rooms to backbuffer
 */
 void backupScreenOfSpecialRoom(void) {
 	switch (script_byte_vars.zone_room) {
@@ -1393,7 +1393,7 @@ void theWallOpenRightDoor(byte x, byte y, byte width, byte height, byte limit) {
 	uint16 offs = CalcXY_p(x + width - 2, y);
 
 	while (--width) {
-		cga_HideScreenBlockLiftToRight(1, SCREENBUFFER, cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_HideScreenBlockLiftToRight(1, SCREENBUFFER, backbuffer, width, height, SCREENBUFFER, offs);
 		if (width == limit)
 			return;
 	}
@@ -1404,7 +1404,7 @@ void theWallOpenRightDoor(byte x, byte y, byte width, byte height, byte limit) {
 	uint16 ooffs = offs;
 	byte oh = height;
 	while (height--) {
-		memcpy(frontbuffer + offs, cga_backbuffer + offs, 1);
+		memcpy(frontbuffer + offs, backbuffer + offs, 1);
 
 		offs ^= CGA_ODD_LINES_OFS;
 		if ((offs & CGA_ODD_LINES_OFS) == 0)
@@ -1422,7 +1422,7 @@ void theWallOpenLeftDoor(byte x, byte y, byte width, byte height, byte limit) {
 	uint16 offs = CalcXY_p(x + 1, y);
 
 	while (--width) {
-		cga_HideScreenBlockLiftToLeft(1, SCREENBUFFER, cga_backbuffer, width, height, SCREENBUFFER, offs);
+		cga_HideScreenBlockLiftToLeft(1, SCREENBUFFER, backbuffer, width, height, SCREENBUFFER, offs);
 		if (width == limit)
 			return;
 	}
@@ -1433,7 +1433,7 @@ void theWallOpenLeftDoor(byte x, byte y, byte width, byte height, byte limit) {
 	uint16 ooffs = offs;
 	byte oh = height;
 	while (height--) {
-		memcpy(frontbuffer + offs, cga_backbuffer + offs, 1);
+		memcpy(frontbuffer + offs, backbuffer + offs, 1);
 
 		offs ^= CGA_ODD_LINES_OFS;
 		if ((offs & CGA_ODD_LINES_OFS) == 0)
@@ -1587,7 +1587,7 @@ Return current and next free buffer ptr
 */
 byte *backupSpotImage(spot_t *spot, byte **spotback, byte *buffer) {
 	*spotback = buffer;
-	buffer = cga_BackupImage(cga_backbuffer, CalcXY_p(spot->sx, spot->sy), spot->ex - spot->sx, spot->ey - spot->sy, buffer);
+	buffer = cga_BackupImage(backbuffer, CalcXY_p(spot->sx, spot->sy), spot->ex - spot->sx, spot->ey - spot->sy, buffer);
 	return buffer;
 }
 
@@ -1624,13 +1624,13 @@ void drawSpots(byte *target) {
 			zone_spots_cur = spot + 1;
 			zone_spr_index = spridx;
 			/*TODO: subclass spot_t from rect_t*/
-			if (drawZoneAniSprite((rect_t *)spot, (spot - zone_spots) + 1, cga_backbuffer)) {
+			if (drawZoneAniSprite((rect_t *)spot, (spot - zone_spots) + 1, backbuffer)) {
 				updateCursor();
 				waitVBlank();
 				undrawCursor(target);
-				cga_CopyScreenBlock(cga_backbuffer, zsprite_w, zsprite_h, target, zsprite_draw_ofs);
+				cga_CopyScreenBlock(backbuffer, zsprite_w, zsprite_h, target, zsprite_draw_ofs);
 				drawCursor(target);
-				cga_RestoreImage(sprites_list[zone_spr_index - 1], cga_backbuffer);
+				cga_RestoreImage(sprites_list[zone_spr_index - 1], backbuffer);
 				return;
 			}
 			spridx = zone_spr_index;    /*TODO: not neded?*/
