@@ -1250,8 +1250,14 @@ void jaggedZoom(byte *source, byte *target) {
 	uint16 choices = 0;
 
 	for (i = 0; i < JCOUNT; i++) {
-		points[i].x = 320;
-		points[i].y = 200;
+		if(g_vm->_renderMode == Common::kRenderCGA){
+			points[i].x = 320;
+			points[i].y = 200;
+		}
+		else if (g_vm->_renderMode == Common::kRenderHercG){
+			points[i].x = 720;
+			points[i].y = 350;
+		}
 	}
 	points[i].x = 0;
 	points[i].y = 0;
@@ -1355,13 +1361,26 @@ void drawStars(star_t *stars, int16 iter, byte *target) {
 		x = ((long)z * stars->x) >> 16;
 		y = ((long)z * stars->y) >> 16;
 
-		x += 320 / 2;
-		y += 200 / 2;
-		if (x < 0 || x >= 320 || y < 0 || y >= 200) {
-			stars->z = 0;
-			continue;
+		switch (g_vm->_renderMode) {
+			case Common::kRenderCGA:
+				x += 320 / 2;
+				y += 200 / 2;
+				if (x < 0 || x >= 320 || y < 0 || y >= 200) {
+					stars->z = 0;
+				continue;
+			}
+			break;
+			case Common::kRenderHercG:
+				x += 720 / 2;
+				y += 350 / 2;
+				if (x < 0 || x >= 720 || y < 0 || y >= 350) {
+					stars->z = 0;
+				continue;
+			}
+			break;
+			default:
+				break;
 		}
-
 		stars->ofs = CalcXY(x, y);
 
 		pixel = (stars->z < 0xE00) ? 0xC0 : 0x40;

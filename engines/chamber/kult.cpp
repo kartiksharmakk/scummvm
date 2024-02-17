@@ -200,15 +200,24 @@ extern theEnd(void);
 
 Common::Error ChamberEngine::init() {
 	byte c;
-
+	_renderMode = Common::kRenderHercG;
 	// Initialize graphics using following:
-	initGraphics(320, 200);
+	switch (g_vm->_renderMode) {
+	case Common::kRenderCGA:
+		initGraphics(320, 200);
+		break;
+	case Common::kRenderHercG:
+		initGraphics(720, 350);
+		break;
+	default:
+		break;
+	}
 	initSound();
 
 	/*TODO: DetectCPU*/
 
 	IFGM_Init();
-
+	
 	switchToGraphicsMode();
 
 	/* Install timer callback */
