@@ -222,7 +222,7 @@ void cga_blitToScreen(int16 dx, int16 dy, int16 w, int16 h) {
 		w = 720;
 		h = 350;
 		// Align x by 4
-		align = dx & 0x3;
+		align = dx & 0x7;
 
 		dx -= align;
 		w += align;
@@ -242,9 +242,9 @@ void cga_blitToScreen(int16 dx, int16 dy, int16 w, int16 h) {
 			for (int16 x = 0; x < w; x++) {
 				byte colors = *src++;
 
-				for (int16 c = 0; c < 4; c++) {
-					byte color = (colors & 0xC0) >> 6;
-					colors <<= 2;
+				for (int16 c = 0; c < 8; c++) {        // Each byte in Hercules mode contains 8 pixels
+					byte color = (colors & 0x80) >> 7;
+					colors <<= 1;
 
 					*dst++ = color;
 				}
