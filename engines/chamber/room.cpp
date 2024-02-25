@@ -25,6 +25,7 @@
 #include "chamber/enums.h"
 #include "chamber/resdata.h"
 #include "chamber/cga.h"
+#include "chamber/hga.h"
 #include "chamber/print.h"
 #include "chamber/anim.h"
 #include "chamber/cursor.h"
@@ -266,6 +267,19 @@ static const int16 cga_background_draw_steps[] = {
 	-kBgW, -kBgW, -kBgW, -kBgW, 0
 };
 
+static const int16 hga_background_draw_steps[] = {
+	kBgW, kBgW, kBgW, kBgW, kBgW, kBgW, kBgW,
+	kBgH / 2 * HGA_BYTES_PER_LINE, kBgH / 2 * HGA_BYTES_PER_LINE, kBgH / 2 * HGA_BYTES_PER_LINE, kBgH / 2 * HGA_BYTES_PER_LINE, kBgH / 2 * HGA_BYTES_PER_LINE,
+	-kBgW, -kBgW, -kBgW, -kBgW, -kBgW, -kBgW, -kBgW, -kBgW,
+	-kBgH / 2 * HGA_BYTES_PER_LINE, -kBgH / 2 * HGA_BYTES_PER_LINE, -kBgH / 2 * HGA_BYTES_PER_LINE, -kBgH / 2 * HGA_BYTES_PER_LINE,
+	kBgW, kBgW, kBgW, kBgW, kBgW, kBgW, kBgW,
+	kBgH / 2 * HGA_BYTES_PER_LINE, kBgH / 2 * HGA_BYTES_PER_LINE, kBgH / 2 * HGA_BYTES_PER_LINE,
+	-kBgW, -kBgW, -kBgW, -kBgW, -kBgW, -kBgW,
+	-kBgH / 2 * HGA_BYTES_PER_LINE, -kBgH / 2 * HGA_BYTES_PER_LINE,
+	kBgW, kBgW, kBgW, kBgW, kBgW,
+	kBgH / 2 * HGA_BYTES_PER_LINE,
+	-kBgW, -kBgW, -kBgW, -kBgW, 0};
+
 /*
 Draw main backgound pattern, in spiral-like order
 */
@@ -278,7 +292,16 @@ void drawBackground(byte *target, byte vblank) {
 		cga_Blit(pixels + (i & 1 ? 0 : kBgW * kBgH), kBgW, kBgW, kBgH, target, offs);
 		if (vblank)
 			waitVBlank();
-		offs += cga_background_draw_steps[i];
+		switch (g_vm->_renderMode) {
+		case Common::kRenderCGA:
+			offs += cga_background_draw_steps[i];
+			break;
+		case Common::kRenderHercG:
+			offs += hga_background_draw_steps[i];
+			break;
+		default:
+			break;
+		}
 	}
 
 	offs = (182 / 2) * bytes_per_line; /*TODO: calcxy?*/
